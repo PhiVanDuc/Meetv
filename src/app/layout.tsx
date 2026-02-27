@@ -1,5 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
+
+import { Toaster } from "@pheralb/toast";
 import GoogleOAuthProvider from "@/providers/GoogleOAuthProvider";
+import TanstackQueryProvider from "@/providers/TanstackQueryProvider";
 
 import type { Metadata } from "next";
 
@@ -24,9 +27,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} text-zinc-700 antialiased`}>
-                <GoogleOAuthProvider>
+                <TanstackQueryProvider>
                     {children}
-                </GoogleOAuthProvider>
+                </TanstackQueryProvider>
+
+                <Toaster />
             </body>
         </html>
     );

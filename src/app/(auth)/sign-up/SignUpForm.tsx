@@ -1,6 +1,6 @@
 "use client"
 
-import { useForm } from "react-hook-form";
+import useSignUpForm from "@/app/(auth)/sign-up/useSignUpForm";
 
 import Link from "next/link";
 import Button from "@/components/Button";
@@ -8,28 +8,18 @@ import Button from "@/components/Button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import signUpValidator from "@/validators/sign-up-validator";
-
-import type { SignUpFormData } from "@/validators/sign-up-validator";
-
 export default function SignUpForm() {
-    const form = useForm<SignUpFormData>({
-        resolver: zodResolver(signUpValidator),
-        defaultValues: {
-            name: "",
-            email: "",
-            otp: "",
-            password: "",
-            passwordConfirmation: ""
-        }
-    });
+    const { form, sendOTPMutation, signUpMutation } = useSignUpForm();
+
+    const handleSubmit = () => signUpMutation.mutate();
+    const handleClickSendOTP = () => sendOTPMutation.mutate();
 
     return (
         <Form {...form}>
             <form
                 autoComplete="off"
                 className="space-y-[20px]"
+                onSubmit={form.handleSubmit(handleSubmit)}
             >
                 <FormField
                     control={form.control}
@@ -90,6 +80,8 @@ export default function SignUpForm() {
                                         type="button"
                                         action="send"
                                         className="whitespace-nowrap"
+                                        onClick={handleClickSendOTP}
+                                        disabled={sendOTPMutation.isPending}
                                     >
                                         Gửi mã OTP
                                     </Button>
@@ -154,6 +146,7 @@ export default function SignUpForm() {
                 <Button
                     action="add"
                     className="w-full"
+                    disabled={signUpMutation.isPending}
                 >
                     Đăng ký
                 </Button>

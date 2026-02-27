@@ -1,6 +1,6 @@
 "use client"
 
-import { useForm } from "react-hook-form";
+import useResetPasswordForm from "./useResetPasswordForm";
 
 import Link from "next/link";
 import Button from "@/components/Button";
@@ -8,27 +8,18 @@ import Button from "@/components/Button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import resetPasswordValidator from "@/validators/reset-password-validator";
-
-import type { ResetPasswordFormData } from "@/validators/reset-password-validator";
-
 export default function ResetPasswordForm() {
-    const form = useForm<ResetPasswordFormData>({
-        resolver: zodResolver(resetPasswordValidator),
-        defaultValues: {
-            email: "",
-            otp: "",
-            password: "",
-            passwordConfirmation: ""
-        }
-    });
+    const { form, sendOTPResetPasswordMutation, resetPasswordMutation } = useResetPasswordForm();
+
+    const handleClickSendOTP = () => sendOTPResetPasswordMutation.mutate();
+    const handleSubmit = () => resetPasswordMutation.mutate();
 
     return (
         <Form {...form}>
             <form
                 autoComplete="off"
                 className="space-y-[20px]"
+                onSubmit={form.handleSubmit(handleSubmit)}
             >
                 <FormField
                     control={form.control}
@@ -69,6 +60,8 @@ export default function ResetPasswordForm() {
                                         type="button"
                                         action="send"
                                         className="whitespace-nowrap"
+                                        onClick={handleClickSendOTP}
+                                        disabled={sendOTPResetPasswordMutation.isPending}
                                     >
                                         Gửi mã OTP
                                     </Button>
@@ -133,6 +126,7 @@ export default function ResetPasswordForm() {
                 <Button
                     action="update"
                     className="w-full"
+                    disabled={resetPasswordMutation.isPending}
                 >
                     Đặt lại mật khẩu
                 </Button>

@@ -1,35 +1,25 @@
 "use client"
 
-import { useForm } from "react-hook-form";
+import useSignInForm from "@/app/(auth)/sign-in/useSignInForm";
 
 import Link from "next/link";
 import Button from "@/components/Button";
 
+import { FaGoogle } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-import { FaGoogle } from "react-icons/fa";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import signInValidator from "@/validators/sign-in-validator";
-
-import type { SignInFormData } from "@/validators/sign-in-validator";
-
 export default function SignInForm() {
+    const { form, mutation, googleSignIn } = useSignInForm();
 
-    const form = useForm<SignInFormData>({
-        resolver: zodResolver(signInValidator),
-        defaultValues: {
-            email: "",
-            password: "",
-        }
-    });
+    const handleSubmit = () => mutation.mutate();
 
     return (
         <Form {...form}>
             <form
                 autoComplete="off"
                 className="space-y-[20px]"
+                onSubmit={form.handleSubmit(handleSubmit)}
             >
                 <FormField
                     control={form.control}
@@ -72,14 +62,7 @@ export default function SignInForm() {
                     }}
                 />
 
-                <div className="flex justify-between">
-                    <Link
-                        href="/verify-email"
-                        className="link"
-                    >
-                        Xác minh email
-                    </Link>
-
+                <div className="flex justify-end">
                     <Link
                         href="/forgot-password"
                         className="link"
@@ -93,6 +76,7 @@ export default function SignInForm() {
                         type="button"
                         variant="outline"
                         className="w-[50%] text-zinc-500 hover:text-zinc-600"
+                        onClick={googleSignIn}
                     >
                         <FaGoogle />
                         Đăng nhập Google
@@ -101,6 +85,7 @@ export default function SignInForm() {
                     <Button
                         action="send"
                         className="w-[50%]"
+                        disabled={mutation.isPending}
                     >
                         Đăng nhập
                     </Button>
