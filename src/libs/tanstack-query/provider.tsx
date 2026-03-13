@@ -3,19 +3,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { queryClient } from "@/libs/tanstack-query";
 import { QueryClientProvider } from "@tanstack/react-query";
-import globalQueryClient from "@/libs/tanstack-query/global-query-client";
 
 interface Props {
     readonly children: React.ReactNode
 }
 
-export default function TanstackQueryProvider({ children }: Props) {
+export default function QueryProvider({ children }: Props) {
     const router = useRouter();
-    const [queryClient] = useState(globalQueryClient(router));
+    const [client] = useState(queryClient(router));
 
     return (
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={client}>
             {children}
         </QueryClientProvider>
     )

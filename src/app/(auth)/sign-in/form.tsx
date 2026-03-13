@@ -1,16 +1,16 @@
 "use client"
 
-import useSignInForm from "@/app/(auth)/sign-in/useSignInForm";
+import useSignInForm from "@/app/(auth)/sign-in/use-form";
 
 import Link from "next/link";
-import Button from "@/components/Button";
+import Button from "@/components/button";
 
 import { FaGoogle } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export default function SignInForm() {
-    const { form, mutation, googleSignIn } = useSignInForm();
+    const { form, mutation, signInGoogle } = useSignInForm();
 
     const handleSubmit = () => mutation.mutate();
 
@@ -71,27 +71,37 @@ export default function SignInForm() {
                     </Link>
                 </div>
 
-                <div className="flex gap-[10px]">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        className="w-[50%] text-zinc-500 hover:text-zinc-600"
-                        onClick={googleSignIn}
-                    >
-                        <FaGoogle />
-                        Đăng nhập Google
-                    </Button>
-
+                <div className="space-y-[10px]">
                     <Button
                         action="send"
-                        className="w-[50%]"
+                        className="w-full"
                         disabled={mutation.isPending}
                     >
                         Đăng nhập
                     </Button>
+
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={signInGoogle}
+                        className="w-full text-zinc-500 hover:text-zinc-600"
+                    >
+                        <FaGoogle />
+                        Đăng nhập Google
+                    </Button>
                 </div>
 
-                <p className="text-center medium-desc">Bạn chưa có tài khoản? <Link href="/sign-up" className="link">Đăng ký</Link></p>
+                <p className="text-center medium-desc">
+                    Bạn chưa có tài khoản?
+                    {" "}
+
+                    <Link
+                        href="/sign-up"
+                        className="link"
+                    >
+                        Đăng ký
+                    </Link>
+                </p>
             </form>
         </Form>
     )

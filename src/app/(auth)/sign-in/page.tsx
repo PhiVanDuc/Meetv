@@ -1,5 +1,5 @@
-import Header from "@/components/Header";
-import SignInForm from "@/app/(auth)/sign-in/SignInForm";
+import Header from "@/components/header";
+import SignInForm from "@/app/(auth)/sign-in/form";
 
 export default function Page() {
     return (

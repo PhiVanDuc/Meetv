@@ -1,6 +1,11 @@
 import { z } from "zod";
 
-const resetPasswordValidator = z.object({
+export const schemaSignUp = z.object({
+    name: z
+        .string()
+        .trim()
+        .min(1, { error: "Tên người dùng đang trống." })
+        .max(30, { error: "Tên người dùng tối đa 30 ký tự." }),
     email: z
         .email({ error: "Email không đúng định dạng." }),
     otp: z
@@ -20,11 +25,8 @@ const resetPasswordValidator = z.object({
         .max(64, { error: "Mật khẩu xác nhận tối đa 64 ký tự." })
 })
     .refine(data => data.password === data.passwordConfirmation, {
-        path: ["confirmPassword"],
+        path: ["passwordConfirmation"],
         message: "Mật khẩu xác nhận không khớp."
     });
 
-type ResetPasswordFormData = z.infer<typeof resetPasswordValidator>;
-
-export default resetPasswordValidator;
-export type { ResetPasswordFormData };
+export type FormDataSignUp = z.infer<typeof schemaSignUp>;

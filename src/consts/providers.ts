@@ -1,4 +1,4 @@
 export default {
-    credentials: "Credentials",
+    credentials: "Email và mật khẩu",
     google: "Google"
-}
+} as const;

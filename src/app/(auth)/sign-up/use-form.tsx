@@ -2,17 +2,19 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
+import { schemaSignUp } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import signUpValidator from "@/validators/sign-up-validator";
-import { sendOTPSignUp, signUp } from "@/services/auth/server-actions";
+import { sendOTP, signUp } from "@/services/auth/server-actions";
 
-import type { SignUpFormData } from "@/validators/sign-up-validator";
+import { CODE_TYPES } from "@/consts";
+
+import type { FormDataSignUp } from "@/schemas";
 
 export default function useSignUpForm() {
     const router = useRouter();
 
-    const form = useForm<SignUpFormData>({
-        resolver: zodResolver(signUpValidator),
+    const form = useForm<FormDataSignUp>({
+        resolver: zodResolver(schemaSignUp),
         defaultValues: {
             name: "",
             email: "",
@@ -23,7 +25,10 @@ export default function useSignUpForm() {
     });
 
     const sendOTPMutation = useMutation({
-        mutationFn: () => sendOTPSignUp({ email: form.getValues("email") })
+        mutationFn: () => sendOTP({
+            type: CODE_TYPES.SIGN_UP,
+            email: form.getValues("email")
+        })
     });
 
     const signUpMutation = useMutation({
@@ -34,9 +39,5 @@ export default function useSignUpForm() {
         }
     });
 
-    return {
-        form,
-        sendOTPMutation,
-        signUpMutation 
-    }
+    return { form, sendOTPMutation, signUpMutation }
 }

@@ -1,11 +1,6 @@
 import { z } from "zod";
 
-const signUpValidator = z.object({
-    name: z
-        .string()
-        .trim()
-        .min(1, { error: "Tên người dùng đang trống." })
-        .max(30, { error: "Tên người dùng tối đa 30 ký tự." }),
+export const schemaForgotPassword = z.object({
     email: z
         .email({ error: "Email không đúng định dạng." }),
     otp: z
@@ -25,11 +20,8 @@ const signUpValidator = z.object({
         .max(64, { error: "Mật khẩu xác nhận tối đa 64 ký tự." })
 })
     .refine(data => data.password === data.passwordConfirmation, {
-        path: ["confirmPassword"],
+        path: ["passwordConfirmation"],
         message: "Mật khẩu xác nhận không khớp."
     });
 
-type SignUpFormData = z.infer<typeof signUpValidator>;
-
-export default signUpValidator;
-export type { SignUpFormData };
+export type FormDataForgotPassword = z.infer<typeof schemaForgotPassword>;

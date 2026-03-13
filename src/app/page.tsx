@@ -1,7 +1,12 @@
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Button from "@/components/button";
 
 export default function Page() {
     return (
-        <Button>Click me</Button>
+        <div className="p-[20px]">
+            <Button>
+                <Link href="/sign-in">Đăng nhập</Link>
+            </Button>
+        </div>
     )
 }

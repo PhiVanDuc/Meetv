@@ -1,18 +1,18 @@
 "use client"
 
-import useResetPasswordForm from "./useResetPasswordForm";
+import useSignUpForm from "@/app/(auth)/sign-up/use-form";
 
 import Link from "next/link";
-import Button from "@/components/Button";
+import Button from "@/components/button";
 
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-export default function ResetPasswordForm() {
-    const { form, sendOTPResetPasswordMutation, resetPasswordMutation } = useResetPasswordForm();
+export default function SignUpForm() {
+    const { form, sendOTPMutation, signUpMutation } = useSignUpForm();
 
-    const handleClickSendOTP = () => sendOTPResetPasswordMutation.mutate();
-    const handleSubmit = () => resetPasswordMutation.mutate();
+    const handleSubmit = () => signUpMutation.mutate();
+    const handleSendOTP = () => sendOTPMutation.mutate();
 
     return (
         <Form {...form}>
@@ -21,6 +21,26 @@ export default function ResetPasswordForm() {
                 className="space-y-[20px]"
                 onSubmit={form.handleSubmit(handleSubmit)}
             >
+                <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => {
+                        return (
+                            <FormItem>
+                                <FormLabel>Tên người dùng</FormLabel>
+
+                                <FormControl>
+                                    <Input
+                                        placeholder="Nhập tên người dùng..."
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )
+                    }}
+                />
+
                 <FormField
                     control={form.control}
                     name="email"
@@ -59,9 +79,9 @@ export default function ResetPasswordForm() {
                                     <Button
                                         type="button"
                                         action="send"
+                                        onClick={handleSendOTP}
                                         className="whitespace-nowrap"
-                                        onClick={handleClickSendOTP}
-                                        disabled={sendOTPResetPasswordMutation.isPending}
+                                        disabled={sendOTPMutation.isPending}
                                     >
                                         Gửi mã OTP
                                     </Button>
@@ -124,11 +144,11 @@ export default function ResetPasswordForm() {
                 </div>
 
                 <Button
-                    action="update"
+                    action="add"
                     className="w-full"
-                    disabled={resetPasswordMutation.isPending}
+                    disabled={signUpMutation.isPending}
                 >
-                    Đặt lại mật khẩu
+                    Đăng ký
                 </Button>
             </form>
         </Form>

@@ -1,18 +1,18 @@
 "use client"
 
-import useSignUpForm from "@/app/(auth)/sign-up/useSignUpForm";
+import useForgotPasswordForm from "@/app/(auth)/forgot-password/use-form";
 
 import Link from "next/link";
-import Button from "@/components/Button";
+import Button from "@/components/button";
 
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
-export default function SignUpForm() {
-    const { form, sendOTPMutation, signUpMutation } = useSignUpForm();
+export default function ForgotPasswordForm() {
+    const { form, sendOTPMutation, forgotPasswordMutation } = useForgotPasswordForm();
 
-    const handleSubmit = () => signUpMutation.mutate();
-    const handleClickSendOTP = () => sendOTPMutation.mutate();
+    const handleSendOTP = () => sendOTPMutation.mutate();
+    const handleSubmit = () => forgotPasswordMutation.mutate();
 
     return (
         <Form {...form}>
@@ -21,26 +21,6 @@ export default function SignUpForm() {
                 className="space-y-[20px]"
                 onSubmit={form.handleSubmit(handleSubmit)}
             >
-                <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => {
-                        return (
-                            <FormItem>
-                                <FormLabel>Tên người dùng</FormLabel>
-
-                                <FormControl>
-                                    <Input
-                                        placeholder="Nhập tên người dùng..."
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )
-                    }}
-                />
-
                 <FormField
                     control={form.control}
                     name="email"
@@ -79,8 +59,8 @@ export default function SignUpForm() {
                                     <Button
                                         type="button"
                                         action="send"
+                                        onClick={handleSendOTP}
                                         className="whitespace-nowrap"
-                                        onClick={handleClickSendOTP}
                                         disabled={sendOTPMutation.isPending}
                                     >
                                         Gửi mã OTP
@@ -144,11 +124,11 @@ export default function SignUpForm() {
                 </div>
 
                 <Button
-                    action="add"
+                    action="update"
                     className="w-full"
-                    disabled={signUpMutation.isPending}
+                    disabled={forgotPasswordMutation.isPending}
                 >
-                    Đăng ký
+                    Khôi phục mật khẩu
                 </Button>
             </form>
         </Form>

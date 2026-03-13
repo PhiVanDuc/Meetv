@@ -1,4 +1,4 @@
-import Logo from "@/components/Logo";
+import Logo from "@/components/logo";
 
 interface Props {
     readonly children: React.ReactNode

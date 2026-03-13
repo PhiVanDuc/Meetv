@@ -1,14 +1,14 @@
 import { toast } from "@pheralb/toast";
-import { FetcherError } from "@/libs/errors";
+import { FetcherError } from "@/libs/fetcher";
 import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
 
-import type { FetcherResponse } from "@/libs/fetcher/types";
+import type { FetcherResponse } from "@/libs/fetcher";
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export default (router: AppRouterInstance) => {
-    let queryClient: QueryClient;
+    let client: QueryClient;
 
-    queryClient = new QueryClient({
+    client = new QueryClient({
         defaultOptions: {
             queries: {
                 staleTime: 5 * 60 * 1000,
@@ -49,5 +49,5 @@ export default (router: AppRouterInstance) => {
         })
     });
 
-    return queryClient;
+    return client;
 }

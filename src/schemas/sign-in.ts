@@ -1,6 +1,6 @@
 import z from "zod";
 
-const signInValidator = z.object({
+export const schemaSignIn = z.object({
     email: z
         .email({ error: "Email không đúng định dạng." }),
     password: z
@@ -10,7 +10,4 @@ const signInValidator = z.object({
         .max(64, { error: "Mật khẩu tối đa 64 ký tự." })
 });
 
-type SignInFormData = z.infer<typeof signInValidator>
-
-export default signInValidator;
-export type { SignInFormData }
+export type FormDataSignIn = z.infer<typeof schemaSignIn>;

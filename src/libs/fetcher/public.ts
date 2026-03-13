@@ -1,5 +1,3 @@
-"use client"
-
 import { FetcherError } from "@/libs/fetcher";
 
 import type { FetcherResponse, FetcherHandleParams, FetcherGetParams, FetcherMutateParams } from "@/libs/fetcher";
@@ -7,11 +5,7 @@ import type { FetcherResponse, FetcherHandleParams, FetcherGetParams, FetcherMut
 const BE = process.env.NEXT_PUBLIC_BE;
 
 const handle = async <RequestData, ResponseData>({ method, pathname, body, options }: FetcherHandleParams<RequestData>): Promise<FetcherResponse<ResponseData>> => {
-    const headers = new Headers({
-        Authorization: `Bearer ${""}`,
-        ...options?.headers
-    });
-
+    const headers = new Headers(options?.headers);
     let parsedBody: BodyInit | undefined | null = undefined;
 
     if (body) {
