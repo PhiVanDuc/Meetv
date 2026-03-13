@@ -6,9 +6,7 @@ import type { FetcherResponse } from "@/libs/fetcher";
 import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export default (router: AppRouterInstance) => {
-    let client: QueryClient;
-
-    client = new QueryClient({
+    const client: QueryClient = new QueryClient({
         defaultOptions: {
             queries: {
                 staleTime: 5 * 60 * 1000,
