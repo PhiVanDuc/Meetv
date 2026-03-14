@@ -1,11 +1,12 @@
+@import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
     --color-brand-primary: #F2641D;
 }
-
-@custom-variant dark (&:is(.dark *));
 
 @utility medium-header {
     @apply text-[24px] xl:text-[26px] font-semibold capitalize;
