@@ -1,0 +1,1 @@
+export { default as shallowVerifyJWT } from "@/utils/shallow-verify-jwt";

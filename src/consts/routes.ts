@@ -1,0 +1,1 @@
+export const AUTH_ROUTES = ["/sign-up", "/sign-in", "/forgot-password", "/oauth"];
