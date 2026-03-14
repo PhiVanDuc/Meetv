@@ -14,7 +14,7 @@ export default async function Page({ params, searchParams }: Props) {
     const { provider } = await params;
     const { errorMessage, code } = await searchParams;
 
-    let tempErrorMessage = errorMessage;
+    let tempErrorMessage = errorMessage ? encodeURIComponent(errorMessage) : undefined;
 
     if (
         !PROVIDERS[provider] ||
@@ -24,7 +24,6 @@ export default async function Page({ params, searchParams }: Props) {
     return (
         <ProviderSignInForm
             code={code}
-            provider={provider}
             errorMessage={tempErrorMessage}
         />
     )

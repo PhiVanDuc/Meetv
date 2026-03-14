@@ -1,12 +1,15 @@
 "use client"
 
 import { FetcherError } from "@/libs/fetcher";
+import { refreshSession } from "@/services/session/client-functions";
 
 import type { FetcherResponse, FetcherHandleParams, FetcherGetParams, FetcherMutateParams } from "@/libs/fetcher";
 
 const BE = process.env.NEXT_PUBLIC_BE;
 
-const handle = async <RequestData, ResponseData>({ method, pathname, body, options }: FetcherHandleParams<RequestData>): Promise<FetcherResponse<ResponseData>> => {
+const handle = async <RequestData, ResponseData>(
+    { method, pathname, body, options, isRetry }: FetcherHandleParams<RequestData>
+): Promise<FetcherResponse<ResponseData>> => {
     const headers = new Headers({
         Authorization: `Bearer ${""}`,
         ...options?.headers
@@ -71,7 +74,14 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
         }
     }
     catch(error) {
-        if (error instanceof FetcherError) throw error;
+        if (error instanceof FetcherError) {
+            if (error.status === 401 && error.errors?.some(error => error.code === "session-expired") && !isRetry) {
+                await refreshSession();
+                return handle<RequestData, ResponseData>({ method, pathname, body, options, isRetry: true });
+            }
+
+            throw error;
+        }
         
         throw new FetcherError({
             status: 500,

@@ -4,16 +4,13 @@ import useProviderSignInForm from "@/app/(auth)/oauth/[provider]/use-form";
 
 import { Spinner } from "@/components/ui/spinner";
 
-import { PROVIDERS } from "@/consts";
-
 interface Props {
     code?: string,
     errorMessage?: string
-    provider: keyof typeof PROVIDERS
 }
 
-export default function ProviderSignInForm({ provider, errorMessage, code }: Props) {
-    useProviderSignInForm({ provider, errorMessage, code });
+export default function ProviderSignInForm({ errorMessage, code }: Props) {
+    useProviderSignInForm({ errorMessage, code });
 
     return (
         <div className="flex items-center justify-center gap-[15px]">

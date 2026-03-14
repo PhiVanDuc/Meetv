@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export default function SignInForm() {
-    const { form, mutation, signInGoogle } = useSignInForm();
+    const { form, mutation, redirectOAuth } = useSignInForm();
 
     const handleSubmit = () => mutation.mutate();
 
@@ -83,7 +83,7 @@ export default function SignInForm() {
                     <Button
                         type="button"
                         variant="outline"
-                        onClick={signInGoogle}
+                        onClick={redirectOAuth}
                         className="w-full text-zinc-500 hover:text-zinc-600"
                     >
                         <FaGoogle />

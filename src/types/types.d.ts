@@ -4,7 +4,7 @@ type ResponseErrors = {
     message?: string
 }[];
 
-interface AuthTokens {
+interface Session {
     accessToken: string,
     refreshToken: string
 }

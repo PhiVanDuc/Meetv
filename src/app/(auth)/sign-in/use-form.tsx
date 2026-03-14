@@ -6,8 +6,10 @@ import { useMutation } from "@tanstack/react-query";
 import { schemaSignIn } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "@/services/auth/server-actions";
+import { setSession } from "@/services/session/server-actions";
 
 import type { FormDataSignIn } from "@/schemas";
+import { toast } from "@pheralb/toast";
 
 const BE = process.env.NEXT_PUBLIC_BE;
 
@@ -24,13 +26,20 @@ export default function useSignInForm() {
 
     const mutation = useMutation({
         mutationFn: () => signIn(form.getValues()),
-        onSuccess: () => {
+        onSuccess: async ({ data }) => {
+            if (data) {
+                await setSession({
+                    accessToken: data.accessToken,
+                    refreshToken: data.refreshToken
+                });
+            }
+
             form.reset();
             router.push("/");
         }
     });
 
-    const signInGoogle = () => {
+    const redirectOAuth = () => {
         const width = 500;
         const height = 600;
 
@@ -45,13 +54,28 @@ export default function useSignInForm() {
     }
 
     useEffect(() => {
-        const handlePopupData = (e: MessageEvent) => {
-            console.log(e.data);
+        const handlePopupData = async (e: MessageEvent) => {
+            if (e.origin !== window.location.origin) return;
+
+            if (e.data?.errorMessage) {
+                toast.error({ text: "Thất bại", description: e.data?.errorMessage });
+                return;
+            }
+
+            if (e.data?.accessToken && e.data?.refreshToken) {
+                await setSession({
+                    accessToken: e.data.accessToken,
+                    refreshToken: e.data.refreshToken
+                });
+            }
+
+            toast.success({ text: "Thành công", description: e.data?.message });
+            router.push("/");
         }
 
         window.addEventListener("message", handlePopupData);
-        () => window.removeEventListener("message", handlePopupData);
+        return () => window.removeEventListener("message", handlePopupData);
     }, []);
 
-    return { form, mutation, signInGoogle }
+    return { form, mutation, redirectOAuth }
 }

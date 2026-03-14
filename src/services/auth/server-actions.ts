@@ -11,9 +11,9 @@ export const signUp = async <RequestData>(data: RequestData) => {
 }
 
 export const signIn = async <RequestData>(data: RequestData) => {
-    return await fetcherPublic.post<RequestData, AuthTokens>({ pathname: "/auth/sessions", body: data });
+    return await fetcherPublic.post<RequestData, Session>({ pathname: "/auth/session", body: data });
 }
 
 export const forgotPassword = async <RequestData>(data: RequestData) => {
-    return await fetcherPublic.patch<RequestData>({ pathname: "/auth/password-recovery", body: data });
+    return await fetcherPublic.patch<RequestData>({ pathname: "/auth/password/recovery", body: data });
 }

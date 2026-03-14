@@ -6,7 +6,8 @@ export interface FetcherHandleParams<RequestData> {
     method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
     pathname: string,
     body?: RequestData | BodyInit,
-    options?: Omit<RequestInit, "method" | "body">
+    options?: Omit<RequestInit, "method" | "body">,
+    isRetry?: boolean
 }
 
 export interface FetcherErrorParams<ResponseData> {
