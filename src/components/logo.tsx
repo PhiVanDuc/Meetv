@@ -16,8 +16,8 @@ export default function Logo({ className, color }: Props) {
                     : "/images/logo-minimal-nest-white.png"
             }
             alt="Logo Meetv"
-            width={100}
-            height={100}
+            width={1184}
+            height={864}
             className={cn("w-[40px] h-auto select-none", className)}
             priority={true}
         />

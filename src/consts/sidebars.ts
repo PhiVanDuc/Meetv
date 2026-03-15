@@ -1,14 +1,17 @@
-import { BotIcon, StarIcon, VideoIcon } from "lucide-react";
+import { StarIcon } from "lucide-react";
+
+import { BiVideo } from "react-icons/bi";
+import { RiRobot2Line } from "react-icons/ri";
 
 export const FIRST_DASHBOARD_SIDEBAR_SECTION = [
     {
-        icon: VideoIcon,
-        label: "Cuộc họp",
+        icon: BiVideo,
+        label: "Meetings",
         href: "/meetings"
     },
     {
-        icon: BotIcon,
-        label: "Agent",
+        icon: RiRobot2Line,
+        label: "Agents",
         href: "/agents"
     }
 ] as const;

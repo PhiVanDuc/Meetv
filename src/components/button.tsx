@@ -12,6 +12,8 @@ import { FaPlus, FaCheck } from "react-icons/fa6";
 import { PiTrashSimpleBold } from "react-icons/pi";
 import { IoReloadOutline, IoFilter } from "react-icons/io5";
 
+import { cn } from "@/libs/utils";
+
 interface Props extends React.ComponentPropsWithoutRef<typeof ShadcnButton> {
     href?: string,
     action?: "add" | "update" | "delete" | "verify" | "filter" | "send" | "sendEmail"

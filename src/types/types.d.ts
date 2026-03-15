@@ -8,3 +8,11 @@ interface Session {
     accessToken: string,
     refreshToken: string
 }
+
+interface CurrentUser {
+    id: string,
+    name: string,
+    email: string,
+    accountId: string,
+    provider: string
+}

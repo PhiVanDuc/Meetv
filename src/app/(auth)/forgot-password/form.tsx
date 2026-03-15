@@ -5,8 +5,9 @@ import useForgotPasswordForm from "@/app/(auth)/forgot-password/use-form";
 import Link from "next/link";
 import Button from "@/components/button";
 
+import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { FieldGroup, Field, FieldLabel, FieldError } from "@/components/ui/field";
 
 export default function ForgotPasswordForm() {
     const { form, sendOTPMutation, forgotPasswordMutation } = useForgotPasswordForm();
@@ -15,46 +16,46 @@ export default function ForgotPasswordForm() {
     const handleSubmit = () => forgotPasswordMutation.mutate();
 
     return (
-        <Form {...form}>
-            <form
-                autoComplete="off"
-                className="space-y-[20px]"
-                onSubmit={form.handleSubmit(handleSubmit)}
-            >
-                <FormField
-                    control={form.control}
+        <form
+            autoComplete="off"
+            className="space-y-[15px]"
+            onSubmit={form.handleSubmit(handleSubmit)}
+        >
+            <FieldGroup>
+                <Controller
                     name="email"
-                    render={({ field }) => {
+                    control={form.control}
+                    render={({ field, fieldState }) => {
                         return (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Email</FieldLabel>
 
-                                <FormControl>
-                                    <Input
-                                        placeholder="Nhập email..."
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
+                                <Input
+                                    {...field}
+                                    placeholder="Nhập email . . ."
+                                    aria-invalid={fieldState.invalid}
+                                />
+
+                                { fieldState.invalid && <FieldError errors={[fieldState.error]} /> }
+                            </Field>
                         )
                     }}
                 />
 
-                <FormField
-                    control={form.control}
+                <Controller
                     name="otp"
-                    render={({ field }) => {
+                    control={form.control}
+                    render={({ field, fieldState }) => {
                         return (
-                            <FormItem>
-                                <FormLabel>Mã xác nhận (OTP)</FormLabel>
-                                <div className="flex items-center gap-2">
-                                    <FormControl>
-                                        <Input
-                                            placeholder="Nhập mã OTP..."
-                                            {...field}
-                                        />
-                                    </FormControl>
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Mã OTP</FieldLabel>
+
+                                <div className="flex items-center gap-[10px]">
+                                    <Input
+                                        {...field}
+                                        placeholder="Nhập mã OTP . . ."
+                                        aria-invalid={fieldState.invalid}
+                                    />
 
                                     <Button
                                         type="button"
@@ -63,57 +64,39 @@ export default function ForgotPasswordForm() {
                                         className="whitespace-nowrap"
                                         disabled={sendOTPMutation.isPending}
                                     >
-                                        Gửi mã OTP
+                                        Mã OTP
                                     </Button>
                                 </div>
-                                <FormMessage />
-                            </FormItem>
+
+                                { fieldState.invalid && <FieldError errors={[fieldState.error]} /> }
+                            </Field>
                         )
                     }}
                 />
 
-                <FormField
-                    control={form.control}
+                <Controller
                     name="password"
-                    render={({ field }) => {
-                        return (
-                            <FormItem>
-                                <FormLabel>Mật khẩu</FormLabel>
-
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        placeholder="Nhập mật khẩu..."
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )
-                    }}
-                />
-
-                <FormField
                     control={form.control}
-                    name="passwordConfirmation"
-                    render={({ field }) => {
+                    render={({ field, fieldState }) => {
                         return (
-                            <FormItem>
-                                <FormLabel>Xác nhận mật khẩu</FormLabel>
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldLabel>Mật khẩu</FieldLabel>
 
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        placeholder="Nhập mật khẩu xác nhận..."
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
+                                <Input
+                                    {...field}
+                                    type="password"
+                                    placeholder="Nhập mật khẩu . . ."
+                                    aria-invalid={fieldState.invalid}
+                                />
+
+                                { fieldState.invalid && <FieldError errors={[fieldState.error]} /> }
+                            </Field>
                         )
                     }}
                 />
+            </FieldGroup>
 
+            <FieldGroup>
                 <div className="flex justify-end">
                     <Link
                         href="/sign-in"
@@ -128,9 +111,9 @@ export default function ForgotPasswordForm() {
                     className="w-full"
                     disabled={forgotPasswordMutation.isPending}
                 >
-                    Khôi phục mật khẩu
+                    Khôi phục
                 </Button>
-            </form>
-        </Form>
+            </FieldGroup>
+        </form>
     )
 }

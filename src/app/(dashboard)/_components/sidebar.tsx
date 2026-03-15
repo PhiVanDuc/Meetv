@@ -1,14 +1,15 @@
-"use client"
+import DashboardSidebarBody from "@/app/(dashboard)/_components/sidebar-body";
+import DashboardSidebarHeader from "@/app/(dashboard)/_components/sidebar-header";
+import DashboardSidebarFooter from "@/app/(dashboard)/_components/sidebar-footer";
 
-import Link from "next/link";
-import Logo from "@/components/logo";
-
-import { Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarFooter } from "@/components/ui/sidebar";
-
-import { FIRST_DASHBOARD_SIDEBAR_SECTION, SECOND_DASHBOARD_SIDEBAR_SECTION } from "@/consts";
+import { Sidebar } from "@/components/ui/sidebar";
 
 export default function DashboardSidebar() {
     return (
-        <div>Dashboard sidebar</div>
+        <Sidebar className="p-[15px] bg-white">
+            <DashboardSidebarHeader />
+            <DashboardSidebarBody />
+            <DashboardSidebarFooter />
+        </Sidebar>
     )
 }

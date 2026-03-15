@@ -46,9 +46,7 @@ export const clearSession = async () => {
 export const getCurrentUser = async () => {
     const cookieStore = await cookies();
 
-    try {
-        return jwtDecode(cookieStore.get("accessToken")?.value || "");
-    }
+    try { return jwtDecode<CurrentUser>(cookieStore.get("accessToken")?.value || ""); }
     catch(error) {
         console.log(error);
         return undefined;

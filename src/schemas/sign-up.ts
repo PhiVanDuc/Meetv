@@ -4,29 +4,19 @@ export const schemaSignUp = z.object({
     name: z
         .string()
         .trim()
-        .min(1, { error: "Tên người dùng đang trống." })
-        .max(30, { error: "Tên người dùng tối đa 30 ký tự." }),
+        .min(1, { error: "Tên người dùng không thể để trống." })
+        .max(100, { error: "Tên người dùng không thể vượt quá 100 ký tự." }),
     email: z
-        .email({ error: "Email không đúng định dạng." }),
+        .email({ error: "Email sai định dạng." }),
     otp: z
         .string()
         .trim()
-        .length(6, { error: "Mã OTP cần đúng 6 ký tự." })
-        .regex(/^\d+$/, { error: "Mã OTP chỉ được chứa số." }),
+        .regex(/^\d{6}$/, { error: "Mã OTP sai định dạng." }),
     password: z
         .string()
         .trim()
-        .min(8, { error: "Mật khẩu tối thiểu 8 ký tự." })
-        .max(64, { error: "Mật khẩu tối đa 64 ký tự." }),
-    passwordConfirmation: z
-        .string()
-        .trim()
-        .min(8, { error: "Mật khẩu xác nhận tối thiểu 8 ký tự." })
-        .max(64, { error: "Mật khẩu xác nhận tối đa 64 ký tự." })
+        .min(8, { error: "Mật khẩu không thể ít hơn 8 ký tự." })
+        .max(100, { error: "Mật khẩu không thể vượt quá 100 ký tự." })
 })
-    .refine(data => data.password === data.passwordConfirmation, {
-        path: ["passwordConfirmation"],
-        message: "Mật khẩu xác nhận không khớp."
-    });
 
 export type FormDataSignUp = z.infer<typeof schemaSignUp>;
