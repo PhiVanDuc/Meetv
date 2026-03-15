@@ -18,8 +18,7 @@ export default function useForgotPasswordForm() {
         defaultValues: {
             email: "",
             otp: "",
-            password: "",
-            passwordConfirmation: ""
+            password: ""
         }
     });
 

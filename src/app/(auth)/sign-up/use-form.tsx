@@ -19,8 +19,7 @@ export default function useSignUpForm() {
             name: "",
             email: "",
             otp: "",
-            password: "",
-            passwordConfirmation: ""
+            password: ""
         }
     });
 
