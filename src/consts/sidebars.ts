@@ -6,12 +6,12 @@ import { RiRobot2Line } from "react-icons/ri";
 export const FIRST_DASHBOARD_SIDEBAR_SECTION = [
     {
         icon: BiVideo,
-        label: "Meetings",
+        label: "Các cuộc họp",
         href: "/meetings"
     },
     {
         icon: RiRobot2Line,
-        label: "Agents",
+        label: "Các agent",
         href: "/agents"
     }
 ] as const;
