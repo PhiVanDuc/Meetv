@@ -59,9 +59,7 @@ function CommandDialog({
             <DrawerDescription>{description}</DrawerDescription>
           </DrawerHeader>
 
-          <DrawerFooter className="p-0">
-            {children}
-          </DrawerFooter>
+          {children}
         </DrawerContent>
       </Drawer>
     )

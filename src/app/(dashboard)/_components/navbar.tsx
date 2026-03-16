@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSidebar } from "@/components/ui/sidebar";
 
 import DashboardCommand from "@/app/(dashboard)/_components/command";
@@ -10,11 +10,13 @@ import { PanelLeftClose, PanelLeftIcon, SearchIcon } from "lucide-react";
 
 export default function DashboardNavbar() {
     const { state, toggleSidebar, isMobile } = useSidebar();
+    const [isOpenCommand, setIsOpenCommand] = useState(false);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
                 e.preventDefault();
+                setIsOpenCommand(state => !state);
             }
         }
 
@@ -24,7 +26,10 @@ export default function DashboardNavbar() {
 
     return (
         <>
-            <DashboardCommand />
+            <DashboardCommand
+                isOpen={isOpenCommand}
+                setIsOpen={setIsOpenCommand}
+            />
 
             <nav className="flex items-center gap-[10px]">
                 <Button
@@ -37,6 +42,7 @@ export default function DashboardNavbar() {
 
                 <Button
                     variant="outline"
+                    onClick={() => setIsOpenCommand(true)}
                     className="flex-1 justify-start max-w-[240px] h-[36px] text-zinc-500 hover:text-zinc-500"
                 >
                     <SearchIcon />

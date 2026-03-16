@@ -2,9 +2,19 @@ import { CommandDialog, Command, CommandInput, CommandList, CommandItem, Command
 
 import { cn } from "@/libs/utils";
 
-export default function DashboardCommand() {
+import type { Dispatch, SetStateAction } from "react";
+
+interface Props {
+    isOpen?: boolean,
+    setIsOpen?: Dispatch<SetStateAction<boolean>>
+}
+
+export default function DashboardCommand({ isOpen, setIsOpen }: Props) {
     return (
-        <CommandDialog open>
+        <CommandDialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+        >
             <Command>
                 <div className="p-[15px]">
                     <CommandInput placeholder="Tìm kiếm các cuộc họp hoặc agent . . ." />
