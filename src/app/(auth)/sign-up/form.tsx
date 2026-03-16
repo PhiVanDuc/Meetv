@@ -3,7 +3,7 @@
 import useSignUpForm from "@/app/(auth)/sign-up/use-form";
 
 import Link from "next/link";
-import Button from "@/components/button";
+import { ButtonAction } from "@/components/button";
 
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -77,15 +77,14 @@ export default function SignUpForm() {
                                         aria-invalid={fieldState.invalid}
                                     />
 
-                                    <Button
-                                        type="button"
-                                        action="send"
+                                    <ButtonAction
+                                        iconDefault="send"
                                         onClick={handleSendOTP}
                                         className="whitespace-nowrap"
-                                        disabled={sendOTPMutation.isPending}
+                                        isPending={sendOTPMutation.isPending}
                                     >
                                         Mã OTP
-                                    </Button>
+                                    </ButtonAction>
                                 </div>
 
                                 { fieldState.invalid && <FieldError errors={[fieldState.error]} /> }
@@ -126,13 +125,13 @@ export default function SignUpForm() {
                     </Link>
                 </div>
 
-                <Button
-                    action="add"
+                <ButtonAction
+                    iconDefault="add"
                     className="w-full"
-                    disabled={signUpMutation.isPending}
+                    isPending={signUpMutation.isPending}
                 >
                     Đăng ký
-                </Button>
+                </ButtonAction>
             </FieldGroup>
         </form>
     )

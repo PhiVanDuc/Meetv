@@ -1,4 +1,4 @@
-import { CommandDialog, Command, CommandInput, CommandList, CommandItem, CommandSeparator } from "@/components/ui/command";
+import { CommandDialog, Command, CommandInput, CommandList, CommandEmpty, CommandItem, CommandSeparator } from "@/components/ui/command";
 
 import type { Dispatch, SetStateAction } from "react";
 
@@ -15,15 +15,43 @@ export default function DashboardCommand({ isOpen, setIsOpen }: Props) {
         >
             <Command>
                 <div className="p-[8px]">
-                    <CommandInput placeholder="Tìm kiếm cuộc họp hoặc agent . . ." />
+                <CommandInput placeholder="Tìm kiếm cuộc họp hoặc agent . . ." />
                 </div>
 
-                <CommandSeparator />
+                <CommandSeparator alwaysRender />
 
                 <CommandList>
-                    <CommandItem>
-                        Test item
-                    </CommandItem>
+                    <CommandEmpty>Không tìm thấy kết quả.</CommandEmpty>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
+                    <CommandItem>Content of command item.</CommandItem>
                 </CommandList>
             </Command>
         </CommandDialog>

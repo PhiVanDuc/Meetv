@@ -3,10 +3,11 @@
 import useSignInForm from "@/app/(auth)/sign-in/use-form";
 
 import Link from "next/link";
-import Button from "@/components/button";
+import { ButtonAction } from "@/components/button";
 
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { FieldGroup, Field, FieldLabel, FieldError } from "@/components/ui/field";
 
 import { FaGoogle } from "react-icons/fa";
@@ -76,13 +77,13 @@ export default function SignInForm() {
                 </div>
 
                 <div className="space-y-[10px]">
-                    <Button
-                        action="send"
+                    <ButtonAction
                         className="w-full"
-                        disabled={mutation.isPending}
+                        iconDefault="send"
+                        isPending={mutation.isPending}
                     >
                         Đăng nhập
-                    </Button>
+                    </ButtonAction>
 
                     <Button
                         type="button"

@@ -3,7 +3,7 @@
 import useForgotPasswordForm from "@/app/(auth)/forgot-password/use-form";
 
 import Link from "next/link";
-import Button from "@/components/button";
+import { ButtonAction } from "@/components/button";
 
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -57,15 +57,15 @@ export default function ForgotPasswordForm() {
                                         aria-invalid={fieldState.invalid}
                                     />
 
-                                    <Button
+                                    <ButtonAction
                                         type="button"
-                                        action="send"
+                                        iconDefault="send"
                                         onClick={handleSendOTP}
                                         className="whitespace-nowrap"
-                                        disabled={sendOTPMutation.isPending}
+                                        isPending={sendOTPMutation.isPending}
                                     >
                                         Mã OTP
-                                    </Button>
+                                    </ButtonAction>
                                 </div>
 
                                 { fieldState.invalid && <FieldError errors={[fieldState.error]} /> }
@@ -106,13 +106,13 @@ export default function ForgotPasswordForm() {
                     </Link>
                 </div>
 
-                <Button
-                    action="update"
+                <ButtonAction
                     className="w-full"
-                    disabled={forgotPasswordMutation.isPending}
+                    iconDefault="update"
+                    isPending={forgotPasswordMutation.isPending}
                 >
                     Khôi phục
-                </Button>
+                </ButtonAction>
             </FieldGroup>
         </form>
     )

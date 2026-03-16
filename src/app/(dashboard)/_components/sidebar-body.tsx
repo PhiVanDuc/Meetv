@@ -19,7 +19,7 @@ export default function DashboardSidebarBody() {
                                         <SidebarMenuButton
                                             asChild
                                             size="lg"
-                                            className="gap-[10px] [&_svg]:w-5 [&_svg]:h-5 text-zinc-500 font-medium hover:bg-linear-to-r hover:from-brand-primary/15 hover:bg-transparent hover:text-brand-primary cursor-pointer"
+                                            className="gap-[10px] [&_svg]:w-5 [&_svg]:h-5 text-zinc-500 font-medium color-sidebar-btn!"
                                         >
                                             <Link href={item.href}>
                                                 <item.icon/>
@@ -46,7 +46,7 @@ export default function DashboardSidebarBody() {
                                         <SidebarMenuButton
                                             asChild
                                             size="lg"
-                                            className="gap-[10px] [&_svg]:w-5 [&_svg]:h-5 text-zinc-500 font-medium hover:bg-linear-to-r hover:from-brand-primary/15 hover:bg-transparent hover:text-brand-primary cursor-pointer"
+                                            className="gap-[10px] [&_svg]:w-5 [&_svg]:h-5 text-zinc-500 font-medium color-sidebar-btn!"
                                         >
                                             <Link href={item.href}>
                                                 <item.icon/>

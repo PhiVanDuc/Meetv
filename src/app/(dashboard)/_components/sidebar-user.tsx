@@ -5,6 +5,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 import Link from "next/link";
 import Logo from "@/components/logo";
+import { ButtonLink } from "@/components/button";
 
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
@@ -31,7 +32,7 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
         return (
             <Drawer>
                 <DrawerTrigger asChild>
-                    <div className="flex items-center gap-[10px] w-min-0 p-[10px] text-white bg-brand-primary rounded-[10px] cursor-pointer">
+                    <div className="flex items-center gap-[10px] w-min-0 p-[10px] text-white bg-brand-primary rounded-[10px]">
                         <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
                             <Logo
                                 color="orange"
@@ -53,15 +54,13 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
                     </DrawerHeader>
 
                     <DrawerFooter>
-                        <Button
-                            asChild
+                        <ButtonLink
+                            href="/billing"
                             variant="outline"
                         >
-                            <Link href="/billing">
-                                <IoMdCard />
-                                Hoá đơn
-                            </Link>
-                        </Button>
+                            <IoMdCard />
+                            Hoá đơn
+                        </ButtonLink>
 
                         <Button
                             variant="outline"
@@ -79,7 +78,7 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <div className="flex items-center gap-[10px] w-min-0 p-[10px] text-white bg-brand-primary rounded-[10px] cursor-pointer">
+                <div className="flex items-center gap-[10px] w-min-0 p-[10px] text-white bg-brand-primary rounded-[10px]">
                     <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
                         <Logo
                             color="orange"

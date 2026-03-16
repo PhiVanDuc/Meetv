@@ -29,7 +29,6 @@
     --chart-4: oklch(0.488 0.243 264.376);
     --chart-5: oklch(0.424 0.199 265.638);
     --radius: 0.625rem;
-    /* --sidebar: oklch(0.985 0 0); */
     --sidebar: #FFFFFF;
     --sidebar-foreground: oklch(0.145 0 0);
     --sidebar-primary: oklch(0.205 0 0);
@@ -142,6 +141,10 @@
 
 @utility link {
     @apply text-[14px] text-brand-primary font-medium underline;
+}
+
+@utility color-sidebar-btn {
+    @apply hover:bg-linear-to-r hover:from-brand-primary/15 hover:bg-transparent hover:text-brand-primary active:bg-linear-to-r active:from-brand-primary/15 active:bg-transparent active:text-orange-500;
 }
 
 @utility truncate-one-line {

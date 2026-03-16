@@ -41,13 +41,12 @@ export default function DashboardNavbar() {
                 </Button>
 
                 <Button
-                    size="sm"
                     variant="outline"
                     onClick={() => setIsOpenCommand(true)}
                     className="justify-start w-full max-w-[240px] h-[36px] font-normal text-muted-foreground hover:text-muted-foreground"
                 >
                     <SearchIcon />
-                    <span>Search</span>
+                    <span>Tìm kiếm.</span>
 
                     <kbd className="inline-flex items-center gap-[4px] ml-auto px-1 font-mono bg-muted rounded border poiner-events-none select-none">
                         <span className="text-[12px] translate-y-[2px]">&#8984;</span>

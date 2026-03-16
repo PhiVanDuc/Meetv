@@ -11,11 +11,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { Drawer, DrawerHeader, DrawerContent, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
 import {
   InputGroup,
   InputGroupAddon,
 } from "@/components/ui/input-group"
 import { SearchIcon, CheckIcon } from "lucide-react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 function Command({
   className,
@@ -46,6 +48,23 @@ function CommandDialog({
   className?: string
   showCloseButton?: boolean
 }) {
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return (
+      <Drawer {...props}>
+        <DrawerContent>
+          <DrawerHeader className="sr-only">
+            <DrawerTitle>{title}</DrawerTitle>
+            <DrawerDescription>{description}</DrawerDescription>
+          </DrawerHeader>
+          
+          {children}
+        </DrawerContent>
+      </Drawer>
+    )
+  }
+
   return (
     <Dialog {...props}>
       <DialogHeader className="sr-only">
@@ -75,7 +94,7 @@ function CommandInput({
         <CommandPrimitive.Input
           data-slot="command-input"
           className={cn(
-            "w-full text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+            "w-full text-[14px] outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           {...props}
@@ -96,7 +115,7 @@ function CommandList({
     <CommandPrimitive.List
       data-slot="command-list"
       className={cn(
-        "no-scrollbar p-2 max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none space-y-1",
+        "no-scrollbar p-2 max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none",
         className
       )}
       {...props}
@@ -111,7 +130,7 @@ function CommandEmpty({
   return (
     <CommandPrimitive.Empty
       data-slot="command-empty"
-      className={cn("py-6 text-center text-sm", className)}
+      className={cn("py-6 text-center text-[14px]", className)}
       {...props}
     />
   )
@@ -155,7 +174,7 @@ function CommandItem({
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        "group/command-item relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-selected:bg-muted data-selected:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-selected:**:[svg]:text-foreground",
+        "group/command-item relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-[14px] outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 data-selected:bg-muted data-selected:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 data-selected:**:[svg]:text-foreground",
         className
       )}
       {...props}
