@@ -7,7 +7,7 @@ export default async function DashboardSidebarFooter() {
     const currentUser = await getCurrentUser();
 
     return (
-        <SidebarFooter className="p-0">
+        <SidebarFooter>
             <DashboardSidebarUser currentUser={currentUser} />
         </SidebarFooter>
     )

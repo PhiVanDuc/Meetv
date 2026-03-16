@@ -1,3 +1,7 @@
+"use client"
+
+import { usePathname } from "next/navigation";
+
 import Link from "next/link";
 
 import { SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
@@ -5,6 +9,8 @@ import { SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupContent, S
 import { FIRST_DASHBOARD_SIDEBAR_SECTION, SECOND_DASHBOARD_SIDEBAR_SECTION } from "@/consts";
 
 export default function DashboardSidebarBody() {
+    const pathname = usePathname();
+
     return (
         <SidebarContent className="my-[30px] space-y-[10px]">
             <SidebarGroup className="p-0 space-y-[10px]">
@@ -14,12 +20,15 @@ export default function DashboardSidebarBody() {
                     <SidebarMenu className="gap-[5px]">
                         {
                             FIRST_DASHBOARD_SIDEBAR_SECTION.map(item => {
+                                const isActive = pathname.startsWith(item.href);
+
                                 return (
                                     <SidebarMenuItem key={item.href}>
                                         <SidebarMenuButton
                                             asChild
                                             size="lg"
-                                            className="gap-[10px] [&_svg]:w-5 [&_svg]:h-5 text-zinc-500 font-medium color-sidebar-btn!"
+                                            data-active={isActive}
+                                            className="sidebar-btn!"
                                         >
                                             <Link href={item.href}>
                                                 <item.icon/>
@@ -41,12 +50,15 @@ export default function DashboardSidebarBody() {
                     <SidebarMenu className="gap-[5px]">
                         {
                             SECOND_DASHBOARD_SIDEBAR_SECTION.map(item => {
+                                const isActive = pathname.startsWith(item.href);
+
                                 return (
                                     <SidebarMenuItem key={item.href}>
                                         <SidebarMenuButton
                                             asChild
                                             size="lg"
-                                            className="gap-[10px] [&_svg]:w-5 [&_svg]:h-5 text-zinc-500 font-medium color-sidebar-btn!"
+                                            data-active={isActive}
+                                            className="sidebar-btn!"
                                         >
                                             <Link href={item.href}>
                                                 <item.icon/>
