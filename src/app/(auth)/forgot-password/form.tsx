@@ -3,11 +3,14 @@
 import useForgotPasswordForm from "@/app/(auth)/forgot-password/use-form";
 
 import Link from "next/link";
-import { ButtonAction } from "@/components/button";
 
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { FieldGroup, Field, FieldLabel, FieldError } from "@/components/ui/field";
+
+import { ICONS } from "@/consts";
 
 export default function ForgotPasswordForm() {
     const { form, sendOTPMutation, forgotPasswordMutation } = useForgotPasswordForm();
@@ -57,15 +60,15 @@ export default function ForgotPasswordForm() {
                                         aria-invalid={fieldState.invalid}
                                     />
 
-                                    <ButtonAction
+                                    <Button
                                         type="button"
-                                        iconDefault="send"
                                         onClick={handleSendOTP}
                                         className="whitespace-nowrap"
-                                        isPending={sendOTPMutation.isPending}
+                                        disabled={sendOTPMutation.isPending}
                                     >
-                                        Mã OTP
-                                    </ButtonAction>
+                                        { sendOTPMutation.isPending ? <Spinner /> : <ICONS.SEND /> }
+                                        <span>Mã OTP</span>
+                                    </Button>
                                 </div>
 
                                 { fieldState.invalid && <FieldError errors={[fieldState.error]} /> }
@@ -106,13 +109,13 @@ export default function ForgotPasswordForm() {
                     </Link>
                 </div>
 
-                <ButtonAction
+                <Button
                     className="w-full"
-                    iconDefault="update"
-                    isPending={forgotPasswordMutation.isPending}
+                    disabled={forgotPasswordMutation.isPending}
                 >
-                    Khôi phục
-                </ButtonAction>
+                    { forgotPasswordMutation.isPending ? <Spinner /> : <ICONS.UPDATE /> }
+                    <span>Khôi phục</span>
+                </Button>
             </FieldGroup>
         </form>
     )

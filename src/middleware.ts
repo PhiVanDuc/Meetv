@@ -14,14 +14,12 @@ export function middleware(req: NextRequest) {
     if (!isAuth && !isAuthRoute) {
         const url = req.nextUrl.clone();
         url.pathname = "/sign-in";
-
         return NextResponse.redirect(url);
     }
 
     if (isAuth && isAuthRoute) {
         const url = req.nextUrl.clone();
         url.pathname = "/";
-
         return NextResponse.redirect(url);
     }
 

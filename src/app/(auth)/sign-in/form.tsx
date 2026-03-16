@@ -3,14 +3,15 @@
 import useSignInForm from "@/app/(auth)/sign-in/use-form";
 
 import Link from "next/link";
-import { ButtonAction } from "@/components/button";
 
+import { FaGoogle } from "react-icons/fa";
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { FieldGroup, Field, FieldLabel, FieldError } from "@/components/ui/field";
 
-import { FaGoogle } from "react-icons/fa";
+import { ICONS } from "@/consts";
 
 export default function SignInForm() {
     const { form, mutation, redirectOAuth } = useSignInForm();
@@ -77,13 +78,13 @@ export default function SignInForm() {
                 </div>
 
                 <div className="space-y-[10px]">
-                    <ButtonAction
+                    <Button
                         className="w-full"
-                        iconDefault="send"
-                        isPending={mutation.isPending}
+                        disabled={mutation.isPending}
                     >
-                        Đăng nhập
-                    </ButtonAction>
+                        { mutation.isPending ? <Spinner /> : <ICONS.SEND /> }
+                        <span>Đăng nhập</span>
+                    </Button>
 
                     <Button
                         type="button"
@@ -92,14 +93,15 @@ export default function SignInForm() {
                         className="w-full text-zinc-500 hover:text-zinc-600"
                     >
                         <FaGoogle />
-                        Đăng nhập Google
+                        <span>Đăng nhập Google</span>
                     </Button>
                 </div>
             </FieldGroup>
 
             <p className="text-center medium-desc pt-[10px]">
-                Bạn chưa có tài khoản? {" "}
-
+                <span>Bạn chưa có tài khoản?</span>
+                <span>{" "}</span>
+                
                 <Link
                     href="/sign-up"
                     className="link"

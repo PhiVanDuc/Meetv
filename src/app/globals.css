@@ -132,11 +132,11 @@
 }
 
 @utility medium-header {
-    @apply text-[24px] xl:text-[26px] font-semibold capitalize;
+    @apply text-[22px] font-semibold capitalize;
 }
 
 @utility medium-desc {
-    @apply text-[14px] xl:text-[15px] text-zinc-500;
+    @apply text-[14px] text-zinc-500;
 }
 
 @utility link {

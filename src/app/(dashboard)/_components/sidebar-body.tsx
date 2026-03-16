@@ -12,12 +12,11 @@ export default function DashboardSidebarBody() {
     const pathname = usePathname();
 
     return (
-        <SidebarContent className="my-[30px] space-y-[10px]">
-            <SidebarGroup className="p-0 space-y-[10px]">
-                <SidebarGroupLabel className="p-0 h-fit capitalize">Ứng dụng</SidebarGroupLabel>
-
+        <SidebarContent>
+            <SidebarGroup>
+                <SidebarGroupLabel>Ứng dụng</SidebarGroupLabel>
                 <SidebarGroupContent>
-                    <SidebarMenu className="gap-[5px]">
+                    <SidebarMenu>
                         {
                             FIRST_DASHBOARD_SIDEBAR_SECTION.map(item => {
                                 const isActive = pathname.startsWith(item.href);
@@ -31,7 +30,7 @@ export default function DashboardSidebarBody() {
                                             className="sidebar-btn!"
                                         >
                                             <Link href={item.href}>
-                                                <item.icon/>
+                                                <item.icon />
                                                 <span>{item.label}</span>
                                             </Link>
                                         </SidebarMenuButton>
@@ -43,11 +42,10 @@ export default function DashboardSidebarBody() {
                 </SidebarGroupContent>
             </SidebarGroup>
 
-            <SidebarGroup className="p-0 space-y-[10px]">
-                <SidebarGroupLabel className="p-0 h-fit capitalize">Hoá đơn</SidebarGroupLabel>
-
+            <SidebarGroup>
+                <SidebarGroupLabel>Hoá đơn</SidebarGroupLabel>
                 <SidebarGroupContent>
-                    <SidebarMenu className="gap-[5px]">
+                    <SidebarMenu>
                         {
                             SECOND_DASHBOARD_SIDEBAR_SECTION.map(item => {
                                 const isActive = pathname.startsWith(item.href);
@@ -61,7 +59,7 @@ export default function DashboardSidebarBody() {
                                             className="sidebar-btn!"
                                         >
                                             <Link href={item.href}>
-                                                <item.icon/>
+                                                <item.icon />
                                                 <span>{item.label}</span>
                                             </Link>
                                         </SidebarMenuButton>

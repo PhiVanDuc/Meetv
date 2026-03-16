@@ -5,14 +5,12 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 import Link from "next/link";
 import Logo from "@/components/logo";
-import { ButtonLink } from "@/components/button";
-
-import { Button } from "@/components/ui/button";
-import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 import { LogOut } from "lucide-react";
 import { IoMdCard } from "react-icons/io";
+import { Button } from "@/components/ui/button";
+import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 import { toast } from "@pheralb/toast";
 import { clearSession } from "@/services/session/server-actions";
@@ -23,7 +21,6 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
 
     const handleSignOut = async () => {
         await clearSession();
-
         router.push("/sign-in");
         toast.success({ text: "Thành công", description: "Đăng xuất thành công." });
     }
@@ -32,7 +29,7 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
         return (
             <Drawer>
                 <DrawerTrigger asChild>
-                    <div className="flex items-center gap-[10px] w-min-0 p-[10px] text-white bg-brand-primary rounded-[10px]">
+                    <div className="flex items-center gap-[10px] p-[10px] text-white bg-brand-primary rounded-[10px]">
                         <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
                             <Logo
                                 color="orange"
@@ -54,20 +51,22 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
                     </DrawerHeader>
 
                     <DrawerFooter>
-                        <ButtonLink
-                            href="/billing"
+                        <Button
+                            asChild
                             variant="outline"
                         >
-                            <IoMdCard />
-                            Hoá đơn
-                        </ButtonLink>
+                            <Link href="/billing">
+                                <IoMdCard />
+                                <span>Hoá đơn</span>
+                            </Link>
+                        </Button>
 
                         <Button
                             variant="outline"
                             onClick={handleSignOut}
                         >
                             <LogOut />
-                            Đăng xuất
+                            <span>Đăng xuất</span>
                         </Button>
                     </DrawerFooter>
                 </DrawerContent>
@@ -78,7 +77,7 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <div className="flex items-center gap-[10px] w-min-0 p-[10px] text-white bg-brand-primary rounded-[10px]">
+                <div className="flex items-center gap-[10px] p-[10px] text-white bg-brand-primary rounded-[10px]">
                     <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
                         <Logo
                             color="orange"
@@ -98,17 +97,17 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
                 side="right"
                 sideOffset={10}
             >
-                <DropdownMenuGroup className="w-min-0 p-2">
+                <DropdownMenuGroup>
                     <p className="text-[15px] text-zinc-700 font-medium truncate">{currentUser?.name}</p>
                     <p className="text-[13px] text-zinc-500 font-medium truncate">{currentUser?.email}</p>
                 </DropdownMenuGroup>
 
-                <DropdownMenuSeparator></DropdownMenuSeparator>
+                <DropdownMenuSeparator />
 
                 <DropdownMenuGroup>
                     <DropdownMenuItem
                         asChild
-                        className="flex items-center justify-between text-zinc-500"
+                        className="justify-between"
                     >
                         <Link href="/billing">
                             <span>Hoá đơn</span>
@@ -118,7 +117,7 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
 
                     <DropdownMenuItem
                         onSelect={handleSignOut}
-                        className="flex items-center justify-between text-zinc-500"
+                        className="justify-between"
                     >
                         <span>Đăng xuất</span>
                         <LogOut />

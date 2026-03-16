@@ -3,11 +3,14 @@
 import useSignUpForm from "@/app/(auth)/sign-up/use-form";
 
 import Link from "next/link";
-import { ButtonAction } from "@/components/button";
 
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { FieldGroup, Field, FieldLabel, FieldError } from "@/components/ui/field";
+
+import { ICONS } from "@/consts";
 
 export default function SignUpForm() {
     const { form, sendOTPMutation, signUpMutation } = useSignUpForm();
@@ -77,14 +80,14 @@ export default function SignUpForm() {
                                         aria-invalid={fieldState.invalid}
                                     />
 
-                                    <ButtonAction
-                                        iconDefault="send"
+                                    <Button
                                         onClick={handleSendOTP}
                                         className="whitespace-nowrap"
-                                        isPending={sendOTPMutation.isPending}
+                                        disabled={sendOTPMutation.isPending}
                                     >
-                                        Mã OTP
-                                    </ButtonAction>
+                                        { sendOTPMutation.isPending ? <Spinner /> : <ICONS.SEND /> }
+                                        <span>Mã OTP</span>
+                                    </Button>
                                 </div>
 
                                 { fieldState.invalid && <FieldError errors={[fieldState.error]} /> }
@@ -125,13 +128,13 @@ export default function SignUpForm() {
                     </Link>
                 </div>
 
-                <ButtonAction
-                    iconDefault="add"
+                <Button
                     className="w-full"
-                    isPending={signUpMutation.isPending}
+                    disabled={signUpMutation.isPending}
                 >
-                    Đăng ký
-                </ButtonAction>
+                    { signUpMutation.isPending ? <Spinner /> : <ICONS.ADD /> }
+                    <span>Đăng ký</span>
+                </Button>
             </FieldGroup>
         </form>
     )

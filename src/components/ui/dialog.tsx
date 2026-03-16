@@ -61,7 +61,10 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-6 rounded-xl bg-background p-5 text-[14px] ring-1 ring-foreground/10 duration-100 outline-none sm:max-w-md data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          "fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 flex flex-col w-[calc(100%-40px)] h-fit max-h-[calc(100%-40px)] gap-[30px] rounded-xl bg-background text-sm ring-1 ring-foreground/10 outline-none duration-200",
+          "sm:w-full sm:max-w-md",
+          "data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-open:slide-in-from-left-1/2 data-open:slide-in-from-top-1/2",
+          "data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-closed:slide-out-to-left-1/2 data-closed:slide-out-to-top-1/2",
           className
         )}
         {...props}
@@ -89,7 +92,23 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn("flex flex-col gap-[2px]", className)}
+      className={cn("flex flex-col gap-[2px] p-[20px] pb-0", className)}
+      {...props}
+    />
+  )
+}
+
+function DialogBody({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="dialog-body"
+      className={cn(
+        "flex-1 p-[20px] pt-0 overflow-y-auto min-h-0", // min-h-0 giúp flex child scroll đúng cách
+        className
+      )}
       {...props}
     />
   )
@@ -129,7 +148,7 @@ function DialogTitle({
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("leading-none text-[18px] font-semibold capitalize", className)}
+      className={cn("leading-none text-[18px] font-semibold", className)}
       {...props}
     />
   )
@@ -143,7 +162,7 @@ function DialogDescription({
     <DialogPrimitive.Description
       data-slot="dialog-description"
       className={cn(
-        "*:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground medium-desc text-[14px]",
+        "*:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground medim-desc",
         className
       )}
       {...props}
@@ -158,6 +177,7 @@ export {
   DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogBody,
   DialogOverlay,
   DialogPortal,
   DialogTitle,

@@ -6,7 +6,7 @@ import { Sidebar } from "@/components/ui/sidebar";
 
 export default function DashboardSidebar() {
     return (
-        <Sidebar className="p-[15px] bg-white">
+        <Sidebar>
             <DashboardSidebarHeader />
             <DashboardSidebarBody />
             <DashboardSidebarFooter />

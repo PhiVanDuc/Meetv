@@ -1,63 +1,54 @@
-import { useIsMobile } from "@/hooks/use-mobile";
-
-import { CommandDialog, Command, CommandInput, CommandList, CommandEmpty, CommandItem, CommandSeparator } from "@/components/ui/command";
+import { CommandDialog, Command, CommandInput, CommandList, CommandItem, CommandEmpty, CommandSeparator, CommandGroup } from "@/components/ui/command";
 
 import { cn } from "@/libs/utils";
 
-import type { Dispatch, SetStateAction } from "react";
-
-interface Props {
-    isOpen: boolean,
-    setIsOpen: Dispatch<SetStateAction<boolean>>
-}
-
-export default function DashboardCommand({ isOpen, setIsOpen }: Props) {
-    const isMobile = useIsMobile();
-
+export default function DashboardCommand() {
     return (
-        <CommandDialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <CommandDialog open>
             <Command>
-                <div className={cn(isMobile ? "p-[16px]": "p-[8px]")}>
-                    <CommandInput placeholder="Tìm kiếm cuộc họp hoặc agent . . ." />
+                <div className="p-[15px]">
+                    <CommandInput placeholder="Tìm kiếm các cuộc họp hoặc agent . . ." />
                 </div>
 
                 <CommandSeparator alwaysRender />
 
-                <CommandList className={cn(isMobile ? "p-[16px]": "p-[8px]")}>
-                    <CommandEmpty>Không tìm thấy kết quả.</CommandEmpty>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem className="mb-[5px]">Content of command item.</CommandItem>
-                    <CommandItem>Content of command item.</CommandItem>
+                <CommandList>
+                    <CommandEmpty>
+                        <p>Không tìm thấy kết quả.</p>
+                    </CommandEmpty>
+
+                    <CommandGroup
+                        heading="Cuộc họp"
+                        className="mb-[15px]"
+                    >
+                        {
+                            Array.from({ length: 10 }).map((_, index) => {
+                                return (
+                                    <CommandItem
+                                        key={index}
+                                        className={cn(index !== 10 ? "mb-[5px]" : "")}
+                                    >
+                                        <p>Nội dung cho cuộc họp</p>
+                                    </CommandItem>
+                                )
+                            })
+                        }
+                    </CommandGroup>
+
+                    <CommandGroup heading="Agent">
+                        {
+                            Array.from({ length: 10 }).map((_, index) => {
+                                return (
+                                    <CommandItem 
+                                        key={index}
+                                        className={cn(index !== 10 ? "mb-[5px]" : "")}
+                                    >
+                                        <p>Nội dung cho agent</p>
+                                    </CommandItem>
+                                )
+                            })
+                        }
+                    </CommandGroup>
                 </CommandList>
             </Command>
         </CommandDialog>

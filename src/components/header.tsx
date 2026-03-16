@@ -1,13 +1,6 @@
-import { cn } from "@/libs/utils";
-
-interface Props {
-    readonly children: React.ReactNode;
-    className?: string;
-}
-
-export default function Header({ children, className }: Props) {
+export default function Header({ children }: { children: React.ReactNode }) {
     return (
-        <header className={cn("space-y-[2px]", className)}>
+        <header className="space-y-[2px]">
             {children}
         </header>
     )
