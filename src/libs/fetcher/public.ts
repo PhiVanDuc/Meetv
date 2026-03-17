@@ -1,6 +1,4 @@
-import { FetcherError } from "@/libs/fetcher";
-
-import type { FetcherResponse, FetcherHandleParams, FetcherGetParams, FetcherMutateParams } from "@/libs/fetcher";
+import { FetcherResponse, FetcherError, FetcherHandleParams, FetcherGetParams, FetcherMutateParams } from "@/libs/fetcher";
 
 const BE = process.env.NEXT_PUBLIC_BE;
 

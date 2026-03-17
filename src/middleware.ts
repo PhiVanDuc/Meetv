@@ -11,16 +11,22 @@ export function middleware(req: NextRequest) {
     const isAuth = Boolean(shallowVerifyJWT(accessToken) && shallowVerifyJWT(refreshToken));
     const isAuthRoute = AUTH_ROUTES.some((route) => pathname.startsWith(route));
 
-    if (!isAuth && !isAuthRoute) {
-        const url = req.nextUrl.clone();
-        url.pathname = "/sign-in";
-        return NextResponse.redirect(url);
-    }
+    if (req.method === "GET") {
+        if (!isAuth && !isAuthRoute) {
+            const url = req.nextUrl.clone();
+            url.pathname = "/sign-in";
 
-    if (isAuth && isAuthRoute) {
-        const url = req.nextUrl.clone();
-        url.pathname = "/";
-        return NextResponse.redirect(url);
+            const res = NextResponse.redirect(url);
+            res.cookies.delete("accessToken");
+            res.cookies.delete("refreshToken");
+            return res;
+        }
+    
+        if (isAuth && isAuthRoute) {
+            const url = req.nextUrl.clone();
+            url.pathname = "/";
+            return NextResponse.redirect(url);
+        }
     }
 
     return NextResponse.next();

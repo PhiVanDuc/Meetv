@@ -11,7 +11,7 @@ export const FIRST_DASHBOARD_SIDEBAR_SECTION = [
     },
     {
         icon: RiRobot2Line,
-        label: "Các agent",
+        label: "Các Agent",
         href: "/agents"
     }
 ] as const;

@@ -1,9 +1,21 @@
 import { toast } from "@pheralb/toast";
-import { FetcherError } from "@/libs/fetcher";
-import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
+import { FetcherResponse, FetcherError } from "@/libs/fetcher";
+import { clearSession } from "@/services/session/server-actions";
+import { Query, QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-import type { FetcherResponse } from "@/libs/fetcher";
-import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+const handle401 = async ({ router, query, queryClient }: { router: AppRouterInstance, query?: Query<unknown, unknown>, queryClient?: QueryClient }) => {
+    await clearSession();
+
+    if (query && queryClient) {
+        queryClient.invalidateQueries({
+            queryKey: query.queryKey,
+            refetchType: "none"
+        });
+    }
+
+    router.push("/sign-in");
+}
 
 export default (router: AppRouterInstance) => {
     const client: QueryClient = new QueryClient({
@@ -17,11 +29,8 @@ export default (router: AppRouterInstance) => {
             onError: async (error, query) => {
                 console.log(error);
 
-                if (error instanceof FetcherError) {
-                    switch(error.status) {
-                        case 401:
-                            break;
-                    }
+                if (error instanceof FetcherError && error.status === 401) {
+                    await handle401({ router, query, queryClient: client });
                 }
 
                 toast.error({ text: "Thất bại", description: error.message });
@@ -35,11 +44,8 @@ export default (router: AppRouterInstance) => {
             onError: async (error) => {
                 console.log(error);
 
-                if (error instanceof FetcherError) {
-                    switch(error.status) {
-                        case 401:
-                            break;
-                    }
+                if (error instanceof FetcherError && error.status === 401) {
+                    await handle401({ router });
                 }
 
                 toast.error({ text: "Thất bại", description: error.message });

@@ -1,17 +1,17 @@
 "use client"
 
 import { FetcherError } from "@/libs/fetcher";
+import { getSessionToken } from "@/services/session/server-actions";
 import { refreshSession } from "@/services/session/client-functions";
-
-import type { FetcherResponse, FetcherHandleParams, FetcherGetParams, FetcherMutateParams } from "@/libs/fetcher";
+import { FetcherResponse, FetcherHandleParams, FetcherGetParams, FetcherMutateParams } from "@/libs/fetcher";
 
 const BE = process.env.NEXT_PUBLIC_BE;
 
-const handle = async <RequestData, ResponseData>(
-    { method, pathname, body, options, isRetry }: FetcherHandleParams<RequestData>
-): Promise<FetcherResponse<ResponseData>> => {
+const handle = async <RequestData, ResponseData>({ method, pathname, body, options, isRetry }: FetcherHandleParams<RequestData>): Promise<FetcherResponse<ResponseData>> => {
+    const accessToken = await getSessionToken("accessToken") || "";
+
     const headers = new Headers({
-        Authorization: `Bearer ${""}`,
+        Authorization: `Bearer ${accessToken}`,
         ...options?.headers
     });
 
@@ -71,7 +71,7 @@ const handle = async <RequestData, ResponseData>(
         return {
             ...responseData,
             status: responseStatus
-        }
+        }   
     }
     catch(error) {
         if (error instanceof FetcherError) {

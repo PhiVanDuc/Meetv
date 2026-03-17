@@ -16,3 +16,5 @@ interface CurrentUser {
     accountId: string,
     provider: string
 }
+
+type FormType = "add" | "update";

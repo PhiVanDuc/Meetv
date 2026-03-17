@@ -5,5 +5,5 @@ export default (jwt: string | undefined | null) => {
         jwtDecode(jwt || "");
         return true;
     }
-    catch(error) { return false }
+    catch(error) { return false; }
 }

@@ -1,4 +1,4 @@
-import type { FetcherErrorParams } from "@/libs/fetcher";
+import { FetcherErrorParams } from "@/libs/fetcher";
 
 export class FetcherError<ResponseData = unknown> extends Error {
     status: number;

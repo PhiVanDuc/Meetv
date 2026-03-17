@@ -136,7 +136,7 @@
 }
 
 @utility medium-desc {
-    @apply text-[14px] text-zinc-500;
+    @apply text-[14px] md:text-[15px] text-zinc-500;
 }
 
 @utility link {

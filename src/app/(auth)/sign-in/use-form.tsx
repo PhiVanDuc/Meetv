@@ -3,13 +3,11 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
-import { schemaSignIn } from "@/schemas";
+import { toast } from "@pheralb/toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "@/services/auth/server-actions";
+import { schemaSignIn, FormDataSignIn } from "@/schemas";
 import { setSession } from "@/services/session/server-actions";
-
-import type { FormDataSignIn } from "@/schemas";
-import { toast } from "@pheralb/toast";
 
 const BE = process.env.NEXT_PUBLIC_BE;
 

@@ -1,8 +1,7 @@
 import { CommandDialog, Command, CommandInput, CommandList, CommandItem, CommandEmpty, CommandSeparator, CommandGroup } from "@/components/ui/command";
 
 import { cn } from "@/libs/utils";
-
-import type { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
     isOpen?: boolean,
@@ -17,7 +16,7 @@ export default function DashboardCommand({ isOpen, setIsOpen }: Props) {
         >
             <Command>
                 <div className="p-[15px]">
-                    <CommandInput placeholder="Tìm kiếm các cuộc họp hoặc agent . . ." />
+                    <CommandInput placeholder="Tìm kiếm các cuộc họp hoặc Agent . . ." />
                 </div>
 
                 <CommandSeparator alwaysRender />
@@ -53,7 +52,7 @@ export default function DashboardCommand({ isOpen, setIsOpen }: Props) {
                                         key={index}
                                         className={cn(index !== 10 ? "mb-[5px]" : "")}
                                     >
-                                        <p>Nội dung cho agent</p>
+                                        <p>Nội dung cho Agent</p>
                                     </CommandItem>
                                 )
                             })
