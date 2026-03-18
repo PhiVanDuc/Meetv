@@ -6,10 +6,12 @@ import { Sidebar } from "@/components/ui/sidebar";
 
 export default function DashboardSidebar() {
     return (
-        <Sidebar>
-            <DashboardSidebarHeader />
-            <DashboardSidebarBody />
-            <DashboardSidebarFooter />
-        </Sidebar>
+        <aside>
+            <Sidebar>
+                <DashboardSidebarHeader />
+                <DashboardSidebarBody />
+                <DashboardSidebarFooter />
+            </Sidebar>
+        </aside>
     )
 }

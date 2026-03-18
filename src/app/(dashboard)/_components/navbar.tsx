@@ -6,7 +6,8 @@ import { useSidebar } from "@/components/ui/sidebar";
 import DashboardCommand from "@/app/(dashboard)/_components/command";
 
 import { Button } from "@/components/ui/button";
-import { PanelLeftClose, PanelLeftIcon, SearchIcon } from "lucide-react";
+
+import { ICONS } from "@/consts";
 
 export default function DashboardNavbar() {
     const { state, toggleSidebar, isMobile } = useSidebar();
@@ -25,7 +26,7 @@ export default function DashboardNavbar() {
     }, []);
 
     return (
-        <>
+        <header className="p-[15px] border-b">
             <DashboardCommand
                 isOpen={isOpenCommand}
                 setIsOpen={setIsOpenCommand}
@@ -37,7 +38,7 @@ export default function DashboardNavbar() {
                     onClick={toggleSidebar}
                     className="shrink-0 size-[36px]"
                 >
-                    { (state === "collapsed" || isMobile) ? <PanelLeftIcon /> : <PanelLeftClose /> }
+                    { (state === "collapsed" || isMobile) ? <ICONS.EXPAND_PANEL /> : <ICONS.COLLAPSE_PANEL /> }
                 </Button>
 
                 <Button
@@ -45,7 +46,7 @@ export default function DashboardNavbar() {
                     onClick={() => setIsOpenCommand(true)}
                     className="flex-1 justify-start max-w-[240px] h-[36px] text-zinc-500 hover:text-zinc-500"
                 >
-                    <SearchIcon />
+                    <ICONS.SEARCH />
                     <span>Tìm kiếm.</span>
 
                     <kbd className="inline-flex items-center gap-[4px] ml-auto px-[4px] font-mono bg-zinc-100 rounded border poiner-events-none select-none">
@@ -55,6 +56,6 @@ export default function DashboardNavbar() {
                     </kbd>
                 </Button>
             </nav>
-        </>
+        </header>
     )
 }

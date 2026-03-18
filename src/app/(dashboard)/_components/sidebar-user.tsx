@@ -6,16 +6,24 @@ import { useIsMobile } from "@/hooks";
 import Link from "next/link";
 import Logo from "@/components/logo";
 
-import { LogOut } from "lucide-react";
-import { IoMdCard } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
+import { cn } from "@/libs/utils";
+import { forwardRef } from "react";
 import { toast } from "@pheralb/toast";
 import { clearSession } from "@/services/session/server-actions";
 
-export default function DashboardSidebarUser({ currentUser }: { currentUser?: CurrentUser }) {
+import { ICONS } from "@/consts";
+
+interface Props {
+    currentUser?: CurrentUser
+}
+
+type TriggerProps = Props & React.HTMLAttributes<HTMLDivElement>;
+
+export default function DashboardSidebarUser({ currentUser }: Props) {
     const router = useRouter();
     const isMobile = useIsMobile();
 
@@ -29,19 +37,7 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
         return (
             <Drawer>
                 <DrawerTrigger asChild>
-                    <div className="flex items-center gap-[10px] p-[10px] text-white bg-brand-primary rounded-[10px]">
-                        <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
-                            <Logo
-                                color="orange"
-                                className="w-[25px]"
-                            />
-                        </div>
-
-                        <div className="min-w-0">
-                            <p className="text-[14px] font-medium truncate">{currentUser?.name}</p>
-                            <p className="text-[12px] font-medium truncate">{currentUser?.email}</p>
-                        </div>
-                    </div>
+                    <Trigger currentUser={currentUser} />
                 </DrawerTrigger>
 
                 <DrawerContent>
@@ -55,8 +51,8 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
                             asChild
                             variant="outline"
                         >
-                            <Link href="/billing">
-                                <IoMdCard />
+                            <Link href="/upgrade">
+                                <ICONS.BILL />
                                 <span>Hoá đơn</span>
                             </Link>
                         </Button>
@@ -65,7 +61,7 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
                             variant="outline"
                             onClick={handleSignOut}
                         >
-                            <LogOut />
+                            <ICONS.LOG_OUT />
                             <span>Đăng xuất</span>
                         </Button>
                     </DrawerFooter>
@@ -77,19 +73,7 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <div className="flex items-center gap-[10px] p-[10px] text-white bg-brand-primary rounded-[10px]">
-                    <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
-                        <Logo
-                            color="orange"
-                            className="w-[25px]"
-                        />
-                    </div>
-
-                    <div className="min-w-0">
-                        <p className="text-[14px] font-medium truncate">{currentUser?.name}</p>
-                        <p className="text-[12px] font-medium truncate">{currentUser?.email}</p>
-                    </div>
-                </div>
+                <Trigger currentUser={currentUser} />
             </DropdownMenuTrigger>
 
             <DropdownMenuContent
@@ -109,9 +93,9 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
                         asChild
                         className="justify-between"
                     >
-                        <Link href="/billing">
+                        <Link href="/upgrade">
                             <span>Hoá đơn</span>
-                            <IoMdCard />
+                            <ICONS.BILL />
                         </Link>
                     </DropdownMenuItem>
 
@@ -120,10 +104,39 @@ export default function DashboardSidebarUser({ currentUser }: { currentUser?: Cu
                         className="justify-between"
                     >
                         <span>Đăng xuất</span>
-                        <LogOut />
+                        <ICONS.LOG_OUT />
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>
     )
 }
+
+const Trigger = forwardRef<HTMLDivElement, TriggerProps>(
+    ({ currentUser, className, ...props }, ref) => {
+        return (
+            <div 
+                ref={ref} 
+                {...props} 
+                className={cn(
+                    "flex items-center gap-[10px] p-[10px] cursor-pointer text-white bg-brand-primary rounded-[10px]",
+                    className
+                )}
+            >
+                <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
+                    <Logo
+                        color="orange"
+                        className="w-[25px]"
+                    />
+                </div>
+
+                <div className="min-w-0">
+                    <p className="text-[14px] font-medium truncate">{currentUser?.name}</p>
+                    <p className="text-[12px] font-medium truncate">{currentUser?.email}</p>
+                </div>
+            </div>
+        )
+    }
+)
+
+Trigger.displayName = "Trigger";

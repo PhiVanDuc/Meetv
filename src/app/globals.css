@@ -146,24 +146,3 @@
 @utility sidebar-btn {
     @apply gap-[10px] [&_svg]:w-5 [&_svg]:h-5 text-zinc-500 font-medium hover:bg-linear-to-r hover:from-brand-primary/15 hover:bg-transparent hover:text-brand-primary active:bg-linear-to-r active:from-brand-primary/15 active:bg-transparent active:text-orange-500 data-[active=true]:bg-linear-to-r data-[active=true]:from-brand-primary/15 data-[active=true]:bg-transparent data-[active=true]:text-orange-500;
 }
-
-@utility truncate-one-line {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-@utility truncate-two-line {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-@utility truncate-three-line {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}

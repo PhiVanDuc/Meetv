@@ -55,7 +55,7 @@ function DropdownMenuGroup({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Group>) {
   return (
-    <DropdownMenuPrimitive.Group data-slot="dropdown-menu-group" {...props} className={cn("p-[15px]", props.className)} />
+    <DropdownMenuPrimitive.Group data-slot="dropdown-menu-group" {...props} className={cn("p-[12px]", props.className)} />
   )
 }
 

@@ -9,12 +9,12 @@ interface Props {
 export default function Layout({ children }: Props) {
     return (
         <SidebarProvider>
-            <aside><DashboardSidebar /></aside>
+            <DashboardSidebar />
 
-            <div className="flex flex-col h-screen w-screen">
-                <header className="p-[15px] border-b"><DashboardNavbar /></header>
-                
-                <main className="flex-1 px-[15px] pt-[15px] md:px-[30px] md:pt-[30px]">
+            <div className="flex-1 flex flex-col h-screen min-w-0 w-full">
+                <DashboardNavbar />
+
+                <main className="flex-1 w-full p-[15px] md:p-[30px] overflow-y-auto">
                     {children}
                 </main>
             </div>

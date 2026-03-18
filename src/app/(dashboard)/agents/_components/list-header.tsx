@@ -17,16 +17,16 @@ export default function AgentListHeader() {
             <div className="flex flex-col md:flex-row gap-[15px] md:items-center justify-between">
                 <Header>
                     <h1 className="medium-header">Quản lý agent</h1>
-                    <p className="medium-desc">Theo dõi danh sách và thao tác với các Agent của bạn.</p>
+                    <p className="medium-desc">Theo dõi danh sách và thao tác với các agent của bạn.</p>
                 </Header>
 
                 <Button
                     variant="brand"
-                    className="w-full md:w-fit"
+                    className="w-fit"
                     onClick={() => setIsOpenDialog(state => !state)}
                 >
                     <ICONS.ADD />
-                    <span>Thêm Agent</span>
+                    <span>Thêm agent</span>
                 </Button>
             </div>
 

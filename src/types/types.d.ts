@@ -18,3 +18,10 @@ interface CurrentUser {
 }
 
 type FormType = "add" | "update";
+
+interface Agent {
+    id: string,
+    name: string,
+    slug: string,
+    instructions: string
+}

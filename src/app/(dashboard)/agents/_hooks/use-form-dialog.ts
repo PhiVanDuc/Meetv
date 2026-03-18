@@ -11,12 +11,12 @@ interface Parameters {
 
 export default function useAgentFormDialog({ formType }: Parameters) {
     const title = formType === "add"
-        ? "Thêm Agent"
-        : "Cập nhật Agent";
+        ? "Thêm agent"
+        : "Cập nhật agent";
 
     const description = formType === "add"
-        ? "Nhập đầy đủ thông tin để thêm Agent tại đây."
-        : "Chỉnh sửa thông tin để cập nhật Agent tại đây.";
+        ? "Nhập đầy đủ thông tin để thêm agent tại đây."
+        : "Chỉnh sửa thông tin để cập nhật agent tại đây.";
 
     const form = useForm({
         defaultValues: {

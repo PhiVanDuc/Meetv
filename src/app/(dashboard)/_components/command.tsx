@@ -16,7 +16,7 @@ export default function DashboardCommand({ isOpen, setIsOpen }: Props) {
         >
             <Command>
                 <div className="p-[15px]">
-                    <CommandInput placeholder="Tìm kiếm các cuộc họp hoặc Agent . . ." />
+                    <CommandInput placeholder="Tìm kiếm các cuộc họp hoặc agent . . ." />
                 </div>
 
                 <CommandSeparator alwaysRender />
@@ -52,7 +52,7 @@ export default function DashboardCommand({ isOpen, setIsOpen }: Props) {
                                         key={index}
                                         className={cn(index !== 10 ? "mb-[5px]" : "")}
                                     >
-                                        <p>Nội dung cho Agent</p>
+                                        <p>Nội dung cho agent</p>
                                     </CommandItem>
                                 )
                             })
