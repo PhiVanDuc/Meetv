@@ -4,11 +4,11 @@ export const schemaForgotPassword = z.object({
     email: z
         .email({ error: "Email sai định dạng." }),
     otp: z
-        .string()
+        .string({ error: "Mã OTP cần phải là chuỗi." })
         .trim()
         .regex(/^\d{6}$/, { error: "Mã OTP sai định dạng." }),
     password: z
-        .string()
+        .string({ error: "Mật khẩu cần phải là chuỗi." })
         .trim()
         .min(8, { error: "Mật khẩu không thể ít hơn 8 ký tự." })
         .max(100, { error: "Mật khẩu không thể vượt quá 100 ký tự." })

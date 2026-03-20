@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { FieldGroup, Field, FieldLabel, FieldError } from "@/components/ui/field";
 
-import { ICONS } from "@/consts";
+import ICONS from "@/consts/icons";
 
 export default function ForgotPasswordForm() {
     const { form, sendOTPMutation, forgotPasswordMutation } = useForgotPasswordForm();

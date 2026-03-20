@@ -1,6 +1,6 @@
 "use client"
 
-import { useIsMobile } from "@/hooks";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import { Button } from "@/components/ui/button";
 

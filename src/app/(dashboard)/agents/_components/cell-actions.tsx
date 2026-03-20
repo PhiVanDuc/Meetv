@@ -3,9 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
-import { ICONS } from "@/consts";
+import ICONS from "@/consts/icons";
 
-export default function CellActions() {
+export default function AgentCellActions() {
 
     return (
         <DropdownMenu>

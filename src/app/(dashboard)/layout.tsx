@@ -13,7 +13,7 @@ export default function Layout({ children }: Props) {
 
             <div className="flex-1 flex flex-col h-screen min-w-0 w-full">
                 <DashboardNavbar />
-
+                
                 <main className="flex-1 w-full p-[15px] md:p-[30px] overflow-y-auto">
                     {children}
                 </main>

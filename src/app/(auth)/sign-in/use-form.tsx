@@ -6,8 +6,8 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "@pheralb/toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "@/services/auth/server-actions";
-import { schemaSignIn, FormDataSignIn } from "@/schemas";
 import { setSession } from "@/services/session/server-actions";
+import { schemaSignIn, FormDataSignIn } from "@/schemas/sign-in";
 
 const BE = process.env.NEXT_PUBLIC_BE;
 

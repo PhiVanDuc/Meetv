@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { schemaAgent } from "@/schemas";
+import { schemaAgent } from "@/schemas/agent";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addAgent } from "@/services/agents/client-functions";
 
@@ -10,6 +10,8 @@ interface Parameters {
 }
 
 export default function useAgentFormDialog({ formType }: Parameters) {
+    const queryClient = useQueryClient();
+
     const title = formType === "add"
         ? "Thêm agent"
         : "Cập nhật agent";
@@ -28,7 +30,10 @@ export default function useAgentFormDialog({ formType }: Parameters) {
 
     const mutation = useMutation({
         mutationFn: () => addAgent(form.getValues()),
-        onSuccess: () => form.reset()
+        onSuccess: () => {
+            form.reset();
+            queryClient.invalidateQueries({ queryKey: ["getAgents"] });
+        }
     });
 
     return { title, description, form, mutation }

@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { FieldGroup, Field, FieldLabel, FieldError } from "@/components/ui/field";
 
-import { ICONS } from "@/consts";
+import ICONS from "@/consts/icons";
 
 export default function SignInForm() {
     const { form, mutation, redirectOAuth } = useSignInForm();
@@ -99,8 +99,7 @@ export default function SignInForm() {
             </FieldGroup>
 
             <p className="text-center medium-desc pt-[10px]">
-                <span>Bạn chưa có tài khoản?</span>
-                <span>{" "}</span>
+                <span>Bạn chưa có tài khoản? {" "}</span>
                 
                 <Link
                     href="/sign-up"

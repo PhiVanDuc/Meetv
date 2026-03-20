@@ -1,6 +1,6 @@
 import ProviderSignInForm from "@/app/(auth)/oauth/[provider]/form";
 
-import { PROVIDERS } from "@/consts";
+import PROVIDERS from "@/consts/providers";
 
 interface Props {
     params: Promise<{ provider: keyof typeof PROVIDERS }>,

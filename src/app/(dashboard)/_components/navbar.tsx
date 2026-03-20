@@ -7,7 +7,7 @@ import DashboardCommand from "@/app/(dashboard)/_components/command";
 
 import { Button } from "@/components/ui/button";
 
-import { ICONS } from "@/consts";
+import ICONS from "@/consts/icons";
 
 export default function DashboardNavbar() {
     const { state, toggleSidebar, isMobile } = useSidebar();

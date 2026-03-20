@@ -1,13 +1,13 @@
 "use client"
 
-import CellActions from "@/app/(dashboard)/agents/_components/cell-actions";
+import AgentCellActions from "@/app/(dashboard)/agents/_components/cell-actions";
 
 import Avatar from "boring-avatars";
 import { Badge } from "@/components/ui/badge";
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import { ICONS } from "@/consts";
+import ICONS from "@/consts/icons";
 
 const columns: ColumnDef<Agent>[] = [
     {
@@ -33,7 +33,7 @@ const columns: ColumnDef<Agent>[] = [
                             <ICONS.ENTER className="size-[18px] translate-x-[5px]" />
                         </div>
                         
-                        <p className="line-clamp-3 whitespace-normal wrap-break-word">{instructions} oahsd uahd uash duiash diaushdiashd iasuhd iuashiuash iuash iuash asih iaush iuas uiash iuas s á hasuidh asiu daiush daiush diuas hiuash aiush aiush aisdh ai daui daiusdh auisd iuasd uias duias háui</p>
+                        <p className="line-clamp-3 whitespace-normal wrap-break-word">{instructions}</p>
                     </div>
                 </div>
             )
@@ -66,7 +66,7 @@ const columns: ColumnDef<Agent>[] = [
             
             return (
                 <div className="flex justify-center">
-                    <CellActions />
+                    <AgentCellActions />
                 </div>
             )
         }

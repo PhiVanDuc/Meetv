@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { useIsMobile } from "@/hooks";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 import Link from "next/link";
 import Logo from "@/components/logo";
@@ -15,7 +15,7 @@ import { forwardRef } from "react";
 import { toast } from "@pheralb/toast";
 import { clearSession } from "@/services/session/server-actions";
 
-import { ICONS } from "@/consts";
+import ICONS from "@/consts/icons";
 
 interface Props {
     currentUser?: CurrentUser

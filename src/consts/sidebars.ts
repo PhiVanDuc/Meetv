@@ -1,4 +1,4 @@
-import { ICONS } from "@/consts"
+import ICONS from "@/consts/icons";
 
 export const FIRST_DASHBOARD_SIDEBAR_SECTION = [
     {

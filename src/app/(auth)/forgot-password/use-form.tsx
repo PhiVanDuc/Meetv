@@ -3,10 +3,10 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schemaForgotPassword, FormDataForgotPassword } from "@/schemas";
 import { sendOTP, forgotPassword } from "@/services/auth/server-actions";
+import { schemaForgotPassword, FormDataForgotPassword } from "@/schemas/forgot-password";
 
-import { CODE_TYPES } from "@/consts";
+import CODE_TYPES from "@/consts/code-types";
 
 export default function useForgotPasswordForm() {
     const router = useRouter();

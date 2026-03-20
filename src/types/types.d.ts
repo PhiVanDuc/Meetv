@@ -9,6 +9,15 @@ interface Session {
     refreshToken: string
 }
 
+interface PaginationPartial {
+    page: string,
+    limit: string
+}
+
+type Pagination = PaginationPartial & { totalPages: string }
+
+type FormType = "add" | "update";
+
 interface CurrentUser {
     id: string,
     name: string,
@@ -16,8 +25,6 @@ interface CurrentUser {
     accountId: string,
     provider: string
 }
-
-type FormType = "add" | "update";
 
 interface Agent {
     id: string,

@@ -1,15 +1,16 @@
 "use client"
 
-import { ColumnDef, flexRender, getCoreRowModel, Row, useReactTable } from "@tanstack/react-table";
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { Table as ShadcnTable, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface Props<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[],
+    isPending?: boolean,
     onRowClick?: (row: TData) => void
 }
 
-export function Table<TData, TValue>({ columns, data, onRowClick }: Props<TData, TValue>) {
+export function Table<TData, TValue>({ columns, data, isPending, onRowClick }: Props<TData, TValue>) {
   const table = useReactTable({ data, columns, getCoreRowModel: getCoreRowModel() });
 
   return (
@@ -48,35 +49,43 @@ export function Table<TData, TValue>({ columns, data, onRowClick }: Props<TData,
 
             <TableBody>
                 {
-                    table.getRowModel().rows?.length
+                    isPending
                         ? (
-                            table.getRowModel().rows.map((row) => (
-                                <TableRow
-                                    key={row.id}
-                                    onClick={() => onRowClick?.(row.original)}
-                                    data-state={row.getIsSelected() && "selected"}
-                                    className="hover:bg-transparent cursor-pointer"
-                                >
-                                    {
-                                        row.getVisibleCells().map((cell) => (
-                                            <TableCell
-                                                key={cell.id}
-                                                className="text-[14px] p-[15px]"
-                                            >
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </TableCell>
-                                        ))
-                                    }
-                                </TableRow>
-                            ))
-                        )
-                        : (
                             <TableRow className="hover:bg-transparent">
                                 <TableCell colSpan={columns.length} className="h-24 text-center text-zinc-500">
-                                    Danh sách rỗng.
+                                    Đang tải dữ liệu . . .
                                 </TableCell>
                             </TableRow>
-                        )
+                        ) :
+                        table.getRowModel().rows?.length
+                            ? (
+                                table.getRowModel().rows.map((row) => (
+                                    <TableRow
+                                        key={row.id}
+                                        onClick={() => onRowClick?.(row.original)}
+                                        data-state={row.getIsSelected() && "selected"}
+                                        className="hover:bg-transparent cursor-pointer"
+                                    >
+                                        {
+                                            row.getVisibleCells().map((cell) => (
+                                                <TableCell
+                                                    key={cell.id}
+                                                    className="text-[14px] p-[15px]"
+                                                >
+                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                </TableCell>
+                                            ))
+                                        }
+                                    </TableRow>
+                                ))
+                            )
+                            : (
+                                <TableRow className="hover:bg-transparent">
+                                    <TableCell colSpan={columns.length} className="h-24 text-center text-zinc-500">
+                                        Danh sách rỗng.
+                                    </TableCell>
+                                </TableRow>
+                            )
                 }
             </TableBody>
         </ShadcnTable>

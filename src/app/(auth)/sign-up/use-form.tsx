@@ -3,10 +3,10 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schemaSignUp, FormDataSignUp } from "@/schemas";
 import { sendOTP, signUp } from "@/services/auth/server-actions";
+import { schemaSignUp, FormDataSignUp } from "@/schemas/sign-up";
 
-import { CODE_TYPES } from "@/consts";
+import CODE_TYPES from "@/consts/code-types";
 
 export default function useSignUpForm() {
     const router = useRouter();

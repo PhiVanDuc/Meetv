@@ -1,6 +1,4 @@
-"use client"
-
-import { useAgentFormDialog } from "@/app/(dashboard)/agents/_hooks";
+import useAgentFormDialog from "@/app/(dashboard)/agents/_hooks/use-form-dialog";
 
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -12,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 
 import { Dispatch, SetStateAction } from "react";
 
-import { ICONS } from "@/consts";
+import ICONS from "@/consts/icons";
 
 interface Props {
     isOpen: boolean,
