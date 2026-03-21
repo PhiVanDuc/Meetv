@@ -14,6 +14,10 @@ export const getAgents = async (data: GetAgentsRequestData) => {
     return await fetcherPrivate.get<GetAgentsResponseData>({ pathname: `/agents${queryString}` });
 }
 
+export const getAgent = async (id: string) => {
+    return await fetcherPrivate.get<Agent>({ pathname: `/agents/${id}` });
+}
+
 export const addAgent = async (data: AddAgentRequestData) => {
     return await fetcherPrivate.post({ pathname: "/agents", body: data });
 }

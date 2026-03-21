@@ -3,17 +3,28 @@
 import useAgentCellActions from "@/app/(dashboard)/agents/_hooks/use-cell-actions";
 
 import { Button } from "@/components/ui/button";
-import AlertDeleteDialog from "@/components/alert-delete-dialog";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
+import dynamic from "next/dynamic";
+
 import ICONS from "@/consts/icons";
+
+const AgentFormDialog = dynamic(
+    () => import("@/app/(dashboard)/agents/_components/form-dialog"),
+    { ssr: false }
+);
+
+const AlertDeleteDialog = dynamic(
+    () => import("@/components/alert-delete-dialog"),
+    { ssr: false }
+);
 
 interface Props {
     id: string
 }
 
 export default function AgentCellActions({ id }: Props) {
-    const { isOpenAlert, setIsOpenAlert } = useAgentCellActions(id);
+    const { isOpenDialog, setIsOpenDialog, isOpenAlert, setIsOpenAlert, mutation } = useAgentCellActions();
 
     return (
         <>
@@ -31,7 +42,7 @@ export default function AgentCellActions({ id }: Props) {
                     className="w-fit"
                 >
                     <DropdownMenuGroup>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => setIsOpenDialog(state => !state)}>
                             <ICONS.UPDATE />
                             <span>Cập nhật</span>
                         </DropdownMenuItem>
@@ -44,12 +55,30 @@ export default function AgentCellActions({ id }: Props) {
                 </DropdownMenuContent>
             </DropdownMenu>
 
-            <AlertDeleteDialog
-                object="agent"
-                open={isOpenAlert}
-                onOpenChange={setIsOpenAlert}
-                onConfirmDelete={() => {}}
-            />
+            {
+                isOpenAlert
+                    && (
+                        <AlertDeleteDialog
+                            object="agent"
+                            open={isOpenAlert}
+                            onOpenChange={setIsOpenAlert}
+                            isPending={mutation.isPending}
+                            onConfirmDelete={() => mutation.mutate(id)}
+                        />
+                    )
+            }
+
+            {
+                isOpenDialog
+                    && (
+                        <AgentFormDialog
+                            id={id}
+                            formType="update"
+                            open={isOpenDialog}
+                            onOpenChange={setIsOpenDialog}
+                        />
+                    )
+            }
         </>
     )
 }

@@ -1,12 +1,21 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { schemaAgent } from "@/schemas/agent";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addAgent } from "@/services/agents/client-functions";
+import { addAgent, getAgent, updateAgent } from "@/services/agents/client-functions";
 
-export default function useAgentFormDialog(formType: FormType) {
-    const queryClient = useQueryClient();
+import ICONS from "@/consts/icons";
+
+interface Parameters {
+    id?: string,
+    open: boolean,
+    formType: FormType
+}
+
+export default function useAgentFormDialog({ open, formType, id: propId }: Parameters) {
+    const id = propId ? propId : "";
 
     const title = formType === "add"
         ? "Thêm agent"
@@ -16,6 +25,16 @@ export default function useAgentFormDialog(formType: FormType) {
         ? "Nhập đầy đủ thông tin để thêm agent tại đây."
         : "Chỉnh sửa thông tin để cập nhật agent tại đây.";
 
+    const IconButton = formType === "add"
+        ? ICONS.ADD
+        : ICONS.UPDATE;
+
+    const labelButton = formType === "add"
+        ? "Thêm agent"
+        : "Cập nhật agent";
+
+    const queryClient = useQueryClient();
+
     const form = useForm({
         defaultValues: {
             name: "",
@@ -24,13 +43,34 @@ export default function useAgentFormDialog(formType: FormType) {
         resolver: zodResolver(schemaAgent)
     });
 
+    useEffect(() => {
+        if (formType === "add" && open) form.reset();
+    }, [formType, open]);
+
+    const query = useQuery({
+        queryKey: ["getAgent", { id }],
+        queryFn: () => getAgent(id),
+        enabled: formType === "update" && !!id, 
+    });
+
+    useEffect(() => {
+        if (query.data?.data && formType === "update") {
+            const { name, instructions } = query.data.data;
+            form.reset({ name, instructions });
+        }
+    }, [form, formType, query.data]);
+
     const mutation = useMutation({
-        mutationFn: () => addAgent(form.getValues()),
+        mutationFn: () => {
+            if (formType === "add") return addAgent(form.getValues());
+            return updateAgent({ id, ...form.getValues() });
+        },
         onSuccess: () => {
-            form.reset();
+            if (formType === "add") form.reset();
             queryClient.invalidateQueries({ queryKey: ["getAgents"] });
         }
     });
 
-    return { title, description, form, mutation }
+    const isFetchingInitialData = query.isLoading && formType === "update";
+    return { title, description, IconButton, labelButton, isFetchingInitialData, form, mutation }
 }

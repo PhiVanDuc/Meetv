@@ -1,7 +1,20 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function useAgentCellActions(id: string) {
+import { deleteAgent } from "@/services/agents/client-functions";
+
+export default function useAgentCellActions() {
+    const queryClient = useQueryClient();
     const [isOpenAlert, setIsOpenAlert] = useState(false);
+    const [isOpenDialog, setIsOpenDialog] = useState(false);
 
-    return { isOpenAlert, setIsOpenAlert }
+    const mutation = useMutation({
+        mutationFn: (id: string) => deleteAgent(id),
+        onSuccess: () => {
+            setIsOpenAlert(false);
+            queryClient.invalidateQueries({ queryKey: ["getAgents"] })
+        }
+    });
+
+    return { isOpenDialog, setIsOpenDialog, isOpenAlert, setIsOpenAlert, mutation }
 }
