@@ -106,7 +106,7 @@ function DialogBody({
     <div
       data-slot="dialog-body"
       className={cn(
-        "flex-1 p-[20px] pt-0 overflow-y-auto min-h-0", // min-h-0 giúp flex child scroll đúng cách
+        "flex-1 p-[20px] pt-0 overflow-y-auto min-h-0",
         className
       )}
       {...props}
@@ -162,7 +162,7 @@ function DialogDescription({
     <DialogPrimitive.Description
       data-slot="dialog-description"
       className={cn(
-        "*:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground medim-desc",
+        "*:[a]:underline *:[a]:underline-offset-3 medim-desc text-zinc-500!",
         className
       )}
       {...props}

@@ -1,9 +1,8 @@
 "use client"
 
-import AgentCellActions from "@/app/(dashboard)/agents/_components/cell-actions";
-
 import Avatar from "boring-avatars";
 import { Badge } from "@/components/ui/badge";
+import AgentCellActions from "@/app/(dashboard)/agents/_components/cell-actions";
 
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -42,9 +41,7 @@ const columns: ColumnDef<Agent>[] = [
     {
         accessorKey: "meeting-count",
         header: () => <h2 className="text-center">Các cuộc họp</h2>,
-        cell: ({ row }) => {
-            const { id } = row.original;
-            
+        cell: () => {
             return (
                 <div className="flex justify-center">
                     <Badge
@@ -66,7 +63,7 @@ const columns: ColumnDef<Agent>[] = [
             
             return (
                 <div className="flex justify-center">
-                    <AgentCellActions />
+                    <AgentCellActions id={id} />
                 </div>
             )
         }

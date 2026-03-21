@@ -13,20 +13,18 @@ import { Dispatch, SetStateAction } from "react";
 import ICONS from "@/consts/icons";
 
 interface Props {
-    isOpen: boolean,
+    open: boolean,
     formType: FormType,
-    setIsOpen: Dispatch<SetStateAction<boolean>>
+    onOpenChange: Dispatch<SetStateAction<boolean>>
 }
 
-export default function AgentFormDialog({ formType, isOpen, setIsOpen }: Props) {
-    const { title, description, form, mutation } = useAgentFormDialog({ formType });
-
-    const handleSubmit = async () => mutation.mutate();
+export default function AgentFormDialog({ formType, open, onOpenChange }: Props) {
+    const { title, description, form, mutation } = useAgentFormDialog(formType);
 
     return (
         <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
+            open={open}
+            onOpenChange={onOpenChange}
         >
             <DialogContent>
                 <DialogHeader>
@@ -38,7 +36,7 @@ export default function AgentFormDialog({ formType, isOpen, setIsOpen }: Props) 
                 <form
                     autoComplete="off"
                     className="space-y-[15px]"
-                    onSubmit={form.handleSubmit(handleSubmit)}
+                    onSubmit={form.handleSubmit(() => mutation.mutate())}
                 >
                     <FieldGroup>
                         <Controller

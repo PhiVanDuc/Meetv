@@ -17,16 +17,24 @@ export default function AgentListTable({ page, limit }: Props) {
         <div className="space-y-[100px]">
             <div className="space-y-[30px]">
                 <Table
+                    data={agents}
                     columns={columns}
-                    data={agents || []}
                     isPending={isPending}
                 />
 
-                { (!isPending && !isError) && <Pagination /> }
+                {
+                    (!isPending && !isError && pagination)
+                        && (
+                            <Pagination
+                                page={pagination.page}
+                                totalPages={pagination.totalPages}
+                            />
+                        )
+                }
             </div>
 
             {
-                (!isPending && !isError && agents?.length === 0)
+                (!isPending && !isError && agents.length === 0)
                     && (
                         <Empty
                             title="Bắt đầu với agent đầu tiên"

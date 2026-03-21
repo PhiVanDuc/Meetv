@@ -1,10 +1,9 @@
 "use client"
 
-import { FetcherError, fetcherPrivate } from "@/libs/fetcher";
+import { fetcherPrivate } from "@/libs/fetcher";
 import generateQueryString from "@/utils/generate-query-string";
-import { getCurrentUser } from "@/services/session/server-actions";
 
-import { GetAgentsRequestData, GetAgentsResponseData } from "@/services/agents/types";
+import { GetAgentsRequestData, GetAgentsResponseData, AddAgentRequestData, UpdateAgentRequestData } from "@/services/agents/types";
 
 export const getAgents = async (data: GetAgentsRequestData) => {
     const queryString = generateQueryString({
@@ -12,24 +11,18 @@ export const getAgents = async (data: GetAgentsRequestData) => {
         limit: data.limit
     });
 
-    return await fetcherPrivate.get<GetAgentsResponseData>({ pathname: `/agents?${queryString}` });
+    return await fetcherPrivate.get<GetAgentsResponseData>({ pathname: `/agents${queryString}` });
 }
 
-export const addAgent = async <RequestData>(data: RequestData) => {
-    const currentUser = await getCurrentUser();
+export const addAgent = async (data: AddAgentRequestData) => {
+    return await fetcherPrivate.post({ pathname: "/agents", body: data });
+}
 
-    if (!currentUser) {
-        throw new FetcherError({
-            status: 401,
-            message: "Phiên đăng nhập đã hết hạn."
-        });
-    }
+export const updateAgent = async (data: UpdateAgentRequestData) => {
+    const { id, ...restData } = data;
+    return await fetcherPrivate.put({ pathname: `/agents/${id}`, body: restData });
+}
 
-    return await fetcherPrivate.post({
-        pathname: "/agents",
-        body: {
-            ...data,
-            userId: currentUser.id
-        }
-    });
+export const deleteAgent = async (id: string) => {
+    return await fetcherPrivate.delete({ pathname: `/agents/${id}` });
 }

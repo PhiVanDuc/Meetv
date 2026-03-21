@@ -5,11 +5,7 @@ import { schemaAgent } from "@/schemas/agent";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addAgent } from "@/services/agents/client-functions";
 
-interface Parameters {
-    formType: FormType
-}
-
-export default function useAgentFormDialog({ formType }: Parameters) {
+export default function useAgentFormDialog(formType: FormType) {
     const queryClient = useQueryClient();
 
     const title = formType === "add"

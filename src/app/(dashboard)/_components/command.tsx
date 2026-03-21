@@ -4,15 +4,15 @@ import { cn } from "@/libs/utils";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-    isOpen?: boolean,
-    setIsOpen?: Dispatch<SetStateAction<boolean>>
+    open: boolean,
+    onOpenChange: Dispatch<SetStateAction<boolean>>
 }
 
-export default function DashboardCommand({ isOpen, setIsOpen }: Props) {
+export default function DashboardCommand({ open, onOpenChange }: Props) {
     return (
         <CommandDialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
+            open={open}
+            onOpenChange={onOpenChange}
         >
             <Command>
                 <div className="p-[15px]">

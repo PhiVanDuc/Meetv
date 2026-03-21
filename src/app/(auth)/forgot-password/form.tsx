@@ -3,7 +3,6 @@
 import useForgotPasswordForm from "@/app/(auth)/forgot-password/use-form";
 
 import Link from "next/link";
-
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,14 +14,11 @@ import ICONS from "@/consts/icons";
 export default function ForgotPasswordForm() {
     const { form, sendOTPMutation, forgotPasswordMutation } = useForgotPasswordForm();
 
-    const handleSendOTP = () => sendOTPMutation.mutate();
-    const handleSubmit = () => forgotPasswordMutation.mutate();
-
     return (
         <form
             autoComplete="off"
             className="space-y-[15px]"
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={form.handleSubmit(() => forgotPasswordMutation.mutate())}
         >
             <FieldGroup>
                 <Controller
@@ -62,9 +58,9 @@ export default function ForgotPasswordForm() {
 
                                     <Button
                                         type="button"
-                                        onClick={handleSendOTP}
                                         className="whitespace-nowrap"
                                         disabled={sendOTPMutation.isPending}
+                                        onClick={() => sendOTPMutation.mutate()}
                                     >
                                         { sendOTPMutation.isPending ? <Spinner /> : <ICONS.SEND /> }
                                         <span>Mã OTP</span>

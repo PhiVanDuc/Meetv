@@ -23,8 +23,8 @@ export default function AgentAddButton() {
 
             <AgentFormDialog
                 formType="add"
-                isOpen={isOpenDialog}
-                setIsOpen={setIsOpenDialog}
+                open={isOpenDialog}
+                onOpenChange={setIsOpenDialog}
             />
         </>
     )

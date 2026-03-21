@@ -1,35 +1,20 @@
 "use client"
 
-import { useEffect, useState } from "react";
-import { useSidebar } from "@/components/ui/sidebar";
-
-import DashboardCommand from "@/app/(dashboard)/_components/command";
+import useDashboardNavbar from "@/app/(dashboard)/_hooks/use-navbar";
 
 import { Button } from "@/components/ui/button";
+import DashboardCommand from "@/app/(dashboard)/_components/command";
 
 import ICONS from "@/consts/icons";
 
 export default function DashboardNavbar() {
-    const { state, toggleSidebar, isMobile } = useSidebar();
-    const [isOpenCommand, setIsOpenCommand] = useState(false);
-
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault();
-                setIsOpenCommand(state => !state);
-            }
-        }
-
-        document.addEventListener("keydown", handleKeyDown);
-        return () => document.removeEventListener("keydown", handleKeyDown);
-    }, []);
+    const { state, toggleSidebar, isMobile, isOpenCommand, setIsOpenCommand } = useDashboardNavbar();
 
     return (
         <header className="p-[15px] border-b">
             <DashboardCommand
-                isOpen={isOpenCommand}
-                setIsOpen={setIsOpenCommand}
+                open={isOpenCommand}
+                onOpenChange={setIsOpenCommand}
             />
 
             <nav className="flex items-center gap-[10px]">

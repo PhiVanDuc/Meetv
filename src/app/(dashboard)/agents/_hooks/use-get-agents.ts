@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getAgents } from "@/services/agents/client-functions";
+import { FetcherResponse } from "@/libs/fetcher";
 
 type Parameters = PaginationPartial;
 
@@ -11,10 +12,11 @@ export default function useGetAgents({ page, limit }: Parameters) {
     });
 
     const isError = !query.isPending && query.isError;
-    const { data, ...response } = query.data ?? {};
+    const { data, ...res } = query.data ?? {};
 
-    const agents = data?.agents;
-    const pagination = data?.pagination;
+    const agents = data?.agents || [];
+    const pagination = data?.pagination as Pagination;
+    const response = res as Omit<FetcherResponse<unknown>, "data">;
 
     return {
         agents,

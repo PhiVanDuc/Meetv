@@ -3,8 +3,6 @@
 import useSignInForm from "@/app/(auth)/sign-in/use-form";
 
 import Link from "next/link";
-
-import { FaGoogle } from "react-icons/fa";
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,13 +14,11 @@ import ICONS from "@/consts/icons";
 export default function SignInForm() {
     const { form, mutation, redirectOAuth } = useSignInForm();
 
-    const handleSubmit = () => mutation.mutate();
-
     return (
         <form
             autoComplete="off"
             className="space-y-[15px]"
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={form.handleSubmit(() => mutation.mutate())}
         >
             <FieldGroup>
                 <Controller
@@ -92,7 +88,7 @@ export default function SignInForm() {
                         onClick={redirectOAuth}
                         className="w-full text-zinc-500 hover:text-zinc-600"
                     >
-                        <FaGoogle />
+                        <ICONS.GOOGLE />
                         <span>Đăng nhập Google</span>
                     </Button>
                 </div>

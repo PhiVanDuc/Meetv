@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 
 import Link from "next/link";
-
 import { SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 
 import { FIRST_DASHBOARD_SIDEBAR_SECTION, SECOND_DASHBOARD_SIDEBAR_SECTION } from "@/consts/sidebars";
