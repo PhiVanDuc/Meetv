@@ -25,13 +25,13 @@ export default function useAgentFormDialog({ open, formType, id: paramId }: Para
         ? "Nhập đầy đủ thông tin để thêm agent tại đây."
         : "Chỉnh sửa thông tin để cập nhật agent tại đây.";
 
-    const IconButton = formType === "add"
-        ? ICONS.ADD
-        : ICONS.UPDATE;
-
     const labelButton = formType === "add"
         ? "Thêm agent"
         : "Cập nhật agent";
+
+    const IconButton = formType === "add"
+        ? ICONS.ADD
+        : ICONS.UPDATE;
 
     const form = useForm({
         defaultValues: {

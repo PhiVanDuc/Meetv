@@ -77,6 +77,7 @@ export default function SignUpForm() {
                                     />
 
                                     <Button
+                                        type="button"
                                         className="whitespace-nowrap"
                                         disabled={sendOTPMutation.isPending}
                                         onClick={() => sendOTPMutation.mutate()}

@@ -47,7 +47,10 @@ export default function useAgentFilter(propFilter: AgentFilterFields) {
         handleRedirect();
     }
 
-    const handleClickReset = () => setFilter({ name: "" });
+    const handleClickReset = () => {
+        router.push(pathname);
+        setFilter({ name: "" });
+    };
 
     return { filter, setFilter, handleChangeName, handleKeyDownFilter, isShowRefreshButton, handleClickReset };
 }

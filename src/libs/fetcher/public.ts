@@ -3,26 +3,32 @@ import { FetcherResponse, FetcherError, FetcherHandleParams, FetcherGetParams, F
 const BE = process.env.NEXT_PUBLIC_BE;
 
 const handle = async <RequestData, ResponseData>({ method, pathname, body, options }: FetcherHandleParams<RequestData>): Promise<FetcherResponse<ResponseData>> => {
-    const headers = new Headers(options?.headers);
     let parsedBody: BodyInit | undefined | null = undefined;
+    const { timeout = 60000, signal: externalSignal, ...restOptions } = options || {};
+
+    const headers = new Headers(restOptions?.headers);
 
     if (body) {
-        if (
-            typeof body === "string" ||
-            body instanceof FormData ||
-            body instanceof URLSearchParams ||
-            body instanceof Blob ||
-            body instanceof ArrayBuffer
-        ) {
-            parsedBody = body;
-        }
+        if (typeof body === "string" || body instanceof FormData || body instanceof URLSearchParams || body instanceof Blob || body instanceof ArrayBuffer) parsedBody = body;
         else {
             parsedBody = JSON.stringify(body);
             headers.set("Content-Type", "application/json");
         }
     }
 
-    const requestConfig: RequestInit = { ...options, method, headers, body: parsedBody };
+    const abortRequestController = new AbortController();
+    const handleAbortRequest = () => abortRequestController.abort();
+    
+    const countdownAbortRequest = setTimeout(handleAbortRequest, timeout);
+    if (externalSignal) externalSignal.addEventListener("abort", handleAbortRequest);
+
+    const requestConfig: RequestInit = {
+        ...restOptions,
+        method,
+        headers,
+        body: parsedBody,
+        signal: abortRequestController.signal,
+    };
 
     try {
         const response = await fetch(`${BE}${pathname}`, requestConfig);
@@ -64,11 +70,22 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
     }
     catch(error) {
         if (error instanceof FetcherError) throw error;
+
+        if (error instanceof DOMException && error.name === "AbortError") {
+            throw new FetcherError({
+                status: 408,
+                message: "Yêu cầu đã bị huỷ."
+            });
+        }
         
         throw new FetcherError({
             status: 500,
             message: error instanceof Error ? error.message : "Lỗi kết nối mạng."
         });
+    }
+    finally {
+        clearTimeout(countdownAbortRequest);
+        if (externalSignal) externalSignal?.removeEventListener("abort", handleAbortRequest);
     }
 }
 

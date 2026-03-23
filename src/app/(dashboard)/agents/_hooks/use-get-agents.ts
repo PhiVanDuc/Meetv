@@ -12,9 +12,8 @@ export default function useGetAgents({ page, limit, filter }: Parameters) {
         queryKey: ["getAgents", { page, limit, filter }]
     });
 
-    const isError = !query.isPending && query.isError;
-
     const { data, ...res } = query.data ?? {};
+    const isError = !query.isPending && query.isError;
     const response = res as Omit<FetcherResponse<unknown>, "data">;
 
     return {
