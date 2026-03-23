@@ -1,20 +1,23 @@
-import AgentListTable from "@/app/(dashboard)/agents/_components/list-table";
-import AgentListHeader from "@/app/(dashboard)/agents/_components/list-header";
+import AgentBody from "@/app/(dashboard)/agents/_components/body";
+import AgentHeader from "@/app/(dashboard)/agents/_components/header";
+
+import { AgentFilterFields } from "@/app/(dashboard)/agents/_components/filter";
 
 interface Props {
-    searchParams: Promise<PaginationPartial>
+    searchParams: Promise<PaginationPartial & AgentFilterFields>
 }
 
 export default async function Page({ searchParams }: Props) {
-    const { page, limit } = await searchParams;
+    const { page, limit, ...filter } = await searchParams;
 
     return (
         <div className="space-y-[30px]">
-            <AgentListHeader />
+            <AgentHeader />
 
-            <AgentListTable
+            <AgentBody
                 page={page}
                 limit={limit}
+                filter={filter}
             />
         </div>
     )

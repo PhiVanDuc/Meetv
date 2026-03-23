@@ -8,7 +8,8 @@ import { GetAgentsRequestData, GetAgentsResponseData, AddAgentRequestData, Updat
 export const getAgents = async (data: GetAgentsRequestData) => {
     const queryString = generateQueryString({
         page: data.page,
-        limit: data.limit
+        limit: data.limit,
+        ...data.filter
     });
 
     return await fetcherPrivate.get<GetAgentsResponseData>({ pathname: `/agents${queryString}` });

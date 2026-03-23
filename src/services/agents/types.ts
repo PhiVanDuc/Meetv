@@ -1,8 +1,13 @@
-export type GetAgentsRequestData = PaginationPartial;
+import { AgentFilterFields } from "@/app/(dashboard)/agents/_components/filter";
+
+export type GetAgentsRequestData = PaginationPartial & {
+    filter: AgentFilterFields
+};
 
 export type GetAgentsResponseData = {
+    agents: Agent[],
+    createdAgent: boolean,
     pagination: Pagination,
-    agents: Agent[]
 }
 
 export interface AddAgentRequestData {

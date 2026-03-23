@@ -14,8 +14,8 @@ interface Parameters {
     formType: FormType
 }
 
-export default function useAgentFormDialog({ open, formType, id: propId }: Parameters) {
-    const id = propId ? propId : "";
+export default function useAgentFormDialog({ open, formType, id: paramId }: Parameters) {
+    const id = paramId ? paramId : "";
 
     const title = formType === "add"
         ? "Thêm agent"
@@ -33,8 +33,6 @@ export default function useAgentFormDialog({ open, formType, id: propId }: Param
         ? "Thêm agent"
         : "Cập nhật agent";
 
-    const queryClient = useQueryClient();
-
     const form = useForm({
         defaultValues: {
             name: "",
@@ -48,8 +46,8 @@ export default function useAgentFormDialog({ open, formType, id: propId }: Param
     }, [formType, open]);
 
     const query = useQuery({
-        queryKey: ["getAgent", { id }],
         queryFn: () => getAgent(id),
+        queryKey: ["getAgent", { id }],
         enabled: formType === "update" && !!id, 
     });
 
@@ -59,6 +57,8 @@ export default function useAgentFormDialog({ open, formType, id: propId }: Param
             form.reset({ name, instructions });
         }
     }, [form, formType, query.data]);
+
+    const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: () => {
@@ -71,6 +71,7 @@ export default function useAgentFormDialog({ open, formType, id: propId }: Param
         }
     });
 
-    const isFetchingInitialData = query.isLoading && formType === "update";
-    return { title, description, IconButton, labelButton, isFetchingInitialData, form, mutation }
+    const isPendingInitialData = query.isLoading && formType === "update";
+    
+    return { title, description, IconButton, labelButton, isPendingInitialData, form, mutation }
 }

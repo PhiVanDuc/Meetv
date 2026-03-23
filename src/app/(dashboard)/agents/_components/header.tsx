@@ -1,7 +1,7 @@
 import Header from "@/components/header";
 import AgentAddButton from "@/app/(dashboard)/agents/_components/add-button";
 
-export default function AgentListHeader() {
+export default function AgentHeader() {
     return (
         <div className="flex flex-col md:flex-row gap-[15px] md:items-center justify-between">
             <Header>

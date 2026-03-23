@@ -8,7 +8,7 @@ export default (object: Record<string, QueryValue>) => {
     const searchParams = new URLSearchParams();
 
     Object.entries(object).forEach(([key, value]) => {
-        if (value === undefined || value === null) return;
+        if (value === undefined || value === null || value === "") return;
 
         if (Array.isArray(value)) {
             value.forEach(element => {

@@ -14,7 +14,10 @@ interface PaginationPartial {
     limit: string
 }
 
-type Pagination = PaginationPartial & { totalPages: string }
+type Pagination = PaginationPartial & {
+    totalPages: string,
+    totalItems: string
+}
 
 type FormType = "add" | "update";
 
@@ -29,6 +32,5 @@ interface CurrentUser {
 interface Agent {
     id: string,
     name: string,
-    slug: string,
     instructions: string
 }
