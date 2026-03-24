@@ -1,7 +1,10 @@
 "use client"
 
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import { useReactTable } from "@tanstack/react-table";
+
 import { Table as ShadcnTable, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
+import { ColumnDef, flexRender, getCoreRowModel } from "@tanstack/react-table";
 
 interface Props<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]

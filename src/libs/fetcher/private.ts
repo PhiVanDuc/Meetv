@@ -1,8 +1,9 @@
 "use client"
 
+import { getSessionToken } from "@/services/auth/server-actions";
+import { refreshSession } from "@/services/auth/client-functions";
+
 import { FetcherError } from "@/libs/fetcher";
-import { getSessionToken } from "@/services/session/server-actions";
-import { refreshSession } from "@/services/session/client-functions";
 import { FetcherResponse, FetcherHandleParams, FetcherGetParams, FetcherMutateParams } from "@/libs/fetcher";
 
 const BE = process.env.NEXT_PUBLIC_BE;
@@ -90,7 +91,7 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
 
         if (error instanceof DOMException && error.name === "AbortError") {
             throw new FetcherError({
-                status: 408,
+                status: 499,
                 message: "Yêu cầu đã bị huỷ."
             });
         }

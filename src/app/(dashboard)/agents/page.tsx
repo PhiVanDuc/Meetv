@@ -1,7 +1,7 @@
 import AgentBody from "@/app/(dashboard)/agents/_components/body";
 import AgentHeader from "@/app/(dashboard)/agents/_components/header";
 
-import { AgentFilterFields } from "@/app/(dashboard)/agents/_components/filter";
+import { AgentFilterFields } from "@/types/agent";
 
 interface Props {
     searchParams: Promise<PaginationPartial & AgentFilterFields>

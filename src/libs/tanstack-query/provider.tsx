@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { queryClient } from "@/libs/tanstack-query";
 import { QueryClientProvider } from "@tanstack/react-query";
+
+import { queryClient } from "@/libs/tanstack-query";
 
 interface Props {
     readonly children: React.ReactNode

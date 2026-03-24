@@ -2,11 +2,10 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { sendOTP, signUp } from "@/services/auth/server-actions";
-import { schemaSignUp, FormDataSignUp } from "@/schemas/sign-up";
-
 import CODE_TYPES from "@/consts/code-types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { schemaSignUp, FormDataSignUp } from "@/schemas/auth";
+import { sendOTP, signUp } from "@/services/auth/server-actions";
 
 export default function useSignUpForm() {
     const router = useRouter();

@@ -1,9 +1,8 @@
 "use client"
 
 import { fetcherPublic } from "@/libs/fetcher";
-import { setSession, getSessionToken } from "@/services/session/server-actions";
-
-import { type FetcherResponse, FetcherError } from "@/libs/fetcher";
+import { FetcherResponse, FetcherError } from "@/libs/fetcher";
+import { setSession, getSessionToken } from "@/services/auth/server-actions";
 
 let refreshSessionPromise: Promise<FetcherResponse<Session>> | undefined;
 
@@ -13,13 +12,12 @@ export const refreshSession = async () => {
     refreshSessionPromise = (async () => {
         try {
             const refreshToken = await getSessionToken("refreshToken") || "";
-
             const responseData = await fetcherPublic.post<Omit<Session, "accessToken">, Session>({
                 pathname: "/auth/session/refresh",
                 body: { refreshToken }
             });
 
-            if (!responseData.data?.accessToken || !responseData.data.refreshToken) throw new Error();
+            if (!responseData.data?.accessToken || !responseData.data?.refreshToken) throw new Error();
 
             setSession({
                 accessToken: responseData.data.accessToken,
@@ -34,9 +32,7 @@ export const refreshSession = async () => {
                 message: "Phiên đăng nhập đã hết hạn."
             });
         }
-        finally {
-            refreshSessionPromise = undefined;
-        }
+        finally { refreshSessionPromise = undefined; }
     })();
 
     return refreshSessionPromise;

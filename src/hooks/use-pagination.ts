@@ -2,8 +2,8 @@ import { usePathname, useRouter } from "next/navigation";
 
 import generateQueryString from "@/utils/generate-query-string";
 
-const parseSafeInt = (string: string) => {
-    const parsed = parseInt(string, 10);
+const parseSafeInt = (string?: string) => {
+    const parsed = parseInt(string || "", 10);
     return isNaN(parsed) ? 1 : parsed;
 };
 
@@ -18,7 +18,7 @@ export default function usePagination({ page: paramPage, totalPages: paramTotalP
         if (newPage < 1 || newPage > totalPages) return;
         
         const queryString = generateQueryString({ page: newPage });
-        router.push(`${pathname}?${queryString}`);
+        router.push(`${pathname}${queryString}`);
     };
 
     return { page, totalPages, handlePageChange }

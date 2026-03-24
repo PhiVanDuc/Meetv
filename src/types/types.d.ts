@@ -1,27 +1,9 @@
-type ResponseErrors = {
-    code: string,
-    field?: string,
-    message?: string
-}[];
-
 interface Session {
     accessToken: string,
     refreshToken: string
 }
 
-interface PaginationPartial {
-    page: string,
-    limit: string
-}
-
-type Pagination = PaginationPartial & {
-    totalPages: string,
-    totalItems: string
-}
-
-type FormType = "add" | "update";
-
-interface CurrentUser {
+interface SessionUser {
     id: string,
     name: string,
     email: string,
@@ -29,8 +11,13 @@ interface CurrentUser {
     provider: string
 }
 
-interface Agent {
-    id: string,
-    name: string,
-    instructions: string
+interface PaginationPartial {
+    page?: string,
+    limit?: string
 }
+
+type Pagination =
+    PaginationPartial
+    & { totalPages?: string }
+
+type FormType = "add" | "update";

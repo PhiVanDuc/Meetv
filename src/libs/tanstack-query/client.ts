@@ -1,12 +1,11 @@
 import { toast } from "@pheralb/toast";
+import { Handle401Parameters } from "@/libs/tanstack-query";
+import { removeSession } from "@/services/auth/server-actions";
 import { FetcherResponse, FetcherError } from "@/libs/fetcher";
-import { clearSession } from "@/services/session/server-actions";
-import { Query, QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
+import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
-const handle401 = async ({ router, query, queryClient }: { router: AppRouterInstance, query?: Query<unknown, unknown>, queryClient?: QueryClient }) => {
-    await clearSession();
-
+const handle401 = async ({ router, query, queryClient }: Handle401Parameters) => {
     if (query && queryClient) {
         queryClient.invalidateQueries({
             queryKey: query.queryKey,
@@ -14,6 +13,7 @@ const handle401 = async ({ router, query, queryClient }: { router: AppRouterInst
         });
     }
 
+    await removeSession();
     router.push("/sign-in");
 }
 
@@ -28,7 +28,7 @@ export default (router: AppRouterInstance) => {
         queryCache: new QueryCache({
             onError: async (error, query) => {
                 console.log(error);
-
+                
                 if (error instanceof FetcherError && error.status === 401) {
                     await handle401({ router, query, queryClient: client });
                 }

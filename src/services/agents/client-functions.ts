@@ -2,16 +2,11 @@
 
 import { fetcherPrivate } from "@/libs/fetcher";
 import generateQueryString from "@/utils/generate-query-string";
-
-import { GetAgentsRequestData, GetAgentsResponseData, AddAgentRequestData, UpdateAgentRequestData } from "@/services/agents/types";
+import { Agent, GetAgentsRequestData, GetAgentsResponseData, AddAgentRequestData, UpdateAgentRequestData } from "@/types/agent";
 
 export const getAgents = async (data: GetAgentsRequestData) => {
-    const queryString = generateQueryString({
-        page: data.page,
-        limit: data.limit,
-        ...data.filter
-    });
-
+    const { page, limit, filter } = data;
+    const queryString = generateQueryString({ page, limit, ...filter });
     return await fetcherPrivate.get<GetAgentsResponseData>({ pathname: `/agents${queryString}` });
 }
 

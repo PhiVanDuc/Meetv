@@ -4,9 +4,9 @@ import Avatar from "boring-avatars";
 import { Badge } from "@/components/ui/badge";
 import AgentCellActions from "@/app/(dashboard)/agents/_components/cell-actions";
 
-import { ColumnDef } from "@tanstack/react-table";
-
 import ICONS from "@/consts/icons";
+import { Agent } from "@/types/agent";
+import { ColumnDef } from "@tanstack/react-table";
 
 const columns: ColumnDef<Agent>[] = [
     {

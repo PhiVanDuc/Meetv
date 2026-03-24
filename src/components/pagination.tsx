@@ -7,7 +7,9 @@ import { Button } from "@/components/ui/button";
 
 import { cn } from "@/libs/utils";
 
-export default function Pagination({ page: propPage, totalPages: propTotalPages }: Omit<Pagination, "limit" | "totalItems">) {
+type Props = Omit<Pagination, "limit" | "totalItems">
+
+export default function Pagination({ page: propPage, totalPages: propTotalPages }: Props) {
     const isMobile = useIsMobile();
     const { page, totalPages, handlePageChange } = usePagination({ page: propPage, totalPages: propTotalPages });
 

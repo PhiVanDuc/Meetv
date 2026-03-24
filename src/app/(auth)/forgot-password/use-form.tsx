@@ -2,11 +2,10 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 
+import CODE_TYPES from "@/consts/code-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { sendOTP, forgotPassword } from "@/services/auth/server-actions";
-import { schemaForgotPassword, FormDataForgotPassword } from "@/schemas/forgot-password";
-
-import CODE_TYPES from "@/consts/code-types";
+import { schemaForgotPassword, FormDataForgotPassword } from "@/schemas/auth";
 
 export default function useForgotPasswordForm() {
     const router = useRouter();

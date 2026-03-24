@@ -11,10 +11,11 @@ import ICONS from "@/consts/icons";
 interface Parameters {
     id?: string,
     open: boolean,
-    formType: FormType
+    formType: FormType,
+    onOpenChange: (open: boolean) => void
 }
 
-export default function useAgentFormDialog({ open, formType, id: paramId }: Parameters) {
+export default function useAgentFormDialog({ open, onOpenChange, formType, id: paramId }: Parameters) {
     const id = paramId ? paramId : "";
 
     const title = formType === "add"
@@ -25,25 +26,23 @@ export default function useAgentFormDialog({ open, formType, id: paramId }: Para
         ? "Nhập đầy đủ thông tin để thêm agent tại đây."
         : "Chỉnh sửa thông tin để cập nhật agent tại đây.";
 
-    const labelButton = formType === "add"
-        ? "Thêm agent"
-        : "Cập nhật agent";
-
     const IconButton = formType === "add"
         ? ICONS.ADD
         : ICONS.UPDATE;
 
+    const labelButton = formType === "add"
+        ? "Thêm agent"
+        : "Cập nhật agent";
+
+    const queryClient = useQueryClient();
+
     const form = useForm({
+        resolver: zodResolver(schemaAgent),
         defaultValues: {
             name: "",
             instructions: ""
-        },
-        resolver: zodResolver(schemaAgent)
+        }
     });
-
-    useEffect(() => {
-        if (formType === "add" && open) form.reset();
-    }, [formType, open]);
 
     const query = useQuery({
         queryFn: () => getAgent(id),
@@ -52,13 +51,12 @@ export default function useAgentFormDialog({ open, formType, id: paramId }: Para
     });
 
     useEffect(() => {
-        if (query.data?.data && formType === "update") {
+        if (formType === "add" && open) form.reset();
+        if (formType === "update" && query.data?.data) {
             const { name, instructions } = query.data.data;
             form.reset({ name, instructions });
         }
-    }, [form, formType, query.data]);
-
-    const queryClient = useQueryClient();
+    }, [form, formType, query.data, open]);
 
     const mutation = useMutation({
         mutationFn: () => {
@@ -66,12 +64,16 @@ export default function useAgentFormDialog({ open, formType, id: paramId }: Para
             return updateAgent({ id, ...form.getValues() });
         },
         onSuccess: () => {
-            if (formType === "add") form.reset();
             queryClient.invalidateQueries({ queryKey: ["getAgents"] });
+
+            if (formType === "add") form.reset();
+            else {
+                onOpenChange(false);
+                queryClient.invalidateQueries({ queryKey: ["getAgent", { id }] });
+            }
         }
     });
 
-    const isPendingInitialData = query.isLoading && formType === "update";
-    
+    const isPendingInitialData = formType === "update" && query.isLoading;
     return { title, description, IconButton, labelButton, isPendingInitialData, form, mutation }
 }

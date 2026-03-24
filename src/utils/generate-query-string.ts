@@ -1,8 +1,4 @@
-type QueryValue = 
-    | string
-    | number
-    | boolean
-    | QueryValue[];
+type QueryValue = string | number | boolean | undefined | null | QueryValue[];
 
 export default (object: Record<string, QueryValue>) => {
     const searchParams = new URLSearchParams();
@@ -13,7 +9,7 @@ export default (object: Record<string, QueryValue>) => {
         if (Array.isArray(value)) {
             value.forEach(element => {
                 if (element === undefined || element === null) return;
-                searchParams.append(key, element.toString())
+                searchParams.append(key, element.toString());
             });
         }
         else searchParams.append(key, value.toString());

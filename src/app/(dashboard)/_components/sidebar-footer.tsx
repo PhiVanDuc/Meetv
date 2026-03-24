@@ -11,28 +11,27 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGro
 
 import { cn } from "@/libs/utils";
 import { forwardRef } from "react";
-
 import ICONS from "@/consts/icons";
 
 interface Props {
-    currentUser?: CurrentUser
+    sessionUser?: SessionUser
 }
 
-export default function DashboardSidebarFooter({ currentUser }: Props) {
+export default function DashboardSidebarFooter({ sessionUser }: Props) {
     const { isMobile, handleSignOut } = useDashboardSidebarFooter();
 
     if (isMobile) {
         return (
             <SidebarFooter>
                 <Drawer>
-                    <DrawerTrigger asChild>
-                        <Trigger currentUser={currentUser} />
+                    <DrawerTrigger>
+                        <Trigger sessionUser={sessionUser} />
                     </DrawerTrigger>
 
                     <DrawerContent>
                         <DrawerHeader>
-                            <DrawerTitle>{currentUser?.name}</DrawerTitle>
-                            <DrawerDescription>{currentUser?.email}</DrawerDescription>
+                            <DrawerTitle>{sessionUser?.name}</DrawerTitle>
+                            <DrawerDescription>{sessionUser?.email}</DrawerDescription>
                         </DrawerHeader>
 
                         <DrawerFooter>
@@ -63,8 +62,8 @@ export default function DashboardSidebarFooter({ currentUser }: Props) {
     return (
         <SidebarFooter>
             <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Trigger currentUser={currentUser} />
+                <DropdownMenuTrigger>
+                    <Trigger sessionUser={sessionUser} />
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent
@@ -73,8 +72,8 @@ export default function DashboardSidebarFooter({ currentUser }: Props) {
                     sideOffset={10}
                 >
                     <DropdownMenuGroup>
-                        <p className="text-[15px] text-zinc-700 font-medium truncate">{currentUser?.name}</p>
-                        <p className="text-[13px] text-zinc-500 font-medium truncate">{currentUser?.email}</p>
+                        <p className="text-[15px] text-zinc-700 font-medium truncate">{sessionUser?.name}</p>
+                        <p className="text-[13px] text-zinc-500 font-medium truncate">{sessionUser?.email}</p>
                     </DropdownMenuGroup>
 
                     <DropdownMenuSeparator />
@@ -107,13 +106,13 @@ export default function DashboardSidebarFooter({ currentUser }: Props) {
 type TriggerProps = Props & React.HTMLAttributes<HTMLDivElement>;
 
 const Trigger = forwardRef<HTMLDivElement, TriggerProps>(
-    ({ currentUser, className, ...props }, ref) => {
+    ({ sessionUser, className, ...props }, ref) => {
         return (
             <div 
                 ref={ref} 
                 {...props} 
                 className={cn(
-                    "flex items-center gap-[10px] p-[10px] cursor-pointer text-white bg-brand-primary rounded-[10px]",
+                    "flex items-center gap-[10px] p-[10px] cursor-pointer text-left text-white bg-brand-primary rounded-[10px]",
                     className
                 )}
             >
@@ -125,8 +124,8 @@ const Trigger = forwardRef<HTMLDivElement, TriggerProps>(
                 </div>
 
                 <div className="min-w-0">
-                    <p className="text-[14px] font-medium truncate">{currentUser?.name}</p>
-                    <p className="text-[12px] font-medium truncate">{currentUser?.email}</p>
+                    <p className="text-[14px] font-medium truncate">{sessionUser?.name}</p>
+                    <p className="text-[12px] font-medium truncate">{sessionUser?.email}</p>
                 </div>
             </div>
         )

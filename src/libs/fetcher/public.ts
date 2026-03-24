@@ -70,10 +70,10 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
     }
     catch(error) {
         if (error instanceof FetcherError) throw error;
-
+        
         if (error instanceof DOMException && error.name === "AbortError") {
             throw new FetcherError({
-                status: 408,
+                status: 499,
                 message: "Yêu cầu đã bị huỷ."
             });
         }

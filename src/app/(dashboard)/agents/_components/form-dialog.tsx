@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function AgentFormDialog({ open, onOpenChange, formType, id }: Props) {
-    const { title, description, IconButton, labelButton, isPendingInitialData, form, mutation } = useAgentFormDialog({ open, formType, id });
+    const { title, description, IconButton, labelButton, isPendingInitialData, form, mutation } = useAgentFormDialog({ open, onOpenChange, formType, id });
 
     return (
         <Dialog

@@ -3,23 +3,29 @@ export type FetcherGetParams = Omit<FetcherHandleParams<unknown>, 'method' | 'bo
 export type FetcherMutateParams<RequestData> = Omit<FetcherHandleParams<RequestData>, 'method'>;
 
 export interface FetcherHandleParams<RequestData> {
-    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
     pathname: string,
+    isRetry?: boolean,
     body?: RequestData | BodyInit,
-    options?: Omit<RequestInit, "method" | "body"> & { timeout?: number },
-    isRetry?: boolean
+    method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
+    options?: Omit<RequestInit, "method" | "body"> & { timeout?: number }
 }
+
+export type FetcherResponseErrors = {
+    code: string,
+    field?: string,
+    message?: string
+}[];
 
 export interface FetcherErrorParams<ResponseData> {
     status: number,
     message: string,
     data?: ResponseData,
-    errors?: ResponseErrors
+    errors?: FetcherResponseErrors
 }
 
 export interface FetcherResponse<ResponseData> {
     status: number;
     message: string;
     data?: ResponseData;
-    errors?: ResponseErrors;
+    errors?: FetcherResponseErrors;
 }

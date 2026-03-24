@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 
-import { signInGoogle } from "@/services/oauth/server-actions";
+import { signInGoogle } from "@/services/auth/server-actions";
 
 interface UseProviderSignInForm {
     code?: string,

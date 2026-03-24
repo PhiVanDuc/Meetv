@@ -1,35 +1,29 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
+import { AgentFilterFields } from "@/types/agent";
 import generateQueryString from "@/utils/generate-query-string";
-import { AgentFilterFields } from "@/app/(dashboard)/agents/_components/filter";
 
 export default function useAgentFilter(propFilter: AgentFilterFields) {
     const router = useRouter();
     const pathname = usePathname();
-
-    const [filter, setFilter] = useState({
-        name: propFilter.name || ""
-    });
-
-    const [isShowRefreshButton, setIsShowRefreshButton] = useState(false);
+    const [filter, setFilter] = useState({ name: propFilter.name || "" });
+    const [isOpenRefreshButton, setIsOpenRefreshButton] = useState(false);
         
     useEffect(() => {
         const debounce = setTimeout(() => {
             const isValid = Object.values(filter).some(value => value !== "");
-            setIsShowRefreshButton(isValid);
+            setIsOpenRefreshButton(isValid);
         }, 500);
 
         return () => clearTimeout(debounce);
     }, [filter]);
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilter(state => {
-            return {
-                ...state,
-                name: e.target.value
-            }
-        });
+        setFilter(state => ({
+            ...state,
+            name: e.target.value
+        }));
     }
 
     const handleRedirect =  () => {
@@ -52,5 +46,5 @@ export default function useAgentFilter(propFilter: AgentFilterFields) {
         setFilter({ name: "" });
     };
 
-    return { filter, setFilter, handleChangeName, handleKeyDownFilter, isShowRefreshButton, handleClickReset };
+    return { filter, setFilter, handleChangeName, handleKeyDownFilter, isOpenRefreshButton, handleClickReset };
 }

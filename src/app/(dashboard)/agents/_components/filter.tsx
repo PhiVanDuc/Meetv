@@ -4,17 +4,14 @@ import { Button } from "@/components/ui/button";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 
 import ICONS from "@/consts/icons";
-
-export interface AgentFilterFields {
-    name: string
-}
+import { AgentFilterFields } from "@/types/agent";
 
 interface Props {
     filter: AgentFilterFields
 }
 
 export default function AgentFilter({ filter: propFilter }: Props) {
-    const { filter, handleChangeName, handleKeyDownFilter, isShowRefreshButton, handleClickReset } = useAgentFilter(propFilter);
+    const { filter, handleChangeName, handleKeyDownFilter, isOpenRefreshButton, handleClickReset } = useAgentFilter(propFilter);
 
     return (
         <div className="flex items-center px-[3px] h-[42px] gap-[10px] overflow-x-auto">
@@ -32,7 +29,7 @@ export default function AgentFilter({ filter: propFilter }: Props) {
             </InputGroup>
 
             {
-                isShowRefreshButton
+                isOpenRefreshButton
                     && (
                         <Button
                             variant="outline"

@@ -7,12 +7,12 @@ import { Table } from "@/components/table";
 import Pagination from "@/components/pagination";
 import AgentFilter from "@/app/(dashboard)/agents/_components/filter";
 
+import { AgentFilterFields } from "@/types/agent";
 import columns from "@/app/(dashboard)/agents/columns";
-import { AgentFilterFields } from "@/app/(dashboard)/agents/_components/filter";
 
-type Props = PaginationPartial & {
-    filter: AgentFilterFields
-};
+type Props =
+    PaginationPartial
+    & { filter: AgentFilterFields };
 
 export default function AgentBody({ page, limit, filter }: Props) {
     const { isPending, isError, data } = useGetAgents({ page, limit, filter });
