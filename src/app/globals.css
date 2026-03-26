@@ -125,6 +125,10 @@
     html {
         @apply font-sans;
     }
+    [data-slot*="textarea"],
+    [data-slot*="input"] {
+        @apply text-[14px]!;
+    }
 }
 
 @theme {

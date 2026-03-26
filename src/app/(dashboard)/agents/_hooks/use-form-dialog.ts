@@ -16,6 +16,7 @@ interface Parameters {
 }
 
 export default function useAgentFormDialog({ open, onOpenChange, formType, id: paramId }: Parameters) {
+    // Thông tin khởi tạo
     const id = paramId ? paramId : "";
 
     const title = formType === "add"
@@ -34,8 +35,6 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
         ? "Thêm agent"
         : "Cập nhật agent";
 
-    const queryClient = useQueryClient();
-
     const form = useForm({
         resolver: zodResolver(schemaAgent),
         defaultValues: {
@@ -43,20 +42,28 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
             instructions: ""
         }
     });
+    // Kết thúc
 
+    // Thông tin chi tiết agent
     const query = useQuery({
         queryFn: () => getAgent(id),
         queryKey: ["getAgent", { id }],
         enabled: formType === "update" && !!id, 
     });
+    // Kết thúc
 
+    // Thông tin agent trên form khi mở dialog
     useEffect(() => {
         if (formType === "add" && open) form.reset();
         if (formType === "update" && query.data?.data) {
             const { name, instructions } = query.data.data;
             form.reset({ name, instructions });
         }
-    }, [form, formType, query.data, open]);
+    }, [form, formType, query, open]);
+    // Kết thúc
+
+    // Thêm hoặc sửa thông tin agent
+    const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: () => {
@@ -73,7 +80,9 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
             }
         }
     });
+    // Kết thúc
 
     const isPendingInitialData = formType === "update" && query.isLoading;
+
     return { title, description, IconButton, labelButton, isPendingInitialData, form, mutation }
 }

@@ -20,4 +20,10 @@ type Pagination =
     PaginationPartial
     & { totalPages?: string }
 
+interface Option {
+    id: string,
+    value: string,
+    children: React.ReactNode
+}
+
 type FormType = "add" | "update";

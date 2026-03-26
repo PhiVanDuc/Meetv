@@ -9,8 +9,6 @@ import { SidebarFooter } from "@/components/ui/sidebar";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
-import { cn } from "@/libs/utils";
-import { forwardRef } from "react";
 import ICONS from "@/consts/icons";
 
 interface Props {
@@ -103,33 +101,20 @@ export default function DashboardSidebarFooter({ sessionUser }: Props) {
     )
 }
 
-type TriggerProps = Props & React.HTMLAttributes<HTMLDivElement>;
-
-const Trigger = forwardRef<HTMLDivElement, TriggerProps>(
-    ({ sessionUser, className, ...props }, ref) => {
-        return (
-            <div 
-                ref={ref} 
-                {...props} 
-                className={cn(
-                    "flex items-center gap-[10px] p-[10px] cursor-pointer text-left text-white bg-brand-primary rounded-[10px]",
-                    className
-                )}
-            >
-                <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
-                    <Logo
-                        color="orange"
-                        className="w-[25px]"
-                    />
-                </div>
-
-                <div className="min-w-0">
-                    <p className="text-[14px] font-medium truncate">{sessionUser?.name}</p>
-                    <p className="text-[12px] font-medium truncate">{sessionUser?.email}</p>
-                </div>
+const Trigger = ({ sessionUser }: Props) => {
+    return (
+        <div className="flex items-center gap-[10px] p-[10px] cursor-pointer text-left text-white bg-brand-primary rounded-[10px]">
+            <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
+                <Logo
+                    color="orange"
+                    className="w-[25px]"
+                />
             </div>
-        )
-    }
-)
 
-Trigger.displayName = "Trigger";
+            <div className="min-w-0">
+                <p className="text-[14px] font-medium truncate">{sessionUser?.name}</p>
+                <p className="text-[12px] font-medium truncate">{sessionUser?.email}</p>
+            </div>
+        </div>
+    )
+}

@@ -96,13 +96,23 @@ export default function AgentFormDialog({ open, onOpenChange, formType, id }: Pr
                                 />
                             </FieldGroup>
 
-                            <Button
-                                className="w-full"
-                                disabled={mutation.isPending}
-                            >
-                                { mutation.isPending ? <Spinner /> : <IconButton /> }
-                                <span>{labelButton}</span>
-                            </Button>
+                            <div className="flex gap-[10px]">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={() => form.reset()}
+                                >
+                                    <span>Làm mới</span>
+                                </Button>
+
+                                <Button
+                                    className="flex-1"
+                                    disabled={mutation.isPending}
+                                >
+                                    { mutation.isPending ? <Spinner /> : <IconButton /> }
+                                    <span>{labelButton}</span>
+                                </Button>
+                            </div>
                         </form>
                     )
             }

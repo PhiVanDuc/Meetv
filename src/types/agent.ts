@@ -10,7 +10,7 @@ export interface AgentFilterFields {
 
 export type GetAgentsRequestData =
     PaginationPartial
-    & { filter: AgentFilterFields };
+    & { filter?: AgentFilterFields };
 
 export type GetAgentsResponseData = {
     agents: Agent[],
