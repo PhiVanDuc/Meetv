@@ -1,17 +1,18 @@
-import useAgentFilter from "@/app/(dashboard)/agents/_hooks/use-filter";
+import useMeetingFilter from "@/app/(dashboard)/meetings/_hooks/use-filter";
 
 import { Button } from "@/components/ui/button";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
+import CommandSelect from "@/components/command-select";
+import { InputGroup, InputGroupInput, InputGroupAddon } from "@/components/ui/input-group";
 
 import ICONS from "@/consts/icons";
-import { AgentFilterFields } from "@/types/agent";
+import { MeetingFilterFields } from "@/types/meeting";
 
 interface Props {
-    filter: AgentFilterFields
+    filter: MeetingFilterFields
 }
 
-export default function AgentFilter({ filter: propFilter }: Props) {
-    const { filter, handleChangeName, handleKeyDownFilter, isOpenRefreshButton, handleClickReset } = useAgentFilter(propFilter);
+export default function MeetingFilter({ filter: propFilter }: Props) {
+    const { filter, meetingStatusOptions, handleChangeName, handleKeyDownName, handleSelectStatus, handleClickReset, isOpenRefreshButton } = useMeetingFilter(propFilter);
 
     return (
         <div className="flex items-center px-[3px] h-[42px] gap-[10px] overflow-x-auto">
@@ -23,10 +24,18 @@ export default function AgentFilter({ filter: propFilter }: Props) {
                 <InputGroupInput
                     value={filter.name}
                     onChange={handleChangeName}
-                    onKeyDown={handleKeyDownFilter}
-                    placeholder="Nhập tên agent . . ."
+                    onKeyDown={handleKeyDownName}
+                    placeholder="Nhập tên cuộc họp . . ."
                 />
             </InputGroup>
+
+            <CommandSelect
+                className="w-fit"
+                value={filter.status}
+                selectPlaceholder="Trạng thái"
+                options={meetingStatusOptions}
+                onSelect={value => handleSelectStatus(value)}
+            />
 
             {
                 isOpenRefreshButton

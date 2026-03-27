@@ -22,7 +22,7 @@ export default function DashboardSidebarFooter({ sessionUser }: Props) {
         return (
             <SidebarFooter>
                 <Drawer>
-                    <DrawerTrigger>
+                    <DrawerTrigger suppressHydrationWarning>
                         <Trigger sessionUser={sessionUser} />
                     </DrawerTrigger>
 
@@ -60,7 +60,7 @@ export default function DashboardSidebarFooter({ sessionUser }: Props) {
     return (
         <SidebarFooter>
             <DropdownMenu>
-                <DropdownMenuTrigger>
+                <DropdownMenuTrigger suppressHydrationWarning>
                     <Trigger sessionUser={sessionUser} />
                 </DropdownMenuTrigger>
 

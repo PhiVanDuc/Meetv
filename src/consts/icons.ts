@@ -1,20 +1,24 @@
-import { BiVideo } from "react-icons/bi";
 import { FaPlus } from "react-icons/fa6";
+import { BiVideo } from "react-icons/bi";
+import { FiClock } from "react-icons/fi";
+import { TbReload } from "react-icons/tb";
 import { FaGoogle } from "react-icons/fa";
+import { BsCheckLg } from "react-icons/bs";
 import { RiRobot2Line } from "react-icons/ri";
 import { PiTrashSimpleBold } from "react-icons/pi";
 import { IoIosSend, IoMdCard } from "react-icons/io";
-import { IoReloadOutline } from "react-icons/io5";
 import { SearchIcon, PanelLeftClose, PanelLeftIcon, StarIcon, LogOut, EllipsisVertical, CornerDownRight, Check, X, ChevronsUpDown } from "lucide-react";
 
 export default {
     ADD: FaPlus,
     BILL: IoMdCard,
+    CLOCK: FiClock,
     SEND: IoIosSend,
     MEETING: BiVideo,
     GOOGLE: FaGoogle,
+    UPDATE: TbReload,
     AGENT: RiRobot2Line,
-    UPDATE: IoReloadOutline,
+    COMPLETED: BsCheckLg,
     DELETE: PiTrashSimpleBold,
     CLOSE: X,
     STAR: StarIcon,
@@ -25,5 +29,5 @@ export default {
     SELECT: ChevronsUpDown,
     EXPAND_PANEL: PanelLeftIcon,
     COLLAPSE_PANEL: PanelLeftClose,
-    VERTICAL_DOTS: EllipsisVertical,
+    VERTICAL_DOTS: EllipsisVertical
 } as const;

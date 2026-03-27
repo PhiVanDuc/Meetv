@@ -4,7 +4,7 @@ import useCommandSelect from "@/hooks/use-command-select";
 
 import Skeleton from "./skeleton";
 import { Button } from "./ui/button";
-import { Command, CommandDialog, CommandInput, CommandSeparator, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Command, CommandDialog, CommandInput, CommandSeparator, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut } from "@/components/ui/command";
 
 import { cn } from "@/libs/utils";
 import ICONS from "@/consts/icons";
@@ -12,6 +12,7 @@ import ICONS from "@/consts/icons";
 interface Props {
     value: string,
     options: Option[],
+    className?: string,
     isPending?: boolean,
     selectPlaceholder?: string,
     searchPlaceholder?: string,
@@ -22,7 +23,7 @@ interface Props {
     pagination?: Omit<Pagination, "limit">
 }
 
-export default function CommandSelect({ options, value, pagination, isPending, selectPlaceholder, searchPlaceholder, paginatePlaceholder, onSelect, onSearch, onPaginate, ...props }: Props) {
+export default function CommandSelect({ options, value, pagination, isPending, selectPlaceholder, searchPlaceholder, paginatePlaceholder, className, onSelect, onSearch, onPaginate, ...props }: Props) {
     const { isOpenDialog, setIsOpenDialog, searchValue, setSearchValue, selectedOption, parsedPage, parsedTotalPages, handleSelectOption } = useCommandSelect({ options, value, pagination, onSearch, onSelect });
 
     return (
@@ -32,7 +33,10 @@ export default function CommandSelect({ options, value, pagination, isPending, s
                 type="button"
                 variant="outline"
                 onClick={() => setIsOpenDialog(true)}
-                className="justify-between w-full font-normal text-muted-foreground hover:text-muted-foreground"
+                className={cn(
+                    "justify-between w-full font-normal text-muted-foreground hover:text-muted-foreground",
+                    className
+                )}
             >
                 {
                     selectedOption
@@ -40,14 +44,14 @@ export default function CommandSelect({ options, value, pagination, isPending, s
                         : <span>{selectPlaceholder || "Lựa chọn các mục."}</span>
                 }
                 
-                <ICONS.SELECT />
+                <ICONS.SELECT className="shrink-0" />
             </Button>
 
             <CommandDialog
                 open={isOpenDialog}
                 onOpenChange={setIsOpenDialog}
             >
-                <Command shouldFilter={!onSearch}>
+                <Command shouldFilter={!Boolean(onSearch)}>
                     <CommandInput
                         value={searchValue}
                         onValueChange={setSearchValue}
@@ -65,7 +69,7 @@ export default function CommandSelect({ options, value, pagination, isPending, s
                                         disabled={isPending}
                                         onSelect={() => handleSelectOption(option)}
                                         className={cn(
-                                            option.value === value && "bg-zinc-100",
+                                            option.value === value && "bg-zinc-100!",
                                             index < options.length - 1 && "mb-[5px]"
                                         )}
                                     >

@@ -60,35 +60,33 @@ export default function useMeetingFormDialog({ open, onOpenChange, formType, id:
     }), [agentPage, query.data?.pagination?.totalPages]);
 
     useEffect(() => {
-        if (query.data) {
+        if (!query.isPending && query.data?.agents && query.data.agents.length) {
             const { agents } = query.data;
 
-            if (agents && agents.length) {
-                setAgentOptions(state => {
-                    const agentOptionMap = new Map(state.map(agentOption => [agentOption.id, agentOption]));
+            setAgentOptions(state => {
+                const agentOptionMap = new Map(state.map(agentOption => [agentOption.id, agentOption]));
 
-                    agents.forEach(agent => {
-                        agentOptionMap.set(agent.id, {
-                            id: agent.id,
-                            value: agent.id,
-                            children: (
-                                <div className="flex items-center gap-[10px]">
-                                    <Avatar
-                                        name={agent.name}
-                                        className="size-[20px]"
-                                    />
+                agents.forEach(agent => {
+                    agentOptionMap.set(agent.id, {
+                        id: agent.id,
+                        value: agent.id,
+                        children: (
+                            <div className="flex-1 flex items-center gap-[10px] min-w-0">
+                                <Avatar
+                                    name={agent.name}
+                                    className="shrink-0 size-[20px]"
+                                />
 
-                                    {agent.name}
-                                </div>
-                            )
-                        })
-                    });
-
-                    return Array.from(agentOptionMap.values())
+                                <p className="flex-1 text-left truncate">{agent.name}</p>
+                            </div>
+                        )
+                    })
                 });
-            }
+
+                return Array.from(agentOptionMap.values())
+            });
         }
-    }, [query.data]);
+    }, [query.isPending, query.data]);
 
     const handleSearch = (value: string) => {
         if (value === searchAgentName) return;

@@ -9,7 +9,7 @@ export interface AgentFilterFields {
 }
 
 export type GetAgentsRequestData =
-    PaginationPartial
+    Omit<Pagination, "totalPages">
     & { filter?: AgentFilterFields };
 
 export type GetAgentsResponseData = {

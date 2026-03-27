@@ -28,7 +28,10 @@ export default function AgentCellActions({ id }: Props) {
     return (
         <>
             <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                <DropdownMenuTrigger
+                    asChild
+                    suppressHydrationWarning
+                >
                     <Button variant="outline">
                         <ICONS.VERTICAL_DOTS />
                     </Button>

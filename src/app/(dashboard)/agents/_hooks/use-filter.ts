@@ -4,11 +4,14 @@ import { useRouter, usePathname } from "next/navigation";
 import { AgentFilterFields } from "@/types/agent";
 import generateQueryString from "@/utils/generate-query-string";
 
-export default function useAgentFilter(propFilter: AgentFilterFields) {
+export default function useAgentFilter(paramFilter: AgentFilterFields) {
     const router = useRouter();
     const pathname = usePathname();
-    const [filter, setFilter] = useState({ name: propFilter.name || "" });
     const [isOpenRefreshButton, setIsOpenRefreshButton] = useState(false);
+
+    const [filter, setFilter] = useState({
+        name: paramFilter.name || ""
+    });
         
     useEffect(() => {
         const debounce = setTimeout(() => {
@@ -27,13 +30,9 @@ export default function useAgentFilter(propFilter: AgentFilterFields) {
     }
 
     const handleRedirect =  () => {
-        const queryString = generateQueryString({ ...filter });
-
-        const nextUrl = pathname + queryString;
+        const nextUrl = pathname + generateQueryString({ ...filter });
         const currentUrl = pathname + window.location.search;
-
-        if (currentUrl === nextUrl) return;
-        router.push(nextUrl);
+        if (currentUrl !== nextUrl) router.push(nextUrl);
     }
 
     const handleKeyDownFilter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -46,5 +45,5 @@ export default function useAgentFilter(propFilter: AgentFilterFields) {
         setFilter({ name: "" });
     };
 
-    return { filter, setFilter, handleChangeName, handleKeyDownFilter, isOpenRefreshButton, handleClickReset };
+    return { filter, handleChangeName, handleKeyDownFilter, isOpenRefreshButton, handleClickReset };
 }

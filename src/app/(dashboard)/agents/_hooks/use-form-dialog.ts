@@ -59,7 +59,7 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
             const { name, instructions } = query.data.data;
             form.reset({ name, instructions });
         }
-    }, [form, formType, query, open]);
+    }, [form, formType, open, query.data]);
     // Kết thúc
 
     // Thêm hoặc sửa thông tin agent
@@ -71,13 +71,11 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
             return updateAgent({ id, ...form.getValues() });
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["getAgents"] });
-
             if (formType === "add") form.reset();
-            else {
-                onOpenChange(false);
-                queryClient.invalidateQueries({ queryKey: ["getAgent", { id }] });
-            }
+            else queryClient.invalidateQueries({ queryKey: ["getAgent", { id }] });
+            
+            onOpenChange(false);
+            queryClient.invalidateQueries({ queryKey: ["getAgents"] });
         }
     });
     // Kết thúc

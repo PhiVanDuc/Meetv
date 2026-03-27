@@ -16,7 +16,7 @@ const columns: ColumnDef<Agent>[] = [
             const { name, instructions } = row.original;
 
             return (
-                <div className="space-y-[5px] min-w-[300px] max-w-[600px]">
+                <div className="space-y-[5px] min-w-[400px] max-w-[600px]">
                     <div className="flex items-center gap-[10px]">
                         <Avatar
                             size={40}

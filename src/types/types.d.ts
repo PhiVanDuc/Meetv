@@ -11,14 +11,11 @@ interface SessionUser {
     provider: string
 }
 
-interface PaginationPartial {
+interface Pagination {
     page?: string,
-    limit?: string
+    limit?: string,
+    totalPages?: string
 }
-
-type Pagination =
-    PaginationPartial
-    & { totalPages?: string }
 
 interface Option {
     id: string,

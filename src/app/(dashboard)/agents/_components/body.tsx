@@ -11,7 +11,7 @@ import { AgentFilterFields } from "@/types/agent";
 import columns from "@/app/(dashboard)/agents/columns";
 
 type Props =
-    PaginationPartial
+    Omit<Pagination, "totalPages">
     & { filter: AgentFilterFields };
 
 export default function AgentBody({ page, limit, filter }: Props) {

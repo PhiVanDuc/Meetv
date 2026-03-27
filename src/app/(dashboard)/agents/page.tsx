@@ -4,7 +4,7 @@ import AgentHeader from "@/app/(dashboard)/agents/_components/header";
 import { AgentFilterFields } from "@/types/agent";
 
 interface Props {
-    searchParams: Promise<PaginationPartial & AgentFilterFields>
+    searchParams: Promise<Omit<Pagination, "totalPages"> & AgentFilterFields>
 }
 
 export default async function Page({ searchParams }: Props) {
