@@ -1,26 +1,10 @@
-"use client"
+import MeetingShell from "@/app/(dashboard)/meetings/[id]/_components/shell";
 
-import { useParams } from "next/navigation";
-import useGetMeeting from "@/app/(dashboard)/meetings/_hooks/use-get-meeting";
+interface Props {
+    params: Promise<{ id: string }>
+}
 
-import MeetingDetailBody from "@/app/(dashboard)/meetings/[id]/_components/body";
-import MeetingDetailHeader from "@/app/(dashboard)/meetings/[id]/_components/header";
-
-export default function Page() {
-    const { id } = useParams();
-    const { data, isPending } = useGetMeeting(id as string);
-
-    return (
-        <div className="flex-1 flex flex-col space-y-[30px]">
-            <MeetingDetailHeader
-                isPending={isPending}
-                name={data?.name || ""}
-            />
-
-            <MeetingDetailBody
-                data={data}
-                isPending={isPending}
-            />
-        </div>
-    )
+export default async function Page({ params }: Props) {
+    const { id } = await params;
+    return <MeetingShell id={id} />
 }

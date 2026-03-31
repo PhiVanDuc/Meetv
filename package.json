@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@pheralb/toast": "^1.0.0",
+    "@stream-io/video-react-sdk": "^1.34.1",
     "@tailwindcss/postcss": "^4.2.1",
     "@tanstack/react-query": "^5.90.21",
     "@tanstack/react-table": "^8.21.3",

@@ -26,3 +26,7 @@ export const updateMeeting = async (data: UpdateMeetingRequestData) => {
 export const deleteMeeting = async (id: string) => {
     return await fetcherPrivate.delete({ pathname: `/meetings/${id}` });
 }
+
+export const generateUserVideoToken = async () => {
+    return await fetcherPrivate.post<unknown, { token: string }>({ pathname: "/meetings/user-video-token" });
+}

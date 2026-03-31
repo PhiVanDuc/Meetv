@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import ICONS from "@/consts/icons";
 import MEETING_STATUSES from "@/consts/meeting-statuses";
 
-
 interface Props {
     data?: Meeting,
     isPending: boolean
@@ -54,11 +53,14 @@ export default function MeetingDetailBody({ data, isPending }: Props) {
                                         </Button>
     
                                         <Button
+                                            asChild
                                             variant="brand"
                                             className="order-1 md:order-2 w-full md:w-fit"
                                         >
-                                            <ICONS.MEETING />
-                                            <span>Bắt đầu cuộc họp</span>
+                                            <Link href={`/call/${data.id}`}>
+                                                <ICONS.MEETING />
+                                                <span>Bắt đầu cuộc họp</span>
+                                            </Link>
                                         </Button>
                                     </>
                                 )

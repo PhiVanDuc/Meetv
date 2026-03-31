@@ -15,7 +15,7 @@ type Props =
     & { filter: AgentFilterFields };
 
 export default function AgentBody({ page, limit, filter }: Props) {
-    const { isPending, isError, data } = useGetAgents({ page, limit, filter });
+    const { isPending, data } = useGetAgents({ page, limit, filter });
 
     return (
         <div className="space-y-[100px]">
@@ -31,7 +31,7 @@ export default function AgentBody({ page, limit, filter }: Props) {
                 </div>
 
                 {
-                    (!isPending && !isError && data?.pagination)
+                    (!isPending && data?.pagination)
                         && (
                             <Pagination
                                 page={data.pagination.page}
@@ -42,7 +42,7 @@ export default function AgentBody({ page, limit, filter }: Props) {
             </div>
 
             {
-                (!isPending && !isError && !data?.createdAgent)
+                (!isPending && !data?.createdAgent)
                     && (
                         <Empty
                             title="Bắt đầu với agent đầu tiên"

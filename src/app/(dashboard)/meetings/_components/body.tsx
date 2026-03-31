@@ -15,7 +15,7 @@ type Props =
     & { filter: MeetingFilterFields };
 
 export default function MeetingBody({ page, limit, filter }: Props) {
-    const { data, isPending, isError } = useGetMeetings({ page, limit, filter });
+    const { data, isPending } = useGetMeetings({ page, limit, filter });
 
     return (
         <div className="space-y-[100px]">
@@ -31,7 +31,7 @@ export default function MeetingBody({ page, limit, filter }: Props) {
                 </div>
 
                 {
-                    (!isPending && !isError && data?.pagination)
+                    (!isPending && data?.pagination)
                         && (
                             <Pagination
                                 page={data.pagination.page}
@@ -42,7 +42,7 @@ export default function MeetingBody({ page, limit, filter }: Props) {
             </div>
 
             {
-                (!isPending && !isError && !data?.createdMeeting)
+                (!isPending && !data?.createdMeeting)
                     && (
                         <Empty
                             title="Bắt đầu với cuộc họp đầu tiên"

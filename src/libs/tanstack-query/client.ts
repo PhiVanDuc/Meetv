@@ -28,26 +28,18 @@ export default (router: AppRouterInstance) => {
         queryCache: new QueryCache({
             onError: async (error, query) => {
                 console.log(error);
-                
-                if (error instanceof FetcherError && error.status === 401) {
-                    await handle401({ router, query, queryClient: client });
-                }
-
+                if (error instanceof FetcherError && error.status === 401) await handle401({ router, query, queryClient: client });
                 toast.error({ text: "Thất bại", description: error.message });
             }
         }),
         mutationCache: new MutationCache({
             onSuccess: (data) => {
                 const { message } = data as FetcherResponse<unknown>;
-                toast.success({ text: "Thành công", description: message });
+                if (message) toast.success({ text: "Thành công", description: message });
             },
             onError: async (error) => {
                 console.log(error);
-
-                if (error instanceof FetcherError && error.status === 401) {
-                    await handle401({ router });
-                }
-
+                if (error instanceof FetcherError && error.status === 401) await handle401({ router });
                 toast.error({ text: "Thất bại", description: error.message });
             }
         })
