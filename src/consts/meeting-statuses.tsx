@@ -2,33 +2,25 @@ import ICONS from "@/consts/icons";
 
 export default {
     "upcoming": {
+        label: "Sắp diễn ra",
+        value: "upcoming",
         textColor: "#42526E",
-        icon: ICONS.CLOCK,
         backgroundColor: "#E9EEF6",
-        label: "Sắp diễn ra"
-    },
-    "active": {
-        icon: ICONS.MEETING,
-        textColor: "#0052CC",
-        backgroundColor: "#DEEBFF",
-        label: "Đang diễn ra"
+        icon: ICONS.CLOCK
+        
     },
     "completed": {
-        icon: ICONS.COMPLETED,
+        label: "Đã hoàn thành",
+        value: "completed",
         textColor: "#00875A",
         backgroundColor: "#E3FCEF",
-        label: "Đã hoàn thành"
+        icon: ICONS.COMPLETED
     },
     "processing": {
-        icon: ICONS.UPDATE,
+        label: "Đang xử lý",
+        value: "processing",
         textColor: "#B76E00",
         backgroundColor: "#FFF4D6",
-        label: "Đang xử lý"
-    },
-    "cancelled": {
-        icon: ICONS.CLOSE,
-        textColor: "#DE350B",
-        backgroundColor: "#FFEBE6",
-        label: "Đã huỷ"
+        icon: ICONS.UPDATE
     }
 } as const;

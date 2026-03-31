@@ -3,19 +3,15 @@ import { Skeleton as ShadcnSkeleton } from "@/components/ui/skeleton";
 import { cn } from "@/libs/utils";
 
 interface SkeletonProps {
-    children: React.ReactNode
-}
-
-interface SkeletonChildProps {
     children: React.ReactNode,
     className?: string
 }
 
-export default function Skeleton({ children }: SkeletonProps) {
-    return <div>{children}</div>
+export default function Skeleton({ children, className }: SkeletonProps) {
+    return <div className={cn(className)}>{children}</div>
 }
 
-Skeleton.Form = function SkeletonForm({ children, className }: SkeletonChildProps) {
+Skeleton.Form = function SkeletonForm({ children, className }: SkeletonProps) {
     return (
         <div
             className={cn(
@@ -28,7 +24,7 @@ Skeleton.Form = function SkeletonForm({ children, className }: SkeletonChildProp
     )
 }
 
-Skeleton.FormControl = function SkeletonFormControl({ children, className }: SkeletonChildProps) {
+Skeleton.FormControl = function SkeletonFormControl({ children, className }: SkeletonProps) {
     return (
         <div
             className={cn(
@@ -41,7 +37,7 @@ Skeleton.FormControl = function SkeletonFormControl({ children, className }: Ske
     )
 }
 
-Skeleton.Label = function SkeletonLabel({ className }: Omit<SkeletonChildProps, "children">) {
+Skeleton.Label = function SkeletonLabel({ className }: Omit<SkeletonProps, "children">) {
     return (
         <ShadcnSkeleton
             className={cn(
@@ -52,11 +48,22 @@ Skeleton.Label = function SkeletonLabel({ className }: Omit<SkeletonChildProps, 
     )
 }
 
-Skeleton.Input = function SkeletonInput({ className }: Omit<SkeletonChildProps, "children">) {
+Skeleton.Input = function SkeletonInput({ className }: Omit<SkeletonProps, "children">) {
     return (
         <ShadcnSkeleton
             className={cn(
                 "w-full h-[36px] rounded-[8px]",
+                className
+            )}
+        />
+    )
+}
+
+Skeleton.Header = function SkeletonHeader({ className }: Omit<SkeletonProps, "children">) {
+    return (
+        <ShadcnSkeleton
+            className={cn(
+                "w-[200px] h-[36px] rounded-[8px]",
                 className
             )}
         />

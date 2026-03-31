@@ -6,9 +6,9 @@ import Empty from "@/components/empty";
 import { Table } from "@/components/table";
 import Pagination from "@/components/pagination";
 import AgentFilter from "@/app/(dashboard)/agents/_components/filter";
+import AgentColumns from "@/app/(dashboard)/agents/_components/columns";
 
 import { AgentFilterFields } from "@/types/agent";
-import columns from "@/app/(dashboard)/agents/columns";
 
 type Props =
     Omit<Pagination, "totalPages">
@@ -24,8 +24,8 @@ export default function AgentBody({ page, limit, filter }: Props) {
                     <AgentFilter filter={filter} />
 
                     <Table
-                        columns={columns}
                         isPending={isPending}
+                        columns={AgentColumns}
                         data={data?.agents || []}
                     />
                 </div>

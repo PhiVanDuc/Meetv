@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function MeetingFormDialog({ open, onOpenChange, formType, id }: Props) {
-    const { title, description, IconButton, labelButton, form, agentOptions, agentIsPending, handleSearch, agentPagination, setAgentPage } = useMeetingFormDialog({ open, onOpenChange, formType, id });
+    const { title, description, IconButton, labelButton, form, agentOptions, agentIsPending, handleSearch, agentPagination, setAgentPage, mutation } = useMeetingFormDialog({ open, onOpenChange, formType, id });
 
     return (
         <Dialog
@@ -31,7 +31,7 @@ export default function MeetingFormDialog({ open, onOpenChange, formType, id }: 
             <form
                 autoComplete="off"
                 className="space-y-[15px]"
-                onSubmit={form.handleSubmit(() => {})}
+                onSubmit={form.handleSubmit(() => mutation.mutate())}
             >
                 <FieldGroup>
                     <Controller
@@ -92,8 +92,11 @@ export default function MeetingFormDialog({ open, onOpenChange, formType, id }: 
                         <span>Làm mới</span>
                     </Button>
 
-                    <Button className="flex-1">
-                        <IconButton />
+                    <Button
+                        className="flex-1"
+                        disabled={mutation.isPending}
+                    >
+                        { mutation.isPending ? <Spinner /> : <IconButton /> }
                         <span>{labelButton}</span>
                     </Button>
                 </div>

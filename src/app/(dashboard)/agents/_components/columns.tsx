@@ -16,10 +16,10 @@ const columns: ColumnDef<Agent>[] = [
             const { name, instructions } = row.original;
 
             return (
-                <div className="space-y-[5px] min-w-[400px] max-w-[600px]">
+                <div className="space-y-[10px] min-w-[400px] max-w-[600px]">
                     <div className="flex items-center gap-[10px]">
                         <Avatar
-                            size={40}
+                            size={35}
                             name={name}
                             className="shrink-0"
                         />
@@ -28,7 +28,7 @@ const columns: ColumnDef<Agent>[] = [
                     </div>
 
                     <div className="flex gap-[10px] min-w-0 text-zinc-500">
-                        <div className="shrink-0 flex justify-center w-[40px]">
+                        <div className="shrink-0 flex justify-center w-[35px]">
                             <ICONS.ENTER className="size-[18px] translate-x-[5px]" />
                         </div>
                         

@@ -22,7 +22,7 @@ export default (router: AppRouterInstance) => {
         defaultOptions: {
             queries: {
                 staleTime: 5 * 60 * 1000,
-                retry: 0
+                retry: false
             }
         },
         queryCache: new QueryCache({

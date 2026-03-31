@@ -82,5 +82,5 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
 
     const isPendingInitialData = formType === "update" && query.isLoading;
 
-    return { title, description, IconButton, labelButton, isPendingInitialData, form, mutation }
+    return { title, description, IconButton, labelButton, form, isPendingInitialData, mutation }
 }

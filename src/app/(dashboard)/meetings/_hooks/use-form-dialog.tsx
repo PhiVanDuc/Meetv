@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useMemo, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useGetAgents from "@/app/(dashboard)/agents/_hooks/use-get-agents";
 
 import Avatar from "boring-avatars";
@@ -7,6 +8,7 @@ import Avatar from "boring-avatars";
 import ICONS from "@/consts/icons";
 import { schemaMeeting } from "@/schemas/meeting";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { addMeeting, updateMeeting } from "@/services/meetings/client-functions";
 
 interface Parameters {
     id?: string,
@@ -97,5 +99,23 @@ export default function useMeetingFormDialog({ open, onOpenChange, formType, id:
     }
     // Kết thúc
 
-    return { title, description, IconButton, labelButton, form, agentOptions, agentIsPending: query.isPending, handleSearch, agentPagination, setAgentPage }
+    // Thêm hoặc sửa thông tin cuộc họp
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation({
+        mutationFn: () => {
+            if (formType === "add") return addMeeting(form.getValues());
+            return updateMeeting({ id, ...form.getValues() });
+        },
+        onSuccess: () => {
+            if (formType === "add") form.reset();
+            else queryClient.invalidateQueries({ queryKey: ["getMeeting", { id }] });
+            
+            onOpenChange(false);
+            queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
+        }
+    });
+    // Kết thúc
+
+    return { title, description, IconButton, labelButton, form, agentOptions, agentIsPending: query.isPending, handleSearch, agentPagination, setAgentPage, mutation }
 }
