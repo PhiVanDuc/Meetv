@@ -59,11 +59,52 @@ Skeleton.Input = function SkeletonInput({ className }: Omit<SkeletonProps, "chil
     )
 }
 
-Skeleton.Header = function SkeletonHeader({ className }: Omit<SkeletonProps, "children">) {
+Skeleton.Header = function SkeletonHeader({ children, className }: SkeletonProps) {
+    return (
+        <div className="w-full space-y-[2px]">
+            {children}
+        </div>
+    )
+}
+
+Skeleton.Heading = function SkeletonHeading({ className }: Omit<SkeletonProps, "children">) {
     return (
         <ShadcnSkeleton
             className={cn(
                 "w-[200px] h-[36px] rounded-[8px]",
+                className
+            )}
+        />
+    )
+}
+
+Skeleton.SmallHeading = function SkeletonSmallHeading({ className }: Omit<SkeletonProps, "children">) {
+    return (
+        <ShadcnSkeleton
+            className={cn(
+                "w-[150px] h-[30px] rounded-[8px]",
+                className
+            )}
+        />
+    )
+}
+
+Skeleton.Description = function SkeletonDescription({ className }: Omit<SkeletonProps, "children">) {
+    return (
+        <ShadcnSkeleton
+            className={cn(
+                "w-full h-[22.5px] rounded-[8px]",
+                className
+            )}
+        />
+    )
+}
+
+Skeleton.PreviewVideoCall = function SkeletonPreviewVideoCall({ className }: Omit<SkeletonProps, "children">) {
+    return (
+        <ShadcnSkeleton
+            className={cn(
+                "w-full aspect-\[4\/3\] rounded-[8px]",
                 className
             )}
         />

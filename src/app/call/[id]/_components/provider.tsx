@@ -1,5 +1,6 @@
 import useCallProvider from "@/app/call/[id]/_hooks/use-provider";
 
+import CallSkeleton from "@/app/call/[id]/_components/skeleton";
 import { StreamCall, StreamVideo } from "@stream-io/video-react-sdk";
 
 import { Meeting } from "@/types/meeting";
@@ -15,9 +16,7 @@ interface Props {
 export default function CallProvider({ children, data, sessionUser }: Props) {
     const { streamVideoClient, call } = useCallProvider({ data, sessionUser });
 
-    if (!streamVideoClient || !call) {
-        return <p>Đang tải</p>
-    }
+    if (!streamVideoClient || !call) return <CallSkeleton />
 
     return (
         <StreamVideo client={streamVideoClient}>

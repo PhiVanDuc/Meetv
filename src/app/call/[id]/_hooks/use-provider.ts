@@ -24,7 +24,7 @@ export default function useCallProvider({ data, sessionUser }: Parameters) {
 
     useEffect(() => {
         if (sessionUser && !userVideoToken) mutation.mutate();
-    }, [sessionUser?.id, userVideoToken])
+    }, [sessionUser?.id, userVideoToken]);
 
     useEffect(() => {
         if (!process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY || !sessionUser || !userVideoToken) return;

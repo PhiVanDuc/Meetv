@@ -13,7 +13,7 @@ export default function MeetingDetailHeader({ name, isPending }: Props) {
                 isPending
                     ? (
                         <Skeleton>
-                            <Skeleton.Header />
+                            <Skeleton.Heading />
                         </Skeleton>
                     )
                     : <h1 className="medium-header">{name}</h1>

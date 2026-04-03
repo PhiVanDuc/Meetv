@@ -1,6 +1,9 @@
 import useCallRoom from "@/app/call/[id]/_hooks/use-room";
 
 import { StreamTheme } from "@stream-io/video-react-sdk";
+import CallPrepareRoom from "@/app/call/[id]/_components/prepare-room";
+import CallMeetingRoom from "@/app/call/[id]/_components/meeting-room";
+import CallEndedNotice from "@/app/call/[id]/_components/ended-notice";
 
 import { Meeting } from "@/types/meeting";
 
@@ -9,13 +12,13 @@ interface Props {
 }
 
 export default function CallRoom({ data }: Props) {
-    const { call, callRoomType, handleJoin, handleLeave } = useCallRoom();
+    const { call, callStage, handleJoin, handleLeave } = useCallRoom();
 
     return (
-        <StreamTheme classID="h-full">
-            { callRoomType === "lobby" && <p>Lobby</p> }
-            { callRoomType === "call" && <p>Call</p> }
-            { callRoomType === "ended" && <p>Ended</p> }
+        <StreamTheme className="h-full">
+            { callStage === "prepare" && <CallPrepareRoom onJoin={handleJoin} /> }
+            { callStage === "meeting" && <CallMeetingRoom /> }
+            { callStage === "ended" && <CallEndedNotice /> }
         </StreamTheme>
     )
 }

@@ -6,5 +6,6 @@ interface Props {
 
 export default async function Page({ params }: Props) {
     const { id } = await params;
+    
     return <MeetingShell id={id} />
 }

@@ -48,6 +48,7 @@ export default function MeetingDetailBody({ data, isPending }: Props) {
                                             className="order-2 md:order-1 w-full md:w-fit"
                                         >
                                             <Link href="/meetings">
+                                                <ICONS.LOG_OUT />
                                                 <span>Thoát khỏi cuộc họp</span>
                                             </Link>
                                         </Button>
