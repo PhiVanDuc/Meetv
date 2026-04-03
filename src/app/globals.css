@@ -144,6 +144,14 @@
         height: 100% !important;
         aspect-ratio: 4/3 !important;
     }
+
+    .str-video__call-controls {
+        overflow-x: auto;
+        border-radius: 99px;
+        padding: 16px !important;
+        background-color: #101213;
+        justify-content: safe center !important;
+    }
 }
 
 @theme {

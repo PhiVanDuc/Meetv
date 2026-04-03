@@ -13,9 +13,9 @@ export default function useCallRoom() {
 
     const handleLeave = async () => {
         if (!call) return;
-        await call.leave();
+        await call.endCall();
         setCallStage("ended");
     }
 
-    return { call, callStage, handleJoin, handleLeave }
+    return { callStage, handleJoin, handleLeave }
 }

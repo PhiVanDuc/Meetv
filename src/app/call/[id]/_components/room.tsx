@@ -12,12 +12,12 @@ interface Props {
 }
 
 export default function CallRoom({ data }: Props) {
-    const { call, callStage, handleJoin, handleLeave } = useCallRoom();
+    const { callStage, handleJoin, handleLeave } = useCallRoom();
 
     return (
         <StreamTheme className="h-full">
             { callStage === "prepare" && <CallPrepareRoom onJoin={handleJoin} /> }
-            { callStage === "meeting" && <CallMeetingRoom /> }
+            { callStage === "meeting" && <CallMeetingRoom data={data} onLeave={handleLeave} /> }
             { callStage === "ended" && <CallEndedNotice /> }
         </StreamTheme>
     )

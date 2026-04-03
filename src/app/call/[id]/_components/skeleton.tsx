@@ -11,7 +11,7 @@ export default function CallSkeleton() {
                     </Skeleton.Header>
                 </Skeleton>
 
-                <Skeleton>
+                <Skeleton className="w-full">
                     <Skeleton.PreviewVideoCall />
                 </Skeleton>
             </div>

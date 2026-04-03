@@ -61,7 +61,7 @@ Skeleton.Input = function SkeletonInput({ className }: Omit<SkeletonProps, "chil
 
 Skeleton.Header = function SkeletonHeader({ children, className }: SkeletonProps) {
     return (
-        <div className="w-full space-y-[2px]">
+        <div className="w-full space-y-[4px]">
             {children}
         </div>
     )
@@ -93,7 +93,7 @@ Skeleton.Description = function SkeletonDescription({ className }: Omit<Skeleton
     return (
         <ShadcnSkeleton
             className={cn(
-                "w-full h-[22.5px] rounded-[8px]",
+                "w-full h-[22.5px] rounded-[6px]",
                 className
             )}
         />
@@ -103,8 +103,9 @@ Skeleton.Description = function SkeletonDescription({ className }: Omit<Skeleton
 Skeleton.PreviewVideoCall = function SkeletonPreviewVideoCall({ className }: Omit<SkeletonProps, "children">) {
     return (
         <ShadcnSkeleton
+            style={{ aspectRatio: 4/3 }}
             className={cn(
-                "w-full aspect-\[4\/3\] rounded-[8px]",
+                "w-full rounded-[8px]",
                 className
             )}
         />

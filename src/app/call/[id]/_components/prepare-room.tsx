@@ -27,11 +27,7 @@ const DisabledVideoPreview = () => {
 }
 
 const AllowBrowserPermissions = () => {
-    return (
-        <p className="text-[14px]">
-            Vui lòng cấp cho trình duyệt của bạn quyền truy cập vào camera và microphone.
-        </p>
-    )
+    return <p className="medium-desc">Vui lòng cấp cho trình duyệt của bạn quyền truy cập vào camera và microphone.</p>
 }
 
 export default function CallPrepareRoom({ onJoin }: Props) {
@@ -47,7 +43,7 @@ export default function CallPrepareRoom({ onJoin }: Props) {
             <div className="w-full max-w-[500px] space-y-[30px] p-[20px] text-center bg-white rounded-[10px]">
                 <header className="space-y-[2px] text-left">
                     <h1 className="text-[20px] font-semibold">Chuẩn bị bắt đầu</h1>
-                    <p className="medium-desc">Cài đặt quyền truy cập phần cứng của bạn để chuẩn bị bắt đầu cuộc họp.</p>
+                    <p className="medium-desc">Cài đặt quyền truy cập phần cứng trên trình duyệt để chuẩn bị bắt đầu cuộc họp.</p>
                 </header>
 
                 <div className="space-y-[20px]">
@@ -59,10 +55,18 @@ export default function CallPrepareRoom({ onJoin }: Props) {
                         }
                     />
 
-                    <div className="flex justify-center gap-[10px]">
-                        <ToggleAudioPreviewButton />
-                        <ToggleVideoPreviewButton />
-                    </div>
+                    {
+                        hasBrowserMediaPermission
+                            ? (
+                                <div className="flex justify-center gap-[10px]">
+                                    <ToggleAudioPreviewButton />
+                                    <ToggleVideoPreviewButton />
+                                </div>
+                            )
+                            : <AllowBrowserPermissions />
+                    }
+
+                    
 
                     <div className="flex justify-between gap-[5px] text-right">
                         <Button
