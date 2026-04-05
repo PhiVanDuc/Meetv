@@ -13,6 +13,7 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
     const { timeout = 60000, signal: externalSignal, ...restOptions } = options || {};
 
     const headers = new Headers({
+        "ngrok-skip-browser-warning": "true",
         Authorization: `Bearer ${accessToken}`,
         ...restOptions?.headers
     });

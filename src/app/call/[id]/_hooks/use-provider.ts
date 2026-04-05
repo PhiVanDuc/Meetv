@@ -1,69 +1,63 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import useGetSessionUser from "@/hooks/use-get-session-user";
 
 import { Meeting } from "@/types/meeting";
-import { generateUserVideoToken } from "@/services/meetings/client-functions";
-import { Call, CallingState, StreamVideoClient } from "@stream-io/video-react-sdk";
+import { generateToken } from "@/services/stream/client-functions";
+import { Call, StreamVideoClient } from "@stream-io/video-react-sdk";
 
-interface Parameters {
-    data: Meeting,
-    sessionUser?: SessionUser
-}
+const STREAM_API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 
-export default function useCallProvider({ data, sessionUser }: Parameters) {
+export default function useCallProvider(data?: Meeting) {
     const [call, setCall] = useState<Call>();
-    const [userVideoToken, setUserVideoToken] = useState("");
     const [streamVideoClient, setStreamVideoClient] = useState<StreamVideoClient>();
 
+    const [token, setToken] = useState("");
+    const { sessionUser } = useGetSessionUser();
+
     const mutation = useMutation({
-        mutationFn: () => generateUserVideoToken(),
+        mutationFn: () => generateToken(),
         onSuccess: ({ data }) => {
-            if (data) setUserVideoToken(data.token);
+            if (data) setToken(data.token);
         }
     });
 
     useEffect(() => {
-        if (sessionUser && !userVideoToken) mutation.mutate();
-    }, [sessionUser?.id, userVideoToken]);
+        if (sessionUser && !token) mutation.mutate();
+    }, [sessionUser?.id, token]);
 
     useEffect(() => {
-        if (!process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY || !sessionUser || !userVideoToken) return;
+        if (!STREAM_API_KEY || !sessionUser || !token) return;
         
         const _streamVideoClient = new StreamVideoClient({
-            apiKey: process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY,
+            apiKey: STREAM_API_KEY,
             user: {
                 id: sessionUser.id,
                 name: sessionUser.name
             },
-            tokenProvider: async () => userVideoToken
+            tokenProvider: async () => token
         });
 
         setStreamVideoClient(_streamVideoClient);
 
         return () => {
-            if (_streamVideoClient) _streamVideoClient.disconnectUser();
+            setToken("");
             setStreamVideoClient(undefined);
-            setUserVideoToken("");
+            if (_streamVideoClient) _streamVideoClient.disconnectUser();
         };
-    }, [sessionUser?.id, userVideoToken]);
+    }, [sessionUser?.id, token]);
 
     useEffect(() => {
-        if (!streamVideoClient) return;
+        if (!streamVideoClient || !data) return;
 
         const _call = streamVideoClient.call("default", data.id);
-        _call.camera.disable();
-        _call.microphone.disable();
-
         setCall(_call);
 
         return () => {
-            if (_call.state.callingState !== CallingState.LEFT) {
-                _call.leave();
-                _call.endCall();
-                setCall(undefined);
-            }
+            _call.endCall();
+            setCall(undefined);
         }
-    }, [streamVideoClient, data.id]);
+    }, [streamVideoClient, data?.id]);
 
     return { streamVideoClient, call };
 }

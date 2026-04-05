@@ -1,19 +1,12 @@
-import CallShell from "@/app/call/[id]/_components/shell";
+"use client"
 
-import { getSessionUser } from "@/services/auth/server-actions";
+import CallRoom from "@/app/call/[id]/_components/room";
+import CallProvider from "@/app/call/[id]/_components/provider";
 
-interface Props {
-    params: Promise<{ id: string }>
-}
-
-export default async function Page({ params }: Props) {
-    const { id } = await params;
-    const sessionUser = await getSessionUser();
-
+export default function Page() {
     return (
-        <CallShell
-            id={id}
-            sessionUser={sessionUser}
-        />
+        <CallProvider>
+            <CallRoom />
+        </CallProvider>
     )
 }

@@ -6,7 +6,10 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
     let parsedBody: BodyInit | undefined | null = undefined;
     const { timeout = 60000, signal: externalSignal, ...restOptions } = options || {};
 
-    const headers = new Headers(restOptions?.headers);
+    const headers = new Headers({
+        "ngrok-skip-browser-warning": "true",
+        ...restOptions?.headers
+    });
 
     if (body) {
         if (typeof body === "string" || body instanceof FormData || body instanceof URLSearchParams || body instanceof Blob || body instanceof ArrayBuffer) parsedBody = body;
