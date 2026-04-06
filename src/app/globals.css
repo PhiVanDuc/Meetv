@@ -146,10 +146,17 @@
     }
 
     .str-video__call-controls {
+        flex-shrink: 0;
         overflow-x: auto;
         border-radius: 99px;
         padding: 16px !important;
         background-color: #101213;
+        justify-content: safe center !important;
+    }
+
+    .str-video__speaker-layout--variant-left,
+    .str-video__speaker-layout--variant-right {
+        gap: 5px !important;
         justify-content: safe center !important;
     }
 }

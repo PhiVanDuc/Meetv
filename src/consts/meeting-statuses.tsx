@@ -9,12 +9,12 @@ export default {
         icon: ICONS.CLOCK
         
     },
-    "completed": {
-        label: "Đã hoàn thành",
-        value: "completed",
-        textColor: "#00875A",
-        backgroundColor: "#E3FCEF",
-        icon: ICONS.COMPLETED
+    "happening": {
+        label: "Đang diễn ra",
+        value: "happening",
+        textColor: "#7C3AED",
+        backgroundColor: "#F5F3FF",
+        icon: ICONS.PLAY
     },
     "processing": {
         label: "Đang xử lý",
@@ -22,5 +22,12 @@ export default {
         textColor: "#B76E00",
         backgroundColor: "#FFF4D6",
         icon: ICONS.UPDATE
+    },
+    "completed": {
+        label: "Đã hoàn thành",
+        value: "completed",
+        textColor: "#00875A",
+        backgroundColor: "#E3FCEF",
+        icon: ICONS.COMPLETED
     }
 } as const;

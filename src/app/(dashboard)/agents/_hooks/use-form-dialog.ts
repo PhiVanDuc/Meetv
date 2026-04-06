@@ -16,7 +16,6 @@ interface Parameters {
 }
 
 export default function useAgentFormDialog({ open, onOpenChange, formType, id: paramId }: Parameters) {
-    // Thông tin khởi tạo
     const id = paramId ? paramId : "";
 
     const title = formType === "add"
@@ -42,17 +41,13 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
             instructions: ""
         }
     });
-    // Kết thúc
 
-    // Thông tin chi tiết agent
     const query = useQuery({
         queryFn: () => getAgent(id),
         queryKey: ["getAgent", { id }],
         enabled: formType === "update" && !!id, 
     });
-    // Kết thúc
 
-    // Thông tin agent trên form khi mở dialog
     useEffect(() => {
         if (formType === "add" && open) form.reset();
         if (formType === "update" && query.data?.data) {
@@ -60,9 +55,7 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
             form.reset({ name, instructions });
         }
     }, [form, formType, open, query.data]);
-    // Kết thúc
 
-    // Thêm hoặc sửa thông tin agent
     const queryClient = useQueryClient();
 
     const mutation = useMutation({
@@ -72,13 +65,15 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
         },
         onSuccess: () => {
             if (formType === "add") form.reset();
-            else queryClient.invalidateQueries({ queryKey: ["getAgent", { id }] });
+            else {
+                queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
+                queryClient.invalidateQueries({ queryKey: ["getAgent", { id }] });
+            }
             
             onOpenChange(false);
             queryClient.invalidateQueries({ queryKey: ["getAgents"] });
         }
     });
-    // Kết thúc
 
     const isPendingInitialData = formType === "update" && query.isLoading;
 

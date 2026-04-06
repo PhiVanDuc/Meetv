@@ -31,11 +31,11 @@ export default function MeetingDetailBody({ data, isPending }: Props) {
                             ? (
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-center gap-[10px]">
                                     <Skeleton className="order-2 md:order-1 w-full md:w-fit">
-                                        <Skeleton.Input className="w-[158.88px]" />
+                                        <Skeleton.Input className="w-full md:w-[158.88px]" />
                                     </Skeleton>
 
                                     <Skeleton className="order-1 md:order-2 w-full md:w-fit">
-                                        <Skeleton.Input className="w-[164.7px]" />
+                                        <Skeleton.Input className="w-full md:w-[164.7px]" />
                                     </Skeleton>
                                 </div>
                             )

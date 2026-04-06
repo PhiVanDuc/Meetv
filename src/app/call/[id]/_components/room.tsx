@@ -17,7 +17,7 @@ export default function CallRoom() {
     if (!data) return null;
 
     return (
-        <StreamTheme className="h-full">
+        <StreamTheme>
             { callStage === "prepare" && <CallPrepareRoom onJoin={handleJoin} /> }
             { callStage === "meeting" && <CallMeetingRoom data={data} onLeave={handleLeave} /> }
             { callStage === "ended" && <CallEndedNotice /> }

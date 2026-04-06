@@ -4,7 +4,7 @@ import useGetSessionUser from "@/hooks/use-get-session-user";
 
 import { Meeting } from "@/types/meeting";
 import { generateToken } from "@/services/stream/client-functions";
-import { Call, StreamVideoClient } from "@stream-io/video-react-sdk";
+import { Call, CallingState, StreamVideoClient } from "@stream-io/video-react-sdk";
 
 const STREAM_API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 
@@ -54,6 +54,7 @@ export default function useCallProvider(data?: Meeting) {
         setCall(_call);
 
         return () => {
+            if (_call.state.callingState !== CallingState.LEFT) _call.leave();
             _call.endCall();
             setCall(undefined);
         }

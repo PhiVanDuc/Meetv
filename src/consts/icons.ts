@@ -7,7 +7,7 @@ import { BsCheckLg } from "react-icons/bs";
 import { RiRobot2Line } from "react-icons/ri";
 import { PiTrashSimpleBold } from "react-icons/pi";
 import { IoIosSend, IoMdCard } from "react-icons/io";
-import { SearchIcon, PanelLeftClose, PanelLeftIcon, StarIcon, LogOut, EllipsisVertical, CornerDownRight, Check, X, ChevronsUpDown } from "lucide-react";
+import { SearchIcon, PanelLeftClose, PanelLeftIcon, StarIcon, LogOut, EllipsisVertical, CornerDownRight, Check, X, ChevronsUpDown, Play } from "lucide-react";
 
 export default {
     ADD: FaPlus,
@@ -21,6 +21,7 @@ export default {
     COMPLETED: BsCheckLg,
     DELETE: PiTrashSimpleBold,
     CLOSE: X,
+    PLAY: Play,
     STAR: StarIcon,
     CONFIRM: Check,
     LOG_OUT: LogOut,

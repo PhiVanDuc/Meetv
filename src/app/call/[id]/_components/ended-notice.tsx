@@ -16,6 +16,7 @@ export default function CallEndedNotice() {
                 <Button
                     asChild
                     variant="brand"
+                    className="w-full"
                 >
                     <Link href="/meetings">
                         <ICONS.MEETING />
