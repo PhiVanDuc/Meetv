@@ -84,7 +84,7 @@ export default function AgentFormDialog({ open, onOpenChange, formType, id }: Pr
 
                                                 <Textarea
                                                     {...field}
-                                                    className="h-[100px]"
+                                                    className="h-[200px]"
                                                     aria-invalid={fieldState.invalid}
                                                     placeholder="Nhập chỉ dẫn cho agent . . ."
                                                 />

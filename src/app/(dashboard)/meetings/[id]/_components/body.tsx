@@ -17,6 +17,8 @@ interface Props {
 export default function MeetingDetailBody({ data, isPending }: Props) {
     const { emptyTitle, emptyDescription } = useMeetingDetailBody({ data, isPending });
 
+    if (!isPending && !data) return null;
+
     return (
         <div className="flex-1 content-center">
             <div className="space-y-[30px]">
@@ -39,7 +41,7 @@ export default function MeetingDetailBody({ data, isPending }: Props) {
                                     </Skeleton>
                                 </div>
                             )
-                            : (data?.status && data.status === MEETING_STATUSES["upcoming"].value)
+                            : (data?.status === MEETING_STATUSES["upcoming"].value || data?.status === MEETING_STATUSES["happening"].value)
                                 && (
                                     <>
                                         <Button
@@ -60,7 +62,14 @@ export default function MeetingDetailBody({ data, isPending }: Props) {
                                         >
                                             <Link href={`/call/${data.id}`}>
                                                 <ICONS.MEETING />
-                                                <span>Bắt đầu cuộc họp</span>
+
+                                                <span>
+                                                    {
+                                                        data.status === MEETING_STATUSES["upcoming"].value
+                                                            ? "Bắt đầu cuộc họp"
+                                                            : "Tham gia cuộc họp"
+                                                    }
+                                                </span>
                                             </Link>
                                         </Button>
                                     </>
