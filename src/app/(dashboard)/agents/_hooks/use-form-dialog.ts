@@ -66,6 +66,7 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
         onSuccess: () => {
             if (formType === "add") form.reset();
             else {
+                queryClient.invalidateQueries({ queryKey: ["getMeeting"] });
                 queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
                 queryClient.invalidateQueries({ queryKey: ["getAgent", { id }] });
             }

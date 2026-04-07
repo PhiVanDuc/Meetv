@@ -7,7 +7,7 @@ export interface Meeting {
     userId: string,
     summary?: string,
     startedAt?: Date,
-    recordingUrl?: string,
+    duration?: number,
     transcriptUrl?: string,
     status: keyof typeof MEETING_STATUSES,
     agent: {

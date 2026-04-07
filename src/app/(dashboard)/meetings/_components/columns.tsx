@@ -7,10 +7,10 @@ import MeetingCellActions from "@/app/(dashboard)/meetings/_components/cell-acti
 import ICONS from "@/consts/icons";
 import { vi } from "date-fns/locale";
 import { Meeting } from "@/types/meeting";
-import { formatDistanceToNow } from "date-fns";
 import { ColumnDef } from "@tanstack/react-table";
 import MEETING_STATUSES from "@/consts/meeting-statuses";
 import capitalizeFirstLetter from "@/utils/capitalize-first-letter";
+import { formatDistanceToNow, intervalToDuration, formatDuration } from "date-fns";
 
 const columns: ColumnDef<Meeting>[] = [
     {
@@ -81,13 +81,28 @@ const columns: ColumnDef<Meeting>[] = [
         accessorKey: "duration",
         header: () => <h2 className="text-center">Thời lượng</h2>,
         cell: ({ row }) => {
-            const { startedAt, endedAt } = row.original;
+            const { duration } = row.original;
+
+            const formatted = duration 
+                ? formatDuration(
+                    intervalToDuration({ start: 0, end: duration * 1000 }), 
+                    { 
+                        locale: vi,
+                        format: ['hours', 'minutes', 'seconds'] 
+                    })
+                : "Chưa có thời lượng";
 
             return (
                 <div className="flex justify-center">
                     <Button variant="outline">
                         <ICONS.CLOCK className="text-brand-primary" />
-                        <span>Chưa có thời lượng</span>
+                        <span>
+                            {
+                                duration
+                                    ? formatted
+                                    : "Chưa có thời lượng"
+                            }
+                        </span>
                     </Button>
                 </div>
             )

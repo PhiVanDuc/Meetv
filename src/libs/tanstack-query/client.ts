@@ -21,7 +21,7 @@ export default (router: AppRouterInstance) => {
     const client: QueryClient = new QueryClient({
         defaultOptions: {
             queries: {
-                staleTime: 5 * 60 * 1000,
+                staleTime: 1 * 60 * 1000,
                 retry: false
             }
         },

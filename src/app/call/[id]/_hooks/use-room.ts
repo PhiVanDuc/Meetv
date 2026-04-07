@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useCall } from "@stream-io/video-react-sdk";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { CallingState } from "@stream-io/video-react-sdk";
 
 export default function useCallRoom() {
     const call = useCall();
+    const queryClient = useQueryClient();
     const [callStage, setCallStage] = useState<"prepare" | "meeting" | "ended">("prepare");
 
     useEffect(() => {
@@ -24,7 +26,11 @@ export default function useCallRoom() {
     }, [call]);
 
     const handleJoin = async () => await call?.join();
-    const handleLeave = async () => await call?.endCall();
+    const handleLeave = async () => {
+        await call?.endCall();
+        queryClient.invalidateQueries({ queryKey: ["getMeeting"] });
+        queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
+    }
 
     return { callStage, handleJoin, handleLeave }
 }
