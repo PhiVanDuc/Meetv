@@ -14,13 +14,13 @@ interface Props {
 export default function CallProvider({ children }: Props) {
     const { id } = useParams();
     const { data, isPending } = useGetMeeting(id as string);
-    const { streamVideoClient, call } = useCallProvider(data);
+    const { streamVideo, call } = useCallProvider(data);
 
-    if (isPending || !streamVideoClient || !call) return <CallSkeleton />
+    if (isPending || !streamVideo || !call) return <CallSkeleton />
     if (!data) return null;
 
     return (
-        <StreamVideo client={streamVideoClient}>
+        <StreamVideo client={streamVideo}>
             <StreamCall call={call}>
                 {children}
             </StreamCall>

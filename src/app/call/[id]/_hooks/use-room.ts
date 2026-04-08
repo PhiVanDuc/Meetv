@@ -1,29 +1,20 @@
-import { useEffect, useState } from "react";
-import { useCall } from "@stream-io/video-react-sdk";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
 
 import { CallingState } from "@stream-io/video-react-sdk";
 
 export default function useCallRoom() {
     const call = useCall();
     const queryClient = useQueryClient();
-    const [callStage, setCallStage] = useState<"prepare" | "meeting" | "ended">("prepare");
 
-    useEffect(() => {
-        if (!call) return;
+    const { useCallCallingState } = useCallStateHooks();
+    const callingState = useCallCallingState();
 
-        const subscription = call.state.callingState$.subscribe((state) => {
-            if (state === CallingState.JOINED) setCallStage("meeting");
-            else if (state === CallingState.LEFT) setCallStage("ended");
-        });
-
-        const unsubscribe = call.on("call.ended", () => setCallStage("ended"));
-
-        return () => {
-            unsubscribe();
-            subscription.unsubscribe();
-        }
-    }, [call]);
+    const callStage = callingState === CallingState.JOINED
+        ? "meeting"
+        : callingState === CallingState.LEFT
+            ? "ended"
+            : "prepare";
 
     const handleJoin = async () => await call?.join();
     const handleLeave = async () => {

@@ -9,6 +9,9 @@ import { PiTrashSimpleBold } from "react-icons/pi";
 import { IoIosSend, IoMdCard } from "react-icons/io";
 import { SearchIcon, PanelLeftClose, PanelLeftIcon, StarIcon, LogOut, EllipsisVertical, CornerDownRight, Check, X, ChevronsUpDown, Play } from "lucide-react";
 
+import { TbNotes } from "react-icons/tb";
+import { CgTranscript } from "react-icons/cg";
+
 export default {
     ADD: FaPlus,
     BILL: IoMdCard,
@@ -30,5 +33,8 @@ export default {
     SELECT: ChevronsUpDown,
     EXPAND_PANEL: PanelLeftIcon,
     COLLAPSE_PANEL: PanelLeftClose,
-    VERTICAL_DOTS: EllipsisVertical
+    VERTICAL_DOTS: EllipsisVertical,
+
+    NOTE: TbNotes,
+    TRANSCRIPT: CgTranscript
 } as const;

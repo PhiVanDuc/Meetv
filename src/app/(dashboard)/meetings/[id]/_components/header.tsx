@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-import Skeleton from "@/components/skeleton";
+import { MeetingDetailHeaderSkeleton } from "@/app/(dashboard)/meetings/[id]/_components/skeleton";
 
 interface Props {
     name: string,
@@ -11,11 +11,7 @@ export default function MeetingDetailHeader({ name, isPending }: Props) {
         <Header>
             {
                 isPending
-                    ? (
-                        <Skeleton>
-                            <Skeleton.Heading />
-                        </Skeleton>
-                    )
+                    ? <MeetingDetailHeaderSkeleton />
                     : <h1 className="medium-header">{name || "Cuộc họp không tồn tại"}</h1>
             }
 
