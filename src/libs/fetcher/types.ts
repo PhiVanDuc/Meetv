@@ -16,13 +16,6 @@ export type FetcherResponseErrors = {
     message?: string
 }[];
 
-export interface FetcherErrorParams<ResponseData> {
-    status: number,
-    message: string,
-    data?: ResponseData,
-    errors?: FetcherResponseErrors
-}
-
 export interface FetcherResponse<ResponseData> {
     status: number;
     message: string;

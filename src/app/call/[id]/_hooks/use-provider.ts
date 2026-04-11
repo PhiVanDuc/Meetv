@@ -39,8 +39,8 @@ export default function useCallProvider(data?: Meeting) {
         if (!streamVideo || !data) return;
 
         const _call = streamVideo.call("default", data.id);
-        _call.camera.disable();
-        _call.microphone.disable();
+        _call.camera.disable().catch(error => error);
+        _call.microphone.disable().catch(error => error);
 
         setCall(_call);
 
@@ -48,8 +48,8 @@ export default function useCallProvider(data?: Meeting) {
             setCall(undefined);
 
             if (_call) {
-                _call.endCall().catch();
-                _call.leave().catch();
+                _call.endCall().catch(error => error);
+                _call.leave().catch(error => error);
             }
 
         }

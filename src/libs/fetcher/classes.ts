@@ -1,11 +1,11 @@
-import { FetcherResponseErrors, FetcherErrorParams } from "@/libs/fetcher";
+import { FetcherResponseErrors, FetcherResponse } from "@/libs/fetcher";
 
 export class FetcherError<ResponseData = unknown> extends Error {
     status: number;
     data?: ResponseData;
     errors?: FetcherResponseErrors;
 
-    constructor({ status, message, data, errors }: FetcherErrorParams<ResponseData>) {
+    constructor({ status, message, data, errors }: FetcherResponse<ResponseData>) {
         super(message);
         this.name = 'FetcherError';
 

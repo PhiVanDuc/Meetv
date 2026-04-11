@@ -16,9 +16,9 @@ export default function useCallRoom() {
             ? "ended"
             : "prepare";
 
-    const handleJoin = async () => await call?.join();
+    const handleJoin = async () => await call?.join().catch(error => error);
     const handleLeave = async () => {
-        await call?.endCall();
+        await call?.endCall().catch(error => error);
         queryClient.invalidateQueries({ queryKey: ["getMeeting"] });
         queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
     }

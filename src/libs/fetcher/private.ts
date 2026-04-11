@@ -10,12 +10,12 @@ const BE = process.env.NEXT_PUBLIC_BE;
 
 const handle = async <RequestData, ResponseData>({ method, pathname, body, options, isRetry }: FetcherHandleParams<RequestData>): Promise<FetcherResponse<ResponseData>> => {
     const accessToken = await getSessionToken("accessToken") || "";
-    const { timeout = 60000, signal: externalSignal, ...restOptions } = options || {};
+    const { timeout = 60000, signal: externalAbortSignal, ...restOptions } = options || {};
 
     const headers = new Headers({
+        ...restOptions?.headers,
         "ngrok-skip-browser-warning": "true",
-        Authorization: `Bearer ${accessToken}`,
-        ...restOptions?.headers
+        Authorization: `Bearer ${accessToken}`
     });
 
     let parsedBody: BodyInit | undefined | null = undefined;
@@ -28,18 +28,18 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
         }
     }
 
-    const abortRequestController = new AbortController();
-    const handleAbortRequest = () => abortRequestController.abort();
+    const abortController = new AbortController();
+    const handleAbort = () => abortController.abort();
     
-    const countdownAbortRequest = setTimeout(handleAbortRequest, timeout);
-    if (externalSignal) externalSignal.addEventListener("abort", handleAbortRequest);
+    const countdownAbort = setTimeout(handleAbort, timeout);
+    if (externalAbortSignal) externalAbortSignal.addEventListener("abort", handleAbort);
 
     const requestConfig: RequestInit = {
         ...restOptions,
         method,
         headers,
         body: parsedBody,
-        signal: abortRequestController.signal
+        signal: abortController.signal
     };
 
     try {
@@ -64,7 +64,7 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
         catch(error) {
             throw new FetcherError({
                 status: response.status,
-                message: "Lỗi định dạng dữ liệu từ máy chủ."
+                message: "Lỗi JSON trả về từ máy chủ."
             });
         }
 
@@ -103,8 +103,8 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
         });
     }
     finally {
-        clearTimeout(countdownAbortRequest);
-        if (externalSignal) externalSignal?.removeEventListener("abort", handleAbortRequest);
+        clearTimeout(countdownAbort);
+        if (externalAbortSignal) externalAbortSignal.removeEventListener("abort", handleAbort);
     }
 }
 

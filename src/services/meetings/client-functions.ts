@@ -2,7 +2,7 @@
 
 import { fetcherPrivate } from "@/libs/fetcher";
 import generateQueryString from "@/utils/generate-query-string";
-import { Meeting, GetMeetingsRequestData, GetMeetingsResponseData, AddMeetingRequestData, UpdateMeetingRequestData } from "@/types/meeting";
+import { Meeting, GetMeetingsRequestData, GetMeetingsResponseData, AddMeetingRequestData, UpdateMeetingRequestData, GetMeetingTranscriptResponseData } from "@/types/meeting";
 
 export const getMeetings = async (data: GetMeetingsRequestData) => {
     const { page, limit, filter } = data;
@@ -25,4 +25,8 @@ export const updateMeeting = async (data: UpdateMeetingRequestData) => {
 
 export const deleteMeeting = async (id: string) => {
     return await fetcherPrivate.delete({ pathname: `/meetings/${id}` });
+}
+
+export const getMeetingTranscript = async (id: string) => {
+    return await fetcherPrivate.get<GetMeetingTranscriptResponseData>({ pathname: `/meetings/${id}/transcript` })
 }

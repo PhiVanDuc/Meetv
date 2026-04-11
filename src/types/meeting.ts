@@ -41,3 +41,18 @@ export interface UpdateMeetingRequestData {
     name: string,
     agentId: string
 }
+
+export interface GetMeetingTranscriptResponseData {
+    transcript: [
+        {
+            type: string,
+            text: string,
+            stop_ts: number,
+            start_ts: number,
+            speaker_id: string,
+            user: {
+                name: string
+            }
+        }
+    ]
+}
