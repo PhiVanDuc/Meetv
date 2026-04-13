@@ -111,3 +111,14 @@ Skeleton.PreviewVideoCall = function SkeletonPreviewVideoCall({ className }: Omi
         />
     )
 }
+
+Skeleton.Row = function SkeletonRow({ className }: Omit<SkeletonProps, "children">) {
+    return (
+        <ShadcnSkeleton
+            className={cn(
+                "w-full h-[60px] rounded-[8px]",
+                className
+            )}
+        />
+    )
+}

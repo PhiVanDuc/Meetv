@@ -1,7 +1,6 @@
 import useMeetingFormDialog from "@/app/(dashboard)/meetings/_hooks/use-form-dialog";
 
 import Dialog from "@/components/dialog";
-import Skeleton from "@/components/skeleton";
 import { Controller } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,7 @@ interface Props {
 }
 
 export default function MeetingFormDialog({ open, onOpenChange, formType, id }: Props) {
-    const { title, description, IconButton, labelButton, form, agentOptions, agentIsPending, handleSearch, agentPagination, setAgentPage, mutation } = useMeetingFormDialog({ open, onOpenChange, formType, id });
+    const { title, description, form, mutation, agentOptions, agentsIsPending, agentsPagination, handleSearch, setAgentsPage, IconButton, labelButton } = useMeetingFormDialog({ open, onOpenChange, formType, id });
 
     return (
         <Dialog
@@ -65,15 +64,15 @@ export default function MeetingFormDialog({ open, onOpenChange, formType, id }: 
                                     <CommandSelect
                                         value={field.value}
                                         options={agentOptions}
-                                        isPending={agentIsPending}
-                                        pagination={agentPagination}
+                                        isPending={agentsIsPending}
+                                        pagination={agentsPagination}
                                         aria-invalid={fieldState.invalid}
                                         selectPlaceholder="Lựa chọn agent"
                                         paginatePlaceholder="Xem thêm agent"
                                         onSearch={value => handleSearch(value)}
                                         searchPlaceholder="Nhập tên agent . . ."
                                         onSelect={value => field.onChange(value)}
-                                        onPaginate={value => setAgentPage(value)}
+                                        onPaginate={value => setAgentsPage(value)}
                                     />
 
                                     { fieldState.invalid && <FieldError errors={[fieldState.error]} /> }

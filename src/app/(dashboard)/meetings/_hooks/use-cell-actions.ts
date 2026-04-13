@@ -5,6 +5,7 @@ import { deleteMeeting } from "@/services/meetings/client-functions";
 export default function useMeetingCellActions() {
     const queryClient = useQueryClient();
     const [isOpenAlert, setIsOpenAlert] = useState(false);
+    const [isOpenDialog, setIsOpenDialog] = useState(false);
 
     const mutation = useMutation({
         mutationFn: (id: string) => deleteMeeting(id),
@@ -14,5 +15,5 @@ export default function useMeetingCellActions() {
         }
     });
 
-    return { isOpenAlert, setIsOpenAlert, mutation }
+    return { isOpenDialog, setIsOpenDialog, isOpenAlert, setIsOpenAlert, mutation }
 }

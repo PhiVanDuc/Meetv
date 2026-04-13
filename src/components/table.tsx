@@ -2,7 +2,7 @@
 
 import { useReactTable } from "@tanstack/react-table";
 
-import { Skeleton } from "@/components/ui/skeleton";
+import Skeleton from "@/components/skeleton";
 import { Table as ShadcnTable, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 import { ColumnDef, flexRender, getCoreRowModel } from "@tanstack/react-table";
@@ -57,11 +57,11 @@ export function Table<TData, TValue>({ columns, data, isPending, onRowClick }: P
                         ? (
                             <TableRow className="hover:bg-transparent">
                                 <TableCell colSpan={columns.length} className="h-24 text-center text-zinc-500">
-                                    <div className="w-full space-y-[10px]">
-                                        <Skeleton className="w-full h-[60px]" />
-                                        <Skeleton className="w-full h-[60px]" />
-                                        <Skeleton className="w-full h-[60px]" />
-                                    </div>
+                                    <Skeleton className="space-y-[10px]">
+                                        <Skeleton.Row />
+                                        <Skeleton.Row />
+                                        <Skeleton.Row />
+                                    </Skeleton>
                                 </TableCell>
                             </TableRow>
                         ) :

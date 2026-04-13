@@ -10,7 +10,7 @@ import ICONS from "@/consts/icons";
 const MeetingFormDialog = dynamic(
     () => import("@/app/(dashboard)/meetings/_components/form-dialog"),
     { ssr: false }
-)
+);
 
 export default function MeetingAddButton() {
     const [isOpenDialog, setIsOpenDialog] = useState(false);

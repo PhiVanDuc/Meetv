@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { schemaAgent } from "@/schemas/agent";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addAgent, getAgent, updateAgent } from "@/services/agents/client-functions";
+import { getAgent, addAgent, updateAgent } from "@/services/agents/client-functions";
 
 import ICONS from "@/consts/icons";
 
@@ -42,22 +42,22 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
         }
     });
 
-    const query = useQuery({
+    const queryAgent = useQuery({
         queryFn: () => getAgent(id),
         queryKey: ["getAgent", { id }],
-        enabled: formType === "update" && !!id, 
+        enabled: formType === "update" && !!id
     });
 
     useEffect(() => {
         if (formType === "add" && open) form.reset();
-        if (formType === "update" && query.data?.data) {
-            const { name, instructions } = query.data.data;
+        if (formType === "update" && queryAgent.data?.data) {
+            const { name, instructions } = queryAgent.data.data;
             form.reset({ name, instructions });
         }
-    }, [form, formType, open, query.data]);
+    }, [formType, open, form, queryAgent.data]);
 
     const queryClient = useQueryClient();
-
+    
     const mutation = useMutation({
         mutationFn: () => {
             if (formType === "add") return addAgent(form.getValues());
@@ -76,7 +76,13 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
         }
     });
 
-    const isPendingInitialData = formType === "update" && query.isLoading;
-
-    return { title, description, IconButton, labelButton, form, isPendingInitialData, mutation }
+    return {
+        form,
+        title,
+        mutation,
+        IconButton,
+        description,
+        labelButton,
+        isQueryAgentPending: formType === "update" && queryAgent.isPending
+    }
 }

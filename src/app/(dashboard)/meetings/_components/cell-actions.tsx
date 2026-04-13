@@ -2,17 +2,27 @@ import useMeetingCellActions from "@/app/(dashboard)/meetings/_hooks/use-cell-ac
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import AlertDeleteDialog from "@/components/alert-delete-dialog";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
+import dynamic from "next/dynamic";
 import ICONS from "@/consts/icons";
+
+const MeetingFormDialog = dynamic(
+    () => import("@/app/(dashboard)/meetings/_components/form-dialog"),
+    { ssr: false }
+);
+
+const AlertDeleteDialog = dynamic(
+    () => import("@/components/alert-delete-dialog"),
+    { ssr: false }
+);
 
 interface Props {
     id: string
 }
 
 export default function MeetingCellActions({ id }: Props) {
-    const { isOpenAlert, setIsOpenAlert, mutation } = useMeetingCellActions();
+    const { isOpenDialog, setIsOpenDialog, isOpenAlert, setIsOpenAlert, mutation } = useMeetingCellActions();
 
     return (
         <>
@@ -40,7 +50,7 @@ export default function MeetingCellActions({ id }: Props) {
                             </Link>
                         </DropdownMenuItem>
 
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => setIsOpenDialog(true)}>
                             <ICONS.UPDATE />
                             <span>Cập nhật</span>
                         </DropdownMenuItem>
@@ -52,6 +62,18 @@ export default function MeetingCellActions({ id }: Props) {
                     </DropdownMenuGroup>
                 </DropdownMenuContent>
             </DropdownMenu>
+
+            {
+                isOpenDialog
+                    && (
+                        <MeetingFormDialog
+                            id={id}
+                            formType="update"
+                            open={isOpenDialog}
+                            onOpenChange={setIsOpenDialog}
+                        />
+                    )
+            }
 
             {
                 isOpenAlert

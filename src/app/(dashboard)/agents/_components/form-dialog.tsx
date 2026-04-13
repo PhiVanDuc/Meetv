@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function AgentFormDialog({ open, onOpenChange, formType, id }: Props) {
-    const { title, description, IconButton, labelButton, isPendingInitialData, form, mutation } = useAgentFormDialog({ open, onOpenChange, formType, id });
+    const { title, description, isQueryAgentPending, form, mutation, IconButton, labelButton } = useAgentFormDialog({ open, onOpenChange, formType, id });
 
     return (
         <Dialog
@@ -29,7 +29,7 @@ export default function AgentFormDialog({ open, onOpenChange, formType, id }: Pr
             onOpenChange={onOpenChange}
         >
             {
-                isPendingInitialData
+                isQueryAgentPending
                     ? (
                         <Skeleton>
                             <Skeleton.Form>

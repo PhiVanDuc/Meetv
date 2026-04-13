@@ -1,6 +1,6 @@
 "use client"
 
-import useGetMeetings from "@/app/(dashboard)/meetings/_hooks/use-get-meetings";
+import { useQuery } from "@tanstack/react-query";
 
 import Empty from "@/components/empty";
 import { Table } from "@/components/table";
@@ -9,13 +9,19 @@ import MeetingFilter from "@/app/(dashboard)/meetings/_components/filter";
 import MeetingColumns from "@/app/(dashboard)/meetings/_components/columns";
 
 import { MeetingFilterFields } from "@/types/meeting";
+import { getMeetings } from "@/services/meetings/client-functions";
 
 type Props =
     Omit<Pagination, "totalPages">
     & { filter: MeetingFilterFields };
 
 export default function MeetingBody({ page, limit, filter }: Props) {
-    const { data, isPending } = useGetMeetings({ page, limit, filter });
+    const { isPending, isError, data } = useQuery({
+        queryKey: ["getMeetings", { page, limit, filter }],
+        queryFn: () => getMeetings({ page, limit, filter })
+    });
+
+    if (!isPending && isError) return null;
 
     return (
         <div className="space-y-[100px]">
@@ -26,23 +32,23 @@ export default function MeetingBody({ page, limit, filter }: Props) {
                     <Table
                         isPending={isPending}
                         columns={MeetingColumns}
-                        data={data?.meetings || []}
+                        data={data?.data?.meetings || []}
                     />
                 </div>
 
                 {
-                    (!isPending && data?.pagination)
+                    (!isPending && data?.data?.pagination)
                         && (
                             <Pagination
-                                page={data.pagination.page}
-                                totalPages={data.pagination.totalPages}
+                                page={data.data.pagination.page}
+                                totalPages={data.data.pagination.totalPages}
                             />
                         )
                 }
             </div>
 
             {
-                (!isPending && !data?.createdMeeting)
+                (!isPending && !isError && !data?.data?.createdMeeting)
                     && (
                         <Empty
                             title="Bắt đầu với cuộc họp đầu tiên"

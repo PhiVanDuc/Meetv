@@ -12,10 +12,9 @@ interface Props {
     isPending: boolean
 }
 
-export default function MeetingDetailBody({ data, isPending }: Props) {
+export default function MeetingDetailBody({ isPending, data }: Props) {
     const { emptyTitle, emptyDescription } = useMeetingDetailBody({ data, isPending });
 
-    if (!isPending && !data) return null;
     if (isPending) {
         return (
             <MeetingDetailBodySkeleton
@@ -35,6 +34,9 @@ export default function MeetingDetailBody({ data, isPending }: Props) {
                 />
             )
         }
-        else return <MeetingDetailCompletedStatus data={data} />
+        
+        return <MeetingDetailCompletedStatus data={data} />
     }
+
+    return null;
 }
