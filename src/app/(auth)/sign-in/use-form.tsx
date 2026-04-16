@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "@pheralb/toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaSignIn, FormDataSignIn } from "@/schemas/auth";
-import { signIn, setSession } from "@/services/auth/server-actions";
+import { signIn, setAuthTokens } from "@/services/auth/server-actions";
 
 const BE = process.env.NEXT_PUBLIC_BE;
 
@@ -25,7 +25,7 @@ export default function useSignInForm() {
         mutationFn: () => signIn(form.getValues()),
         onSuccess: async ({ data }) => {
             if (data) {
-                await setSession({
+                await setAuthTokens({
                     accessToken: data.accessToken,
                     refreshToken: data.refreshToken
                 });
@@ -60,7 +60,7 @@ export default function useSignInForm() {
             }
 
             if (e.data?.accessToken && e.data?.refreshToken) {
-                await setSession({
+                await setAuthTokens({
                     accessToken: e.data.accessToken,
                     refreshToken: e.data.refreshToken
                 });

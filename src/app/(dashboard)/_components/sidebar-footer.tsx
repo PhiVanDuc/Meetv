@@ -1,35 +1,42 @@
 "use client"
 
+import useAuth from "@/hooks/use-auth";
 import useDashboardSidebarFooter from "@/app/(dashboard)/_hooks/use-sidebar-footer";
 
 import Link from "next/link";
-import Logo from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { SidebarFooter } from "@/components/ui/sidebar";
+import DashboardSidebarFooterTrigger from "@/app/(dashboard)/_components/sidebar-footer-trigger";
+import DashboardSidebarFooterSkeleton from "@/app/(dashboard)/_components/sidebar-footer-skeleton";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 import ICONS from "@/consts/icons";
 
-interface Props {
-    sessionUser?: SessionUser
-}
-
-export default function DashboardSidebarFooter({ sessionUser }: Props) {
+export default function DashboardSidebarFooter() {
+    const { isPending, profile } = useAuth();
     const { isMobile, handleSignOut } = useDashboardSidebarFooter();
+
+    if (isPending) {
+        return (
+            <SidebarFooter>
+                <DashboardSidebarFooterSkeleton />
+            </SidebarFooter>
+        );
+    }
 
     if (isMobile) {
         return (
             <SidebarFooter>
                 <Drawer>
                     <DrawerTrigger suppressHydrationWarning>
-                        <Trigger sessionUser={sessionUser} />
+                        <DashboardSidebarFooterTrigger profile={profile} />
                     </DrawerTrigger>
 
                     <DrawerContent>
                         <DrawerHeader>
-                            <DrawerTitle>{sessionUser?.name}</DrawerTitle>
-                            <DrawerDescription>{sessionUser?.email}</DrawerDescription>
+                            <DrawerTitle>{profile?.name}</DrawerTitle>
+                            <DrawerDescription>{profile?.email}</DrawerDescription>
                         </DrawerHeader>
 
                         <DrawerFooter>
@@ -56,12 +63,12 @@ export default function DashboardSidebarFooter({ sessionUser }: Props) {
             </SidebarFooter>
         )
     }
-
+    
     return (
         <SidebarFooter>
             <DropdownMenu>
                 <DropdownMenuTrigger suppressHydrationWarning>
-                    <Trigger sessionUser={sessionUser} />
+                    <DashboardSidebarFooterTrigger profile={profile} />
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent
@@ -70,8 +77,8 @@ export default function DashboardSidebarFooter({ sessionUser }: Props) {
                     sideOffset={10}
                 >
                     <DropdownMenuGroup>
-                        <p className="text-[15px] text-zinc-700 font-medium truncate">{sessionUser?.name}</p>
-                        <p className="text-[13px] text-zinc-500 font-medium truncate">{sessionUser?.email}</p>
+                        <p className="text-[15px] text-zinc-700 font-medium truncate">{profile?.name}</p>
+                        <p className="text-[13px] text-zinc-500 font-medium truncate">{profile?.email}</p>
                     </DropdownMenuGroup>
 
                     <DropdownMenuSeparator />
@@ -98,23 +105,5 @@ export default function DashboardSidebarFooter({ sessionUser }: Props) {
                 </DropdownMenuContent>
             </DropdownMenu>
         </SidebarFooter>
-    )
-}
-
-const Trigger = ({ sessionUser }: Props) => {
-    return (
-        <div className="flex items-center gap-[10px] p-[10px] cursor-pointer text-left text-white bg-brand-primary rounded-[10px]">
-            <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
-                <Logo
-                    color="orange"
-                    className="w-[25px]"
-                />
-            </div>
-
-            <div className="min-w-0">
-                <p className="text-[14px] font-medium truncate">{sessionUser?.name}</p>
-                <p className="text-[12px] font-medium truncate">{sessionUser?.email}</p>
-            </div>
-        </div>
     )
 }

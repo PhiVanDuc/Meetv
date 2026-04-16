@@ -1,5 +1,5 @@
+import useAuth from "@/hooks/use-auth";
 import { useEffect, useState } from "react";
-import useGetSessionUser from "@/hooks/use-get-session-user";
 
 import { Meeting } from "@/types/meeting";
 import { generateToken } from "@/services/stream/client-functions";
@@ -8,18 +8,18 @@ import { Call, StreamVideoClient } from "@stream-io/video-react-sdk";
 const STREAM_API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 
 export default function useCallProvider(data?: Meeting) {
+    const { profile } = useAuth();
     const [call, setCall] = useState<Call>();
-    const { sessionUser } = useGetSessionUser();
     const [streamVideo, setStreamVideo] = useState<StreamVideoClient>();
 
     useEffect(() => {
-        if (!STREAM_API_KEY || !sessionUser) return;
+        if (!STREAM_API_KEY || !profile) return;
         
         const _streamVideo = new StreamVideoClient({
             apiKey: STREAM_API_KEY,
             user: {
-                id: sessionUser.id,
-                name: sessionUser.name
+                id: profile.id,
+                name: profile.name
             },
             tokenProvider: async () => {
                 const responseData = await generateToken();
@@ -33,7 +33,7 @@ export default function useCallProvider(data?: Meeting) {
             setStreamVideo(undefined);
             if (_streamVideo) _streamVideo.disconnectUser();
         };
-    }, [sessionUser?.id]);
+    }, [profile?.id]);
 
     useEffect(() => {
         if (!streamVideo || !data) return;

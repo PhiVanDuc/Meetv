@@ -1,7 +1,6 @@
 "use server"
 
 import { cookies } from "next/headers";
-import { jwtDecode } from "jwt-decode";
 import { fetcherPublic } from "@/libs/fetcher";
 
 export const sendOTP = async <RequestData>(data: RequestData) => {
@@ -13,7 +12,7 @@ export const signUp = async <RequestData>(data: RequestData) => {
 }
 
 export const signIn = async <RequestData>(data: RequestData) => {
-    return await fetcherPublic.post<RequestData, Session>({ pathname: "/auth/session", body: data });
+    return await fetcherPublic.post<RequestData, AuthTokens>({ pathname: "/auth/session", body: data });
 }
 
 export const forgotPassword = async <RequestData>(data: RequestData) => {
@@ -21,15 +20,15 @@ export const forgotPassword = async <RequestData>(data: RequestData) => {
 }
 
 export const signInGoogle = async <RequestData>(data: RequestData) => {
-    return await fetcherPublic.post<RequestData, Session>({ pathname: "/oauth/google/session", body: data });
+    return await fetcherPublic.post<RequestData, AuthTokens>({ pathname: "/oauth/google/session", body: data });
 }
 
-export const setSession = async (session: Session) => {
+export const setAuthTokens = async (authTokens: AuthTokens) => {
     const cookieStore = await cookies();
 
     cookieStore.set(
         "accessToken",
-        session.accessToken,
+        authTokens.accessToken,
         {
             path: "/",
             httpOnly: true,
@@ -41,7 +40,7 @@ export const setSession = async (session: Session) => {
 
     cookieStore.set(
         "refreshToken",
-        session.refreshToken,
+        authTokens.refreshToken,
         {
             path: "/",
             httpOnly: true,
@@ -52,21 +51,14 @@ export const setSession = async (session: Session) => {
     );
 }
 
-export const removeSession = async () => {
+export const removeAuthTokens = async () => {
     const cookieStore = await cookies();
 
     cookieStore.delete("accessToken");
     cookieStore.delete("refreshToken");
 }
 
-export const getSessionToken = async (token: "accessToken" | "refreshToken") => {
+export const getAuthToken = async (token: "accessToken" | "refreshToken") => {
     const cookieStore = await cookies();
     return cookieStore.get(token)?.value;
-}
-
-export const getSessionUser = async () => {
-    const cookieStore = await cookies();
-
-    try { return jwtDecode<SessionUser>(cookieStore.get("accessToken")?.value || ""); }
-    catch(error) { return undefined; }
 }

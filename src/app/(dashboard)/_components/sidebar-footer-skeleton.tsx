@@ -1,0 +1,14 @@
+import Logo from "@/components/logo";
+
+export default function DashboardSidebarFooterSkeleton() {
+    return (
+        <div className="flex items-center gap-[10px] p-[10px] cursor-pointer text-left text-white bg-brand-primary rounded-[10px]">
+            <div className="shrink-0 flex items-center justify-center size-[40px] bg-white rounded-full">
+                <Logo
+                    color="orange"
+                    className="w-[25px]"
+                />
+            </div>
+        </div>
+    )
+}

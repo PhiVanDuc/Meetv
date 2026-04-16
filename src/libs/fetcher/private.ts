@@ -1,6 +1,6 @@
 "use client"
 
-import { getSessionToken } from "@/services/auth/server-actions";
+import { getAuthToken } from "@/services/auth/server-actions";
 import { refreshSession } from "@/services/auth/client-functions";
 
 import { FetcherError } from "@/libs/fetcher";
@@ -9,7 +9,7 @@ import { FetcherResponse, FetcherHandleParams, FetcherGetParams, FetcherMutatePa
 const BE = process.env.NEXT_PUBLIC_BE;
 
 const handle = async <RequestData, ResponseData>({ method, pathname, body, options, isRetry }: FetcherHandleParams<RequestData>): Promise<FetcherResponse<ResponseData>> => {
-    const accessToken = await getSessionToken("accessToken") || "";
+    const accessToken = await getAuthToken("accessToken") || "";
     const { timeout = 60000, signal: externalAbortSignal, ...restOptions } = options || {};
 
     const headers = new Headers({
@@ -82,7 +82,7 @@ const handle = async <RequestData, ResponseData>({ method, pathname, body, optio
     }
     catch(error) {
         if (error instanceof FetcherError) {
-            if (error.status === 401 && error.errors?.some(error => error.code === "session-expired") && !isRetry) {
+            if (error.status === 401 && error.errors?.some(error => error.code === "auth-token-expired") && !isRetry) {
                 await refreshSession();
                 return handle<RequestData, ResponseData>({ method, pathname, body, options, isRetry: true });
             }

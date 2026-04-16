@@ -1,4 +1,4 @@
-import useGetSessionUser from "@/hooks/use-get-session-user";
+import useAuth from "@/hooks/use-auth";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -12,14 +12,14 @@ interface Props {
 }
 
 const DisabledVideoPreview = () => {
-    const { sessionUser } = useGetSessionUser();
+    const { profile } = useAuth();
 
     return (
         <DefaultVideoPlaceholder
             participant={{
-                name: sessionUser?.name || "",
-                userId: sessionUser?.id || "guest",
-                image: boringAvatarsUrl({ name: sessionUser?.name })
+                name: profile?.name || "",
+                userId: profile?.id || "guest",
+                image: boringAvatarsUrl({ name: profile?.name })
             } as StreamVideoParticipant}
         />
     )
