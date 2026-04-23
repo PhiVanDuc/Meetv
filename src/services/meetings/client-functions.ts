@@ -30,3 +30,7 @@ export const deleteMeeting = async (id: string) => {
 export const getMeetingTranscript = async (id: string) => {
     return await fetcherPrivate.get<GetMeetingTranscriptResponseData>({ pathname: `/meetings/${id}/transcript` })
 }
+
+export const generateStreamToken = async () => {
+    return await fetcherPrivate.post<unknown, { token: string }>({ pathname: "/meetings/stream/token" });
+}

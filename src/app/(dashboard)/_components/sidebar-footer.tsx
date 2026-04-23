@@ -6,6 +6,7 @@ import useDashboardSidebarFooter from "@/app/(dashboard)/_hooks/use-sidebar-foot
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SidebarFooter } from "@/components/ui/sidebar";
+import DashboardSidebarFooterUsagePlan from "@/app/(dashboard)/_components/sidebar-footer-usage-plan";
 import DashboardSidebarFooterTrigger from "@/app/(dashboard)/_components/sidebar-footer-trigger";
 import DashboardSidebarFooterSkeleton from "@/app/(dashboard)/_components/sidebar-footer-skeleton";
 import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter } from "@/components/ui/drawer";
@@ -28,6 +29,8 @@ export default function DashboardSidebarFooter() {
     if (isMobile) {
         return (
             <SidebarFooter>
+                <DashboardSidebarFooterUsagePlan profile={profile} />
+
                 <Drawer>
                     <DrawerTrigger suppressHydrationWarning>
                         <DashboardSidebarFooterTrigger profile={profile} />
@@ -66,6 +69,8 @@ export default function DashboardSidebarFooter() {
     
     return (
         <SidebarFooter>
+            <DashboardSidebarFooterUsagePlan profile={profile} />
+
             <DropdownMenu>
                 <DropdownMenuTrigger suppressHydrationWarning>
                     <DashboardSidebarFooterTrigger profile={profile} />

@@ -11,6 +11,7 @@ export default function useMeetingCellActions() {
         mutationFn: (id: string) => deleteMeeting(id),
         onSuccess: () => {
             setIsOpenAlert(false);
+            queryClient.invalidateQueries({ queryKey: ["getUsage"] });
             queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
         }
     });

@@ -119,12 +119,15 @@
     * {
         @apply border-border outline-ring/50;
     }
+    
     body {
         @apply bg-background text-foreground;
     }
+
     html {
         @apply font-sans;
     }
+
     [data-slot*="textarea"],
     [data-slot*="input"] {
         @apply text-[14px]!;
@@ -167,6 +170,10 @@
 
 @utility medium-header {
     @apply text-[24px] font-semibold capitalize;
+}
+
+@utility large-header {
+    @apply text-[24px] md:text-[36px] font-semibold capitalize;
 }
 
 @utility medium-desc {

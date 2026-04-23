@@ -10,6 +10,7 @@ export default function useDashboardSidebarFooter() {
 
     const handleSignOut = async () => {
         await removeAuthTokens();
+        
         router.push("/sign-in");
         toast.success({ text: "Thành công", description: "Đăng xuất thành công." });
     }

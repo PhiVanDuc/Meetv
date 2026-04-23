@@ -12,6 +12,7 @@ export default function useAgentCellActions() {
         mutationFn: (id: string) => deleteAgent(id),
         onSuccess: () => {
             setIsOpenAlert(false);
+            queryClient.invalidateQueries({ queryKey: ["getUsage"] });
             queryClient.invalidateQueries({ queryKey: ["getAgents"] });
             queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
         }

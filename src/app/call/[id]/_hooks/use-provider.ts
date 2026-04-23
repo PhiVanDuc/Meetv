@@ -2,8 +2,8 @@ import useAuth from "@/hooks/use-auth";
 import { useEffect, useState } from "react";
 
 import { Meeting } from "@/types/meeting";
-import { generateToken } from "@/services/stream/client-functions";
 import { Call, StreamVideoClient } from "@stream-io/video-react-sdk";
+import { generateStreamToken } from "@/services/meetings/client-functions";
 
 const STREAM_API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 
@@ -22,7 +22,7 @@ export default function useCallProvider(data?: Meeting) {
                 name: profile.name
             },
             tokenProvider: async () => {
-                const responseData = await generateToken();
+                const responseData = await generateStreamToken();
                 return responseData.data?.token || ""
             },
         });

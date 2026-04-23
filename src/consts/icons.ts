@@ -7,7 +7,7 @@ import { BsCheckLg } from "react-icons/bs";
 import { RiRobot2Line } from "react-icons/ri";
 import { PiTrashSimpleBold } from "react-icons/pi";
 import { IoIosSend, IoMdCard } from "react-icons/io";
-import { SearchIcon, PanelLeftClose, PanelLeftIcon, StarIcon, LogOut, EllipsisVertical, CornerDownRight, Check, X, ChevronsUpDown, Play } from "lucide-react";
+import { SearchIcon, PanelLeftClose, PanelLeftIcon, StarIcon, LogOut, EllipsisVertical, CornerDownRight, Check, X, ChevronsUpDown, Play, Rocket } from "lucide-react";
 
 import { TbNotes } from "react-icons/tb";
 import { CgTranscript } from "react-icons/cg";
@@ -26,6 +26,7 @@ export default {
     CLOSE: X,
     PLAY: Play,
     STAR: StarIcon,
+    ROCKET: Rocket,
     CONFIRM: Check,
     LOG_OUT: LogOut,
     SEARCH: SearchIcon,

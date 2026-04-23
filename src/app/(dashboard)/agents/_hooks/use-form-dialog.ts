@@ -64,7 +64,10 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
             return updateAgent({ id, ...form.getValues() });
         },
         onSuccess: () => {
-            if (formType === "add") form.reset();
+            if (formType === "add") {
+                form.reset();
+                queryClient.invalidateQueries({ queryKey: ["getUsage"] });
+            }
             else {
                 queryClient.invalidateQueries({ queryKey: ["getMeeting"] });
                 queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
@@ -83,6 +86,6 @@ export default function useAgentFormDialog({ open, onOpenChange, formType, id: p
         IconButton,
         description,
         labelButton,
-        isQueryAgentPending: formType === "update" && queryAgent.isPending
+        isAgentPending: formType === "update" && queryAgent.isPending
     }
 }

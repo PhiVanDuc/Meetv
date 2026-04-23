@@ -1,4 +1,5 @@
 import Logo from "@/components/logo";
+import Skeleton from "@/components/skeleton";
 
 export default function DashboardSidebarFooterSkeleton() {
     return (
@@ -8,6 +9,13 @@ export default function DashboardSidebarFooterSkeleton() {
                     color="orange"
                     className="w-[25px]"
                 />
+            </div>
+
+            <div className="min-w-0 w-full">
+                <Skeleton className="space-y-[4px] w-full">
+                    <Skeleton.DashboardSidebarFooterName />
+                    <Skeleton.DashboardSidebarFooterEmail />
+                </Skeleton>
             </div>
         </div>
     )

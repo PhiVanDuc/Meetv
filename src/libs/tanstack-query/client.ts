@@ -1,7 +1,7 @@
 import { toast } from "@pheralb/toast";
 import { Handle401Parameters } from "@/libs/tanstack-query";
-import { removeAuthTokens } from "@/services/auth/server-actions";
 import { FetcherResponse, FetcherError } from "@/libs/fetcher";
+import { removeAuthTokens } from "@/services/auth/server-actions";
 import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 

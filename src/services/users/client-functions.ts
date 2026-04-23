@@ -1,3 +1,5 @@
+"use client"
+
 import { fetcherPrivate } from "@/libs/fetcher";
 
 import { Profile } from "@/types/users";

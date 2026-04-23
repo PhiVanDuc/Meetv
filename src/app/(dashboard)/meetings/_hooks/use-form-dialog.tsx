@@ -67,7 +67,7 @@ export default function useMeetingFormDialog({ open, onOpenChange, formType, id:
         queryFn: () => getAgents({ page: agentsPage, filter: { name: searchAgentName } })
     });
 
-    const agentsPagination = useMemo(() => ({
+    const paginationAgents = useMemo(() => ({
         page: agentsPage,
         totalPages: queryAgents.data?.data?.pagination?.totalPages ?? "1"
     }), [agentsPage, queryAgents.data?.data?.pagination?.totalPages]);
@@ -119,7 +119,10 @@ export default function useMeetingFormDialog({ open, onOpenChange, formType, id:
             onOpenChange(false);
             queryClient.invalidateQueries({ queryKey: ["getMeetings"] });
 
-            if (formType === "add") form.reset();
+            if (formType === "add") {
+                form.reset();
+                queryClient.invalidateQueries({ queryKey: ["getUsage"] });
+            }
             else queryClient.invalidateQueries({ queryKey: ["getMeeting", { id }] });
         }
     });
@@ -134,7 +137,7 @@ export default function useMeetingFormDialog({ open, onOpenChange, formType, id:
         agentOptions,
         handleSearch,
         setAgentsPage,
-        agentsPagination,
-        agentsIsPending: queryAgents.isPending,
+        paginationAgents,
+        isAgentsPending: queryAgents.isPending,
     }
 }

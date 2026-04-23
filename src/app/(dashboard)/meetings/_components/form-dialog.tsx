@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default function MeetingFormDialog({ open, onOpenChange, formType, id }: Props) {
-    const { title, description, form, mutation, agentOptions, agentsIsPending, agentsPagination, handleSearch, setAgentsPage, IconButton, labelButton } = useMeetingFormDialog({ open, onOpenChange, formType, id });
+    const { title, description, form, mutation, agentOptions, isAgentsPending, paginationAgents, handleSearch, setAgentsPage, IconButton, labelButton } = useMeetingFormDialog({ open, onOpenChange, formType, id });
 
     return (
         <Dialog
@@ -64,8 +64,8 @@ export default function MeetingFormDialog({ open, onOpenChange, formType, id }: 
                                     <CommandSelect
                                         value={field.value}
                                         options={agentOptions}
-                                        isPending={agentsIsPending}
-                                        pagination={agentsPagination}
+                                        isPending={isAgentsPending}
+                                        pagination={paginationAgents}
                                         aria-invalid={fieldState.invalid}
                                         selectPlaceholder="Lựa chọn agent"
                                         paginatePlaceholder="Xem thêm agent"

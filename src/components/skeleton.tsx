@@ -122,3 +122,25 @@ Skeleton.Row = function SkeletonRow({ className }: Omit<SkeletonProps, "children
         />
     )
 }
+
+Skeleton.DashboardSidebarFooterName = function SkeletonDashboardSidebarFooterName({ className }: Omit<SkeletonProps, "children">) {
+    return (
+        <ShadcnSkeleton
+            className={cn(
+                "w-full h-[21px] rounded-[5px] bg-white/50",
+                className
+            )}
+        />
+    )
+}
+
+Skeleton.DashboardSidebarFooterEmail = function SkeletonDashboardSidebarFooterEmail({ className }: Omit<SkeletonProps, "children">) {
+    return (
+        <ShadcnSkeleton
+            className={cn(
+                "w-full h-[12px] rounded-[99px] bg-white/50",
+                className
+            )}
+        />
+    )
+}
