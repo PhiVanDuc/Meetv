@@ -20,5 +20,3 @@ export default (data: Record<Key, Value>) => {
     const queryString = searchParams.toString()
     return queryString ? `?${queryString}` : ""
 }
-
-// Test for now
